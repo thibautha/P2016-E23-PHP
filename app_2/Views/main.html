@@ -8,14 +8,12 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link href="public/stylesheet/main.css" rel="stylesheet" type="text/css" />
-  
 </head>
 <body class="clearfix">
-  <header>
-    <a href="">PHP project</a>
-  </header>   
-  </section>
-  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script type="text/javascript" src="public/js/main.js"></script>
+<include href="partials/header.html"/>
+<include href="{{ @content }}" />
+<include href="partials/footer.html"/>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="public/js/main.js"></script>
 </body>
 </html>
