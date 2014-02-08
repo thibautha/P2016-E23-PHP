@@ -19,5 +19,22 @@ class App_controller{
 		//echo View::instance()->render('layout.htm');
 	}
 
+function getMember($f3){
+		$f3->set('content','partials/Member.htm');
+		$template=new Template;
+		echo $template->render('layout.htm');
+}
+
+function getUsers($f3){
+		$f3->set('content','partials/Users.htm');
+		$template=new Template;
+		echo $template->render('layout.htm');	
+}
+
+function getResults($f3){
+		$f3->set('content','partials/Results.htm');
+		$template=new Template;
+		echo $template->render('layout.htm');	
+}
 
 }
