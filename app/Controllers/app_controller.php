@@ -6,6 +6,10 @@ class App_controller{
 	}
 
 	function home($f3){
+$model=new App_model();
+$user = $model->getUserById($f3,$f3->get('PARAMS.alpha'));
+		$f3->set('user',$user);
+
 		$f3->set('content','partials/home.htm');
 		$template=new Template;
 		echo $template->render('layout.htm');
