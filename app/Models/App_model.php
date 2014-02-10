@@ -8,9 +8,12 @@ class App_model{
 
 	function getUserByID($f3,$params){
 $user=new DB\SQL\Mapper($f3->get('dB'),'userwine');
-    return $this->mapper->load(array('userid=?'.$params));
-
-  
+    return $user->load(array('user_id=?',$params));
 	}
 
+	function getResultTest($f3,$params){
+		$result=new DB\SQL\Mapper($f3->get('dB'),'userwine');
+		return $result->find(array('user_id=?','2'));
+	}
 }
+
