@@ -1,0 +1,16 @@
+<p>beta: {{ @plop }} </p>
+
+<?php 
+if(isset($result)):
+foreach($result as $user): 
+?>
+<li><?php echo $user->user_firstname." ".$user->user_lastname; ?></li>
+<?php 
+endforeach; 
+endif;
+?>
+
+
+  <p>{{ @plop }}</p>
+    <span>utilisateur:{{ @user.user_lastname }}</span>
+        <span>utilisateur:{{ @user.user_firstname }}</span>
