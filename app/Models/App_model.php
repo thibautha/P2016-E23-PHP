@@ -13,7 +13,13 @@ $user=new DB\SQL\Mapper($f3->get('dB'),'userwine');
 
 	function getResultTest($f3,$params){
 		$result=new DB\SQL\Mapper($f3->get('dB'),'userwine');
-		return $result->find(array('user_id=?','2'));
+		return $result->find('user_lastname like "'.$params['beta'].'%"');
 	}
 }
+//$f3->set('result',$db->exec('SELECT brandName FROM wherever'));
+
+
+
+//echo Template::instance()->render('abc.htm');
+
 

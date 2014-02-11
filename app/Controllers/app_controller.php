@@ -49,15 +49,29 @@ function getResults($f3){
 function getTest($f3){
 	//echo 'ok';
 	$model=new App_model();
-$result = $model->getResultTest($f3,$f3->get('PARAMS.beta'));
+	$f3->set('result',$model->getResultTest($f3,array('beta'=>$f3->get('PARAMS.beta'))));
+  //$f3->set('users',$model->getUsers($f3,array('alpha'=>$f3->get('PARAMS.alpha'))));
+
+ //$model->getResultTest($f3,$f3->get('PARAMS.beta'));
 	$f3->set('beta',$f3->get('PARAMS.beta'));
 
-	$f3->set('result',$result);
+	//$f3->set('result',$result);
 echo Template::instance()->render('abc.htm');
 
 //$f3->set('result',$f3->get('dB')->exec('SELECT user_lastname FROM userwine'));
 //echo Template::instance()->render('abc.htm');
+
 }
 
 
 }
+
+
+
+
+
+
+
+
+
+
