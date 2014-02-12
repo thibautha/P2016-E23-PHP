@@ -6,20 +6,21 @@ class App_model{
 
 	}
 
-	function getUserByID($f3,$params){
-$user=new DB\SQL\Mapper($f3->get('dB'),'userwine');
-    return $user->load(array('user_id=?',$params));
+
+	function getResultTestThib($f3,$params){
+	$result=new DB\SQL\Mapper($f3->get('dB'),'userwine');
+	return $result->find('user_lastname like "'.$params['beta'].'%"');
 	}
 
-	function getResultTest($f3,$params){
-		$result=new DB\SQL\Mapper($f3->get('dB'),'userwine');
-		return $result->find('user_lastname like "'.$params['beta'].'%"');
+	function getResultTestKev($f3,$params){
+
 	}
+
+
+	function getResultTestAmez($f3,$params){
+
+	}
+
 }
-//$f3->set('result',$db->exec('SELECT brandName FROM wherever'));
-
-
-
-//echo Template::instance()->render('abc.htm');
 
 
