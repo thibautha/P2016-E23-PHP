@@ -1,7 +1,7 @@
 <?php
 class App_controller{
 
-	function __construct(){
+	function __construct($f3){
 		$f3->set('CACHE','memcache=localhost');
 		new Session();
 		$f3->set('error', '');	
