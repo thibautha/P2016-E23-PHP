@@ -3,7 +3,8 @@ class App_controller{
 
 	function __construct($f3){
 		$f3->set('CACHE','memcache=localhost');
-		new Session();
+		//new Session();
+		session_start();
 		$f3->set('error', '');	
 	}
 
@@ -99,7 +100,8 @@ class App_controller{
 								if($ajout['confirm']==1){
 									$user=array('ID'=>$ajout['user'][0]['user_mail'],'firstname'=>$ajout['user'][0]['user_firstname'],'lastname'=>$ajout['user'][0]['user_lastname']);
 									$f3->set('SESSION', $user);
-									$f3->reroute('profil');
+									$f3->reroute('/profil');
+									//print_r($f3->get('SESSION.ID'));
 								}else{
 									$f3->set('error', $f3->get('loginSingUpError'));
 									$f3->set('content','signup.htm');
@@ -132,13 +134,15 @@ class App_controller{
 				}
 			break;
 		}
+	}
 
-		/* sign in : renvoie sur la page home en loggé (homeLog) */
-		function signin($f3){
+	/* sign in : renvoie sur la page home en loggé (homeLog) */
+	function signin($f3){
 		if($f3->get('POST.mail')!="" && $f3->get('POST.mdp')!=""){
 			if(preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $f3->get('POST.mail'))){
 				$model = new App_model();
 				$userSign = $model->signInUser($f3,$f3->get('POST.mail'),sha1($f3->get('POST.mdp')));
+				//print_r($userSign);
 				if($userSign['confirm']==1){
 					$user=array('ID'=>$userSign['user'][0]['user_mail'],'firstname'=>$userSign['user'][0]['user_firstname'],'lastname'=>$userSign['user'][0]['user_lastname']);
 					$f3->set('SESSION',$user);
@@ -164,7 +168,6 @@ class App_controller{
 			echo $template->render('layout.htm');
 		}
 	}
-	}
 
 
 	/* page profil si on est loggé sinon retour sur home non loggé */
@@ -173,7 +176,7 @@ class App_controller{
 			$f3->reroute('/');
 		}else{
 			$model = new App_model();
-			$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.mail'));
+			$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
 			$f3->set('result',$userProfil);
 			$f3->set('content','profil.htm');
 			$template=new Template;
@@ -280,13 +283,3 @@ class App_controller{
 
 
 }
-
-
-
-
-
-
-
-
-
-
