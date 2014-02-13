@@ -52,9 +52,9 @@ class App_controller{
  		//$f3->set('users',$model->getUsers($f3,array('alpha'=>$f3->get('PARAMS.alpha'))));
  		//$model->getResultTest($f3,$f3->get('PARAMS.beta'));
 		$f3->set('plop',$f3->get('PARAMS.beta'));
-		$lien=new array;
+		//$lien=new array;
 		$f3->set('result',$result);
-					$f3->set('lien',$lien);
+				//	$f3->set('lien',$lien);
 
 		//echo Template::instance()->render('PageThib.htm');
 		//$f3->set('result',$f3->get('dB')->exec('SELECT user_lastname FROM userwine'));
