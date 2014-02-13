@@ -1,0 +1,25 @@
+<p>Profil</p>
+<a href="loggout">Déconnecter</a>
+<br/>
+<a href="homeLog">Retour page d'accueil</a>
+<br/>
+<a href="cave">ma cave</a>
+<div id="user">
+	<repeat group="{{ @result }}" value="{{ @item }}">
+		<span>Votre prénom : {{ @item.user_firstname  }}</span>
+	    <br/>
+	    <span>Votre nom : {{ @item.user_lastname  }}</span>
+	    <!--<br/>
+	    <img src="{{ @item.user_img  }}" alt="{{ @item.user_img  }}"/>-->
+	    <br/>
+	    <span>Votre adresse mail : {{ @item.user_mail  }}</span>
+	    <br/>
+	    <p>Votre adresse :</p>
+	    <span>{{ @item.user_street  }}</span>
+	    <br/>
+	    <span>{{ @item.user_cp  }}</span>
+	    <br/>
+	    <span>{{ @item.user_town  }}</span>
+	</repeat>
+</div>
+<a href="formProfilModif">Complétez ou modifiez votre profil !</a>
