@@ -1,0 +1,52 @@
+$model=new App_model();
+$user = $model->getUserById($f3,$f3->get('PARAMS.alpha'));
+		$f3->set('user',$user);
+	$f3->set('plop',$f3->get('PARAMS.alpha'));
+
+
+		//echo View::instance()->render('layout.htm');
+
+
+	function getUserByID($f3,$params){
+	$user=new DB\SQL\Mapper($f3->get('dB'),'userwine');
+    return $user->load(array('user_id=?',$params));
+	}
+
+	//$f3->set('result',$db->exec('SELECT brandName FROM wherever'));
+
+
+
+//echo Template::instance()->render('abc.htm');
+
+
+<p>beta: {{ @plop }} </p>
+
+<?php 
+if(isset($result)):
+foreach($result as $user): 
+?>
+<li><?php echo $user->user_firstname." ".$user->user_lastname; ?></li>
+<?php 
+endforeach; 
+endif;
+?>
+
+
+  <p>{{ @plop }}</p>
+    <span>utilisateur:{{ @user.user_lastname }}</span>
+        <span>utilisateur:{{ @user.user_firstname }}</span>
+
+
+        <repeat group="{{ @result }}" value="{{ @item }}">
+    <span>user : {{ @item.user_lastname  }}</span></br>
+</repeat>
+
+<p>{{ @beta }} </p>
+       <repeat group="{{ @result }}" value="{{ @item }}">
+    <span>user : {{ @item.user_lastname  }} {{ @item.user_firstname  }}</span></br>
+</repeat>
+
+
+
+    <span>utilisateur:{{ @user.user_lastname }}</span>
+        <span>utilisateur:{{ @user.user_firstname }}</span>

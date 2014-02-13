@@ -44,14 +44,20 @@ class App_controller{
 	function getTestThib($f3){
 		//echo 'ok';
 		$model=new App_model();
-		$f3->set('result',$model->getResultTest($f3,array('beta'=>$f3->get('PARAMS.beta'))));
+		$result = $model->getResultTestThib($f3,$f3->get('PARAMS.beta'));
  		//$f3->set('users',$model->getUsers($f3,array('alpha'=>$f3->get('PARAMS.alpha'))));
  		//$model->getResultTest($f3,$f3->get('PARAMS.beta'));
-		$f3->set('beta',$f3->get('PARAMS.beta'));
-		//$f3->set('result',$result);
-		echo Template::instance()->render('abc.htm');
+		$f3->set('plop',$f3->get('PARAMS.beta'));
+		$lien=new array;
+		$f3->set('result',$result);
+					$f3->set('lien',$lien);
+
+		//echo Template::instance()->render('PageThib.htm');
 		//$f3->set('result',$f3->get('dB')->exec('SELECT user_lastname FROM userwine'));
 		//echo Template::instance()->render('abc.htm');
+		$f3->set('content','PageThib.htm');
+		$template=new Template;
+		echo $template->render('layout.htm');
 
 	}
 
