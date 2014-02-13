@@ -196,6 +196,7 @@ class App_controller{
 			$f3->reroute('/');
 		}else{
 			$f3->set('message','');
+			$f3->set('color','');
 			$model = new App_model();
 			$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
 			$f3->set('result',$userProfil);
@@ -249,13 +250,20 @@ class App_controller{
 				$userNew = $model->modifyUserProfil($f3,$f3->get('SESSION.ID'),$f3->get('nom'),$f3->get('prenom'),$f3->get('street'),$f3->get('town'),$f3->get('cp'));
 				$f3->set('SESSION.ID',$userNew[0]['user_mail']);
 
-				$f3->reroute('/formProfilModif');
+				$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+				$f3->set('result',$userProfil);
+				$f3->set('message',$f3->get('modificationValid'));
+				$f3->set('color','green');
+				$f3->set('content','formProfilModif.htm');
+				$template=new Template;
+				echo $template->render('layout.htm');
 
 			}else{
 				$model = new App_model();
 				$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
 				$f3->set('result',$userProfil);
-				$f3->set('message','Aucune modification n\'été apportée.');
+				$f3->set('color','red');
+				$f3->set('message',$f3->get('modificationError'));
 				$f3->set('content','formProfilModif.htm');
 				$template=new Template;
 				echo $template->render('layout.htm');
@@ -265,7 +273,34 @@ class App_controller{
 
 	/* en cours */
 	function modifyMDP($f3){
+		if(!$f3->get('SESSION.ID')){
+			$f3->reroute('/');
+		}else{
+			if($f3->get('POST.mdp1')!="" && $f3->get('POST.mdp2')!="" && $f3->get('POST.mdp3')!=""){
 
+				$model = new App_model();
+				$checkOldMdp = $model->checkMdp($f3,$f3->get('SESSION.ID'),$f3->get('POST.mdp1'));
+
+				print_r($checkOldMdp);
+
+				/*
+				$userNew = $model->modifyUserProfil($f3,$f3->get('SESSION.ID'),$f3->get('nom'),$f3->get('prenom'),$f3->get('street'),$f3->get('town'),$f3->get('cp'));
+				$f3->set('SESSION.ID',$userNew[0]['user_mail']);
+
+				$f3->reroute('/formProfilModif');
+				*/
+
+			}else{
+				$model = new App_model();
+				$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+				$f3->set('result',$userProfil);
+				$f3->set('color','red');
+				$f3->set('message','Aucune modification n\'été apportée.');
+				$f3->set('content','formProfilModif.htm');
+				$template=new Template;
+				echo $template->render('layout.htm');
+			}
+		}
 	}
 
 	/* sign out */

@@ -1,4 +1,4 @@
-<span style="color:green;"><?php echo $message; ?></span>
+<span style="color:<?php echo $color; ?>;"><?php echo $message; ?></span>
 <?php foreach (($result?:array()) as $item): ?>
 	<form method="post" action="modifyProfil">
 		<p>Modifier ou complétez votre profil : </p>

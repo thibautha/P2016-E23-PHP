@@ -80,6 +80,12 @@ class App_model{
 		$userNew=$f3->get('dB')->exec('SELECT * FROM userwine '.'WHERE user_mail="'.$mailOld.'"');
 		return $userNew;
 	}
+
+	/* modifier le mot de passe */
+	function checkMdp($f3,$mail,$oldMdp){
+		$user=new DB\SQL\Mapper($f3->get('dB'),'userwine');
+		return $user->load(array('user_mail=?',$mail));
+	}
 	/***********************************************************************************************************/
 	/******************************************** Fin code kévin **************************************************/
 	/**********************************************************************************************************/
