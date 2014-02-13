@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+<p>home</p>
+<?php echo $this->render('./partials/WineShuffle.htm',$this->mime,get_defined_vars()); ?>
+<?php echo $this->render('./partials/LastUsrFavoritWine.htm',$this->mime,get_defined_vars()); ?>
+
+
+=======
 <!doctype html>
 <html lang="en">
 <head>
@@ -24,3 +31,4 @@
 		<a href="signup">Sign</a>
 	</body>
 </html>
+>>>>>>> c162ae1cbf0ecdcb467d25b7ba38c5db500372de
