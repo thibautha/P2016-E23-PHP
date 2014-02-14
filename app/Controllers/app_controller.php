@@ -3,8 +3,11 @@ class App_controller{
 
 	function __construct($f3){
 		$f3->set('CACHE','memcache=localhost');
-		new Session();
+		//new Session();
+		session_start();
 		$f3->set('error', '');	
+		$f3->set('message','');
+		$f3->set('color','');
 	}
 
 	//page d'accueil
@@ -105,7 +108,8 @@ class App_controller{
 								if($ajout['confirm']==1){
 									$user=array('ID'=>$ajout['user'][0]['user_mail'],'firstname'=>$ajout['user'][0]['user_firstname'],'lastname'=>$ajout['user'][0]['user_lastname']);
 									$f3->set('SESSION', $user);
-									$f3->reroute('profil');
+									$f3->reroute('/profil');
+									//print_r($f3->get('SESSION.ID'));
 								}else{
 									$f3->set('error', $f3->get('loginSingUpError'));
 									$f3->set('content','signup.htm');
@@ -138,13 +142,15 @@ class App_controller{
 				}
 			break;
 		}
+	}
 
-		/* sign in : renvoie sur la page home en loggé (homeLog) */
-		function signin($f3){
+	/* sign in : renvoie sur la page home en loggé (homeLog) */
+	function signin($f3){
 		if($f3->get('POST.mail')!="" && $f3->get('POST.mdp')!=""){
 			if(preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $f3->get('POST.mail'))){
 				$model = new App_model();
 				$userSign = $model->signInUser($f3,$f3->get('POST.mail'),sha1($f3->get('POST.mdp')));
+				//print_r($userSign);
 				if($userSign['confirm']==1){
 					$user=array('ID'=>$userSign['user'][0]['user_mail'],'firstname'=>$userSign['user'][0]['user_firstname'],'lastname'=>$userSign['user'][0]['user_lastname']);
 					$f3->set('SESSION',$user);
@@ -153,23 +159,22 @@ class App_controller{
 					echo $template->render('layout.htm');
 				}else{
 					$f3->set('error', $f3->get('mdpError'));
-					$f3->set('content','/');
+					$f3->set('content','home.htm');
 					$template=new Template;
 					echo $template->render('layout.htm');
 				}
 			}else{
 				$f3->set('error', $f3->get('adMailError'));
-				$f3->set('content','/');
+				$f3->set('content','home.htm');
 				$template=new Template;
 				echo $template->render('layout.htm');
 			}
 		}else{
 			$f3->set('error', $f3->get('fieldsError'));
-			$f3->set('content','/');
+			$f3->set('content','home.htm');
 			$template=new Template;
 			echo $template->render('layout.htm');
 		}
-	}
 	}
 
 
@@ -179,7 +184,7 @@ class App_controller{
 			$f3->reroute('/');
 		}else{
 			$model = new App_model();
-			$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.mail'));
+			$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
 			$f3->set('result',$userProfil);
 			$f3->set('content','profil.htm');
 			$template=new Template;
@@ -192,7 +197,6 @@ class App_controller{
 		if(!$f3->get('SESSION.ID')){
 			$f3->reroute('/');
 		}else{
-			$f3->set('message','');
 			$model = new App_model();
 			$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
 			$f3->set('result',$userProfil);
@@ -246,13 +250,20 @@ class App_controller{
 				$userNew = $model->modifyUserProfil($f3,$f3->get('SESSION.ID'),$f3->get('nom'),$f3->get('prenom'),$f3->get('street'),$f3->get('town'),$f3->get('cp'));
 				$f3->set('SESSION.ID',$userNew[0]['user_mail']);
 
-				$f3->reroute('/formProfilModif');
+				$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+				$f3->set('result',$userProfil);
+				$f3->set('message',$f3->get('modificationValid'));
+				$f3->set('color','green');
+				$f3->set('content','formProfilModif.htm');
+				$template=new Template;
+				echo $template->render('layout.htm');
 
 			}else{
 				$model = new App_model();
 				$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
 				$f3->set('result',$userProfil);
-				$f3->set('message','Aucune modification n\'été apportée.');
+				$f3->set('color','red');
+				$f3->set('message',$f3->get('modificationError'));
 				$f3->set('content','formProfilModif.htm');
 				$template=new Template;
 				echo $template->render('layout.htm');
@@ -262,7 +273,48 @@ class App_controller{
 
 	/* en cours */
 	function modifyMDP($f3){
+		if(!$f3->get('SESSION.ID')){
+			$f3->reroute('/');
+		}else{
+			if($f3->get('POST.mdp1')!="" && $f3->get('POST.mdp2')!="" && $f3->get('POST.mdp3')!=""){
+				if($f3->get('POST.mdp2')==$f3->get('POST.mdp3')){
+					$model = new App_model();
+					$changeMdp = $model->changeMdp($f3,$f3->get('SESSION.ID'),sha1($f3->get('POST.mdp1')),sha1($f3->get('POST.mdp2')));
 
+					if($changeMdp==1){
+
+					}else{
+						
+					}
+
+					/*
+					$userNew = $model->modifyUserProfil($f3,$f3->get('SESSION.ID'),$f3->get('nom'),$f3->get('prenom'),$f3->get('street'),$f3->get('town'),$f3->get('cp'));
+					$f3->set('SESSION.ID',$userNew[0]['user_mail']);
+
+					$f3->reroute('/formProfilModif');
+					*/
+
+				}else{
+					$model = new App_model();
+					$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+					$f3->set('result',$userProfil);
+					$f3->set('color','red');
+					$f3->set('message',$f3->get('uniqueMDPError'));
+					$f3->set('content','formProfilModif.htm');
+					$template=new Template;
+					echo $template->render('layout.htm');
+				}
+			}else{
+				$model = new App_model();
+				$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+				$f3->set('result',$userProfil);
+				$f3->set('color','red');
+				$f3->set('message',$f3->get('fieldsError'));
+				$f3->set('content','formProfilModif.htm');
+				$template=new Template;
+				echo $template->render('layout.htm');
+			}
+		}
 	}
 
 	/* sign out */
@@ -277,22 +329,36 @@ class App_controller{
 
 
 
-	function getTestAmez($f3){
-		$f3->set('content','PageAmez.htm');
+
+
+	/***************** Code Améziane ******************/
+
+	public function homeAmeziane($f3){
+
+		$app_controller = new App_controller();
+
+		//Affichage d'un vin aléatoire 
+    	$f3->set('randomWine', $app_controller->getRandomWine($f3));
+
 		$template=new Template;
-		echo $template->render('layout.htm');	
+		echo $template->render('pageAmez.htm');
 	}
 
+	//Afficher un vin aléatoire
+	public function getRandomWine($f3){
+
+    	$id = rand(1,10);
+    	//echo $id;
+
+    	$model = new App_model();
+    	$randomWine=$model->getRandomWine($f3, $id);
+
+		return $randomWine[0];
+
+	}
+
+	/***************** Code Améziane ******************/
 
 
 }
-
-
-
-
-
-
-
-
-
-
+?>

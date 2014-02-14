@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 <p>home</p>
-<include href="./partials/WineShuffle.htm" />
-<include href="./partials/LastUsrFavoritWine.htm" />
+<?php echo $this->render('./partials/WineShuffle.htm',$this->mime,get_defined_vars()); ?>
+<?php echo $this->render('./partials/LastUsrFavoritWine.htm',$this->mime,get_defined_vars()); ?>
 
 
 =======
@@ -21,7 +21,7 @@
 		<p>home</p>
 		<div class="trait"></div>
 		<p>Loggin</p>
-		<div class="error">{{ @error}}</div>
+		<div class="error"><?php echo $error; ?></div>
 		<form method="post" action="signin">
 			<label>Mail : </label><input type="text" name="mail"/>
 			<label>Mdp : </label><input type="password" name="mdp"/>

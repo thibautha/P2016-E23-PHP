@@ -1,14 +1,14 @@
-<span style="color:{{ @color }};">{{ @message }}</span>
-<repeat group="{{ @result }}" value="{{ @item }}">
+<span style="color:<?php echo $color; ?>;"><?php echo $message; ?></span>
+<?php foreach (($result?:array()) as $item): ?>
 	<form method="post" action="modifyProfil">
 		<p>Modifier ou complétez votre profil : </p>
-		<label>Votre prénom : </label><input type="text" name="prenom"/><span>Ancien : ({{ @item.user_firstname  }})</span><br/>
-		<label>Votre nom : </label><input type="text" name="nom"/><span>Ancien : ({{ @item.user_lastname  }})</span><br/>
+		<label>Votre prénom : </label><input type="text" name="prenom"/><span>Ancien : (<?php echo $item['user_firstname']; ?>)</span><br/>
+		<label>Votre nom : </label><input type="text" name="nom"/><span>Ancien : (<?php echo $item['user_lastname']; ?>)</span><br/>
 		<!--<label>Votre image d'avatar : </label><input type="file" name="mdp1"/><br/>-->
 		<label>Votre adresse : </label><br/>
-		<label>Rue et numéro : </label><input type="text" name="street"/><span>Ancien : ({{ @item.user_street  }})</span><br/>
-		<label>Code postale : </label><input type="text" name="cp"/><span>Ancien : ({{ @item.user_cp  }})</span><br/>
-		<label>Ville : </label><input type="text" name="town"/><span>Ancien : ({{ @item.user_town  }})</span><br/>
+		<label>Rue et numéro : </label><input type="text" name="street"/><span>Ancien : (<?php echo $item['user_street']; ?>)</span><br/>
+		<label>Code postale : </label><input type="text" name="cp"/><span>Ancien : (<?php echo $item['user_cp']; ?>)</span><br/>
+		<label>Ville : </label><input type="text" name="town"/><span>Ancien : (<?php echo $item['user_town']; ?>)</span><br/>
 		<input type="submit" value="Enregistrer profil"/>
 	</form>
 	<form method="post" action="modifyMail">
@@ -25,5 +25,5 @@
 		<label>Confirmer votre nouveau mot de passe : </label><input type="password" name="mdp3"/><br/>
 		<input type="submit" value="Enregistrer MDP"/>
 	</form>
-</repeat>
+<?php endforeach; ?>
 <a href="profil">Retour sur votre profil</a>
