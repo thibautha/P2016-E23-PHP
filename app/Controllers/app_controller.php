@@ -315,12 +315,35 @@ class App_controller{
 
 
 
-	function getTestAmez($f3){
-		$f3->set('content','PageAmez.htm');
+
+
+	/***************** Code Améziane ******************/
+
+	public function homeAmeziane($f3){
+
+		$app_controller = new App_controller();
+
+		//Affichage d'un vin aléatoire 
+    	$f3->set('randomWine', $app_controller->getRandomWine($f3));
+
 		$template=new Template;
-		echo $template->render('layout.htm');	
+		echo $template->render('pageAmez.htm');
 	}
 
+	//Afficher un vin aléatoire
+	public function getRandomWine($f3){
+
+    	$id = rand(1,10);
+    	//echo $id;
+
+    	$model = new App_model();
+    	$randomWine=$model->getRandomWine($f3, $id);
+
+		return $randomWine[0];
+
+	}
+
+	/***************** Code Améziane ******************/
 
 
 }
