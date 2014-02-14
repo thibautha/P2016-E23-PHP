@@ -74,17 +74,25 @@ class App_model{
 	}
 
 	/* modifier les infos du user (profil) */
-	function modifyUserProfil($f3, $mailOld, $nom, $prenom, $street, $town, $cp){
-		$user=$f3->get('dB')->exec('SELECT * FROM userwine '.'WHERE user_mail="'.$mailOld.'"');
-		$result = $f3->get('dB')->exec('UPDATE userwine SET user_lastname="'.$nom.'", user_firstname="'.$prenom.'", user_mail="'.$mailOld.'", user_mdp="'.$user[0]['user_mdp'].'", user_street = "'.$street.'", user_town = "'.$town.'", user_cp = "'.$cp.'" WHERE user_mail = "'.$mailOld.'"');
-		$userNew=$f3->get('dB')->exec('SELECT * FROM userwine '.'WHERE user_mail="'.$mailOld.'"');
+	function modifyUserProfil($f3, $mail, $nom, $prenom, $street, $town, $cp){
+		$f3->get('dB')->exec('UPDATE userwine SET user_lastname="'.$nom.'", user_firstname="'.$prenom.'", user_street = "'.$street.'", user_town = "'.$town.'", user_cp = "'.$cp.'" WHERE user_mail = "'.$mail.'"');
+		$userNew=$f3->get('dB')->exec('SELECT * FROM userwine '.'WHERE user_mail="'.$mail.'"');
 		return $userNew;
 	}
 
 	/* modifier le mot de passe */
-	function checkMdp($f3,$mail,$oldMdp){
-		$user=new DB\SQL\Mapper($f3->get('dB'),'userwine');
-		return $user->load(array('user_mail=?',$mail));
+	function changeMdp($f3,$mail,$oldMdp,$newMdp){
+		$userTable=new DB\SQL\Mapper($f3->get('dB'),'userwine');
+		$user=$userTable->load(array('user_mail=?',$mail));
+		if($user['user_mdp']==$oldMdp){
+			$f3->get('dB')->exec('UPDATE userwine SET user_mdp="'.$newMdp.'" WHERE user_mail = "'.$mail.'"');
+			//$user=$userTable->load(array('user_mail=?',$mail));
+			//return array('confirm'=>1, 'userMDP'=>$user['user_mdp']);
+			return 1;
+		}else{
+			//return array('confirm'=>0, 'userMDP'=>$user['user_mdp']);
+			return 0;
+		}
 	}
 	/***********************************************************************************************************/
 	/******************************************** Fin code kévin **************************************************/

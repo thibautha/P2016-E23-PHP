@@ -6,6 +6,8 @@ class App_controller{
 		//new Session();
 		session_start();
 		$f3->set('error', '');	
+		$f3->set('message','');
+		$f3->set('color','');
 	}
 
 	//page d'accueil
@@ -157,19 +159,19 @@ class App_controller{
 					echo $template->render('layout.htm');
 				}else{
 					$f3->set('error', $f3->get('mdpError'));
-					$f3->set('content','/');
+					$f3->set('content','home.htm');
 					$template=new Template;
 					echo $template->render('layout.htm');
 				}
 			}else{
 				$f3->set('error', $f3->get('adMailError'));
-				$f3->set('content','/');
+				$f3->set('content','home.htm');
 				$template=new Template;
 				echo $template->render('layout.htm');
 			}
 		}else{
 			$f3->set('error', $f3->get('fieldsError'));
-			$f3->set('content','/');
+			$f3->set('content','home.htm');
 			$template=new Template;
 			echo $template->render('layout.htm');
 		}
@@ -195,8 +197,6 @@ class App_controller{
 		if(!$f3->get('SESSION.ID')){
 			$f3->reroute('/');
 		}else{
-			$f3->set('message','');
-			$f3->set('color','');
 			$model = new App_model();
 			$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
 			$f3->set('result',$userProfil);
@@ -277,25 +277,39 @@ class App_controller{
 			$f3->reroute('/');
 		}else{
 			if($f3->get('POST.mdp1')!="" && $f3->get('POST.mdp2')!="" && $f3->get('POST.mdp3')!=""){
+				if($f3->get('POST.mdp2')==$f3->get('POST.mdp3')){
+					$model = new App_model();
+					$changeMdp = $model->changeMdp($f3,$f3->get('SESSION.ID'),sha1($f3->get('POST.mdp1')),sha1($f3->get('POST.mdp2')));
 
-				$model = new App_model();
-				$checkOldMdp = $model->checkMdp($f3,$f3->get('SESSION.ID'),$f3->get('POST.mdp1'));
+					if($changeMdp==1){
 
-				print_r($checkOldMdp);
+					}else{
+						
+					}
 
-				/*
-				$userNew = $model->modifyUserProfil($f3,$f3->get('SESSION.ID'),$f3->get('nom'),$f3->get('prenom'),$f3->get('street'),$f3->get('town'),$f3->get('cp'));
-				$f3->set('SESSION.ID',$userNew[0]['user_mail']);
+					/*
+					$userNew = $model->modifyUserProfil($f3,$f3->get('SESSION.ID'),$f3->get('nom'),$f3->get('prenom'),$f3->get('street'),$f3->get('town'),$f3->get('cp'));
+					$f3->set('SESSION.ID',$userNew[0]['user_mail']);
 
-				$f3->reroute('/formProfilModif');
-				*/
+					$f3->reroute('/formProfilModif');
+					*/
 
+				}else{
+					$model = new App_model();
+					$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+					$f3->set('result',$userProfil);
+					$f3->set('color','red');
+					$f3->set('message',$f3->get('uniqueMDPError'));
+					$f3->set('content','formProfilModif.htm');
+					$template=new Template;
+					echo $template->render('layout.htm');
+				}
 			}else{
 				$model = new App_model();
 				$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
 				$f3->set('result',$userProfil);
 				$f3->set('color','red');
-				$f3->set('message','Aucune modification n\'été apportée.');
+				$f3->set('message',$f3->get('fieldsError'));
 				$f3->set('content','formProfilModif.htm');
 				$template=new Template;
 				echo $template->render('layout.htm');
@@ -324,3 +338,4 @@ class App_controller{
 
 
 }
+?>
