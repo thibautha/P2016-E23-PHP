@@ -339,9 +339,9 @@ class App_controller{
 
 		//Affichage d'un vin aléatoire 
     	$f3->set('randomWine', $app_controller->getRandomWine($f3));
-
+		$f3->set('content','pageAmez.htm');
 		$template=new Template;
-		echo $template->render('pageAmez.htm');
+		echo $template->render('layout.htm');
 	}
 
 	//Afficher un vin aléatoire

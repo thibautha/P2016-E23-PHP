@@ -1,35 +1,3 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Projet PHP</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-</head>
-<body class="clearfix">
-	<p>Layout</p>
-<include href="partials/header.htm" />
+<p>PageAmez.htm</p>
 
-
-<!-- Si on est sur la home, on affiche un vin aléatoire -->
-<check if="{{ @randomWine !='' }}">
-
-	<h2>Un vin aléatoire</h2>
-
-	<true>
-		<h3>{{@randomWine.wine_name}}</h3>
-		<ul>
-			<li>Millésime : {{@randomWine.wine_millesime}}</li>
-			<li>Cépage : {{@randomWine.wine_cepage}}</li>
-			<li>Région : {{@randomWine.wine_origin}}</li>
-			<li>Conseil : {{@randomWine.wine_conseil}}</li>
-		</ul>
-	</true>
-
-	<button class="autre-vin">Un autre !</button>
-
-</check>
-
-<include href="partials/footer.htm" />
-</body>
+<include href="partials/MotTest/ModTestAmez.htm"/>
