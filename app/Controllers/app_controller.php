@@ -271,7 +271,71 @@ class App_controller{
 		}
 	}
 
-	/* en cours */
+	/* modifier l'adresse mail (identifiant), retourne 1 si c'est bon, 0 si il y a une erreure */
+	function modifyMail($f3){
+		if(!$f3->get('SESSION.ID')){
+			$f3->reroute('/');
+		}else{
+			if($f3->get('POST.mail1')!="" && $f3->get('POST.mail2')!="" && $f3->get('POST.mail3')!=""){
+				if(preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $f3->get('POST.mail1')) && preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $f3->get('POST.mail2')) && preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $f3->get('POST.mail3'))){
+					if($f3->get('POST.mail2')==$f3->get('POST.mail3')){
+						$model = new App_model();
+						$changeMdp = $model->changeMail($f3,$f3->get('SESSION.ID'),$f3->get('POST.mail2'));
+						//print_r($changeMdp);
+						if($changeMdp['confirm']==1){
+							$f3->set('SESSION.ID',$changeMdp['user'][0]['user_mail']);
+							$model = new App_model();
+							$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+							$f3->set('result',$userProfil);
+							$f3->set('color','green');
+							$f3->set('message',$f3->get('modificationValid'));
+							$f3->set('content','formProfilModif.htm');
+							$template=new Template;
+							echo $template->render('layout.htm');
+						}else{
+							$model = new App_model();
+							$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+							$f3->set('result',$userProfil);
+							$f3->set('color','red');
+							$f3->set('message',$f3->get('modificationError'));
+							$f3->set('content','formProfilModif.htm');
+							$template=new Template;
+							echo $template->render('layout.htm');
+						}
+					}else{
+						$model = new App_model();
+						$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+						$f3->set('result',$userProfil);
+						$f3->set('color','red');
+						$f3->set('message',$f3->get('uniqueMailError'));
+						$f3->set('content','formProfilModif.htm');
+						$template=new Template;
+						echo $template->render('layout.htm');
+					}
+				}else{
+					$model = new App_model();
+					$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+					$f3->set('result',$userProfil);
+					$f3->set('color','red');
+					$f3->set('message',$f3->get('adMailError'));
+					$f3->set('content','formProfilModif.htm');
+					$template=new Template;
+					echo $template->render('layout.htm');
+				}
+			}else{
+				$model = new App_model();
+				$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+				$f3->set('result',$userProfil);
+				$f3->set('color','red');
+				$f3->set('message',$f3->get('fieldsError'));
+				$f3->set('content','formProfilModif.htm');
+				$template=new Template;
+				echo $template->render('layout.htm');
+			}
+		}
+	}
+
+	/* modifier le mot de passe, retourne 1 si c'est bon, 0 si il y a une erreure */
 	function modifyMDP($f3){
 		if(!$f3->get('SESSION.ID')){
 			$f3->reroute('/');
@@ -282,17 +346,24 @@ class App_controller{
 					$changeMdp = $model->changeMdp($f3,$f3->get('SESSION.ID'),sha1($f3->get('POST.mdp1')),sha1($f3->get('POST.mdp2')));
 
 					if($changeMdp==1){
-
+						$model = new App_model();
+						$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+						$f3->set('result',$userProfil);
+						$f3->set('color','green');
+						$f3->set('message',$f3->get('modificationValid'));
+						$f3->set('content','formProfilModif.htm');
+						$template=new Template;
+						echo $template->render('layout.htm');
 					}else{
-						
+						$model = new App_model();
+						$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+						$f3->set('result',$userProfil);
+						$f3->set('color','red');
+						$f3->set('message',$f3->get('modificationError'));
+						$f3->set('content','formProfilModif.htm');
+						$template=new Template;
+						echo $template->render('layout.htm');
 					}
-
-					/*
-					$userNew = $model->modifyUserProfil($f3,$f3->get('SESSION.ID'),$f3->get('nom'),$f3->get('prenom'),$f3->get('street'),$f3->get('town'),$f3->get('cp'));
-					$f3->set('SESSION.ID',$userNew[0]['user_mail']);
-
-					$f3->reroute('/formProfilModif');
-					*/
 
 				}else{
 					$model = new App_model();

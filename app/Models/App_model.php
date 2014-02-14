@@ -80,17 +80,35 @@ class App_model{
 		return $userNew;
 	}
 
+	/* modifier l'adresse mail (identifiant) */
+	function changeMail($f3,$oldMail,$newMail){
+		$userTable=new DB\SQL\Mapper($f3->get('dB'),'userwine');
+		$user=$userTable->load(array('user_mail=?',$oldMail));
+		if($user['user_mail']==$oldMail){
+			if($user['user_mail']!=$newMail){
+				$f3->get('dB')->exec('UPDATE userwine SET user_mail="'.$newMail.'" WHERE user_mail = "'.$oldMail.'"');
+				$user=$f3->get('dB')->exec('SELECT * FROM userwine '.'WHERE user_mail="'.$newMail.'"');
+				return array('confirm'=>1, 'user'=>$user);
+			}else{
+				return array('confirm'=>0, 'user'=>$user);
+			}
+		}else{
+			return array('confirm'=>0, 'user'=>$user);
+		}
+	}
+
 	/* modifier le mot de passe */
 	function changeMdp($f3,$mail,$oldMdp,$newMdp){
 		$userTable=new DB\SQL\Mapper($f3->get('dB'),'userwine');
 		$user=$userTable->load(array('user_mail=?',$mail));
 		if($user['user_mdp']==$oldMdp){
-			$f3->get('dB')->exec('UPDATE userwine SET user_mdp="'.$newMdp.'" WHERE user_mail = "'.$mail.'"');
-			//$user=$userTable->load(array('user_mail=?',$mail));
-			//return array('confirm'=>1, 'userMDP'=>$user['user_mdp']);
-			return 1;
+			if($user['user_mdp']!=$newMdp){
+				$f3->get('dB')->exec('UPDATE userwine SET user_mdp="'.$newMdp.'" WHERE user_mail = "'.$mail.'"');
+				return 1;
+			}else{
+				return 0;
+			}
 		}else{
-			//return array('confirm'=>0, 'userMDP'=>$user['user_mdp']);
 			return 0;
 		}
 	}

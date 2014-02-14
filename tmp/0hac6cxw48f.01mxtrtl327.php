@@ -1,3 +1,4 @@
+<br/>
 <span style="color:<?php echo $color; ?>;"><?php echo $message; ?></span>
 <?php foreach (($result?:array()) as $item): ?>
 	<form method="post" action="modifyProfil">
@@ -13,9 +14,9 @@
 	</form>
 	<form method="post" action="modifyMail">
 		<p>Modifier votre identifiant (mail) :</p>
-		<label>Votre ancienne adresse mail : </label><input type="password" name="mdp1"/><br/>
-		<label>Votre nouvelle adresse mail: </label><input type="password" name="mdp2"/><br/>
-		<label>Confirmer votre nouvelle adresse mail : </label><input type="password" name="mdp3"/><br/>
+		<label>Votre ancienne adresse mail : </label><input type="text" name="mail1"/><br/>
+		<label>Votre nouvelle adresse mail: </label><input type="text" name="mail2"/><br/>
+		<label>Confirmer votre nouvelle adresse mail : </label><input type="text" name="mail3"/><br/>
 		<input type="submit" value="Enregistrer mail"/>
 	</form>
 	<form method="post" action="modifyMDP">
