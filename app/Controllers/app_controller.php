@@ -1,7 +1,8 @@
 <?php
-class App_controller{
+class App_controller extends Controller{
 
-	function __construct($f3){
+	public function __construct($f3){
+		parent::__construct();
 		$f3->set('CACHE','memcache=localhost');
 		//new Session();
 		session_start();
@@ -11,44 +12,34 @@ class App_controller{
 	}
 
 	//page d'accueil
-	function home($f3){
+	public function home($f3){
 		$f3->set('content','home.htm');
-		$template=new Template;
-		echo $template->render('layout.htm');
 	}
 
 
 
 	//page de notification
-	function getNotification($f3){
+	public function getNotification($f3){
 		$f3->set('content','notif.htm');
-		$template=new Template;
-		echo $template->render('layout.htm');
 	}
 
 	//page de profil
-	function getMember($f3){
+	public function getMember($f3){
 		$f3->set('content','Member.htm');
-		$template=new Template;
-		echo $template->render('layout.htm');
 	}
 
 	//page de vision d'un utilisateur
-	function getUsers($f3){
+	public function getUsers($f3){
 		$f3->set('content','Users.htm');
-		$template=new Template;
-		echo $template->render('layout.htm');	
 	}
 
 	//page de résultat
-	function getResults($f3){
-		$f3->set('content','Results.htm');
-		$template=new Template;
-		echo $template->render('layout.htm');	
+	public function getResults($f3){
+		$f3->set('content','Results.htm');	
 	}
 
 
-	function getTestThib($f3){
+	public function getTestThib($f3){
 		//echo 'ok';
 		$model=new App_model();
 		$result = $model->getResultTestThib($f3,$f3->get('PARAMS.beta'));
@@ -63,39 +54,30 @@ class App_controller{
 		//$f3->set('result',$f3->get('dB')->exec('SELECT user_lastname FROM userwine'));
 		//echo Template::instance()->render('abc.htm');
 		$f3->set('content','PageThib.htm');
-		$template=new Template;
-		echo $template->render('layout.htm');
-
 	}
 
 	/**************************************************************************************************/
 	/**************************************** Code Kévin ***************************************************/
 	/**************************************************************************************************/
 
-	function getTestKev($f3){
-		$f3->set('content','PageKev.htm');
-		$template=new Template;
-		echo $template->render('layout.htm');	
+	public 	function getTestKev($f3){
+		$f3->set('content','PageKev.htm');	
 	}
 
 	/* page d'accueil en loggé */
-	function homeLog($f3){
+	public function homeLog($f3){
 		if(!$f3->get('SESSION.ID')){
 			$f3->reroute('/');
 		}else{
 			$f3->set('content','homeLog.htm');
-			$template=new Template;
-			echo $template->render('layout.htm');
 		}
 	}
 
 	/* formulaire d'inscription et inscription : envoie sur la page profil */
-	function signup($f3){
+	public function signup($f3){
 		switch($f3->get('VERB')){
 			case 'GET':
 				$f3->set('content','signup.htm');
-				$template=new Template;
-				echo $template->render('layout.htm');
 			break;
 			case 'POST':
 				if($f3->get('POST.mail')!="" && $f3->get('POST.mdp1')!="" && $f3->get('POST.mdp2')!=""){
@@ -104,48 +86,36 @@ class App_controller{
 							if($f3->get('POST.mdp1')==$f3->get('POST.mdp2')){
 								$model = new App_model();
 								$ajout = $model->signUpUser($f3,$f3->get('POST.mail'), sha1($f3->get('POST.mdp1')));
-								//print_r($ajout['user'][0]['user_mail']);
 								if($ajout['confirm']==1){
 									$user=array('ID'=>$ajout['user'][0]['user_mail'],'firstname'=>$ajout['user'][0]['user_firstname'],'lastname'=>$ajout['user'][0]['user_lastname']);
 									$f3->set('SESSION', $user);
 									$f3->reroute('/profil');
-									//print_r($f3->get('SESSION.ID'));
 								}else{
 									$f3->set('error', $f3->get('loginSingUpError'));
 									$f3->set('content','signup.htm');
-									$template=new Template;
-									echo $template->render('layout.htm');
 								}
 							}else{
 								$f3->set('error', $f3->get('uniqueMDPError'));
 								$f3->set('content','signup.htm');
-								$template=new Template;
-								echo $template->render('layout.htm');
 							}
 						}else{
 							$f3->set('error', $f3->get('adMailError'));
 							$f3->set('content','signup.htm');
-							$template=new Template;
-							echo $template->render('layout.htm');
 						}
 					}else{
 						$f3->set('error', $f3->get('majorityError'));
 						$f3->set('content','signup.htm');
-						$template=new Template;
-						echo $template->render('layout.htm');
 					}
 				}else{
 					$f3->set('error', $f3->get('fieldsError'));
 					$f3->set('content','signup.htm');
-					$template=new Template;
-					echo $template->render('layout.htm');
 				}
 			break;
 		}
 	}
 
 	/* sign in : renvoie sur la page home en loggé (homeLog) */
-	function signin($f3){
+	public function signin($f3){
 		if($f3->get('POST.mail')!="" && $f3->get('POST.mdp')!=""){
 			if(preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $f3->get('POST.mail'))){
 				$model = new App_model();
@@ -155,31 +125,23 @@ class App_controller{
 					$user=array('ID'=>$userSign['user'][0]['user_mail'],'firstname'=>$userSign['user'][0]['user_firstname'],'lastname'=>$userSign['user'][0]['user_lastname']);
 					$f3->set('SESSION',$user);
 					$f3->set('content','homeLog.htm');
-					$template=new Template;
-					echo $template->render('layout.htm');
 				}else{
 					$f3->set('error', $f3->get('mdpError'));
 					$f3->set('content','home.htm');
-					$template=new Template;
-					echo $template->render('layout.htm');
 				}
 			}else{
 				$f3->set('error', $f3->get('adMailError'));
 				$f3->set('content','home.htm');
-				$template=new Template;
-				echo $template->render('layout.htm');
 			}
 		}else{
 			$f3->set('error', $f3->get('fieldsError'));
 			$f3->set('content','home.htm');
-			$template=new Template;
-			echo $template->render('layout.htm');
 		}
 	}
 
 
 	/* page profil si on est loggé sinon retour sur home non loggé */
-	function getProfil($f3){
+	public function getProfil($f3){
 		if(!$f3->get('SESSION.ID')){
 			$f3->reroute('/');
 		}else{
@@ -187,13 +149,11 @@ class App_controller{
 			$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
 			$f3->set('result',$userProfil);
 			$f3->set('content','profil.htm');
-			$template=new Template;
-			echo $template->render('layout.htm');
 		}
 	}
 
 	/* formulaire de modification des données du profil si on est loggé sinon retour home non loggé */
-	function formProfilModif($f3){
+	public function formProfilModif($f3){
 		if(!$f3->get('SESSION.ID')){
 			$f3->reroute('/');
 		}else{
@@ -201,14 +161,12 @@ class App_controller{
 			$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
 			$f3->set('result',$userProfil);
 			$f3->set('content','formProfilModif.htm');
-			$template=new Template;
-			echo $template->render('layout.htm');
 		}
 
 	}
 
 	/* modification des données utlisateurs : renvoie sur le formulaire pour modifier les données */
-	function modifyProfil($f3){
+	public function modifyProfil($f3){
 		if(!$f3->get('SESSION.ID')){
 			$f3->reroute('/');
 		}else{
@@ -255,8 +213,6 @@ class App_controller{
 				$f3->set('message',$f3->get('modificationValid'));
 				$f3->set('color','green');
 				$f3->set('content','formProfilModif.htm');
-				$template=new Template;
-				echo $template->render('layout.htm');
 
 			}else{
 				$model = new App_model();
@@ -265,14 +221,12 @@ class App_controller{
 				$f3->set('color','red');
 				$f3->set('message',$f3->get('modificationError'));
 				$f3->set('content','formProfilModif.htm');
-				$template=new Template;
-				echo $template->render('layout.htm');
 			}
 		}
 	}
 
 	/* modifier l'adresse mail (identifiant), retourne 1 si c'est bon, 0 si il y a une erreure */
-	function modifyMail($f3){
+	public function modifyMail($f3){
 		if(!$f3->get('SESSION.ID')){
 			$f3->reroute('/');
 		}else{
@@ -290,8 +244,6 @@ class App_controller{
 							$f3->set('color','green');
 							$f3->set('message',$f3->get('modificationValid'));
 							$f3->set('content','formProfilModif.htm');
-							$template=new Template;
-							echo $template->render('layout.htm');
 						}else{
 							$model = new App_model();
 							$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
@@ -299,8 +251,6 @@ class App_controller{
 							$f3->set('color','red');
 							$f3->set('message',$f3->get('modificationError'));
 							$f3->set('content','formProfilModif.htm');
-							$template=new Template;
-							echo $template->render('layout.htm');
 						}
 					}else{
 						$model = new App_model();
@@ -309,8 +259,6 @@ class App_controller{
 						$f3->set('color','red');
 						$f3->set('message',$f3->get('uniqueMailError'));
 						$f3->set('content','formProfilModif.htm');
-						$template=new Template;
-						echo $template->render('layout.htm');
 					}
 				}else{
 					$model = new App_model();
@@ -319,8 +267,6 @@ class App_controller{
 					$f3->set('color','red');
 					$f3->set('message',$f3->get('adMailError'));
 					$f3->set('content','formProfilModif.htm');
-					$template=new Template;
-					echo $template->render('layout.htm');
 				}
 			}else{
 				$model = new App_model();
@@ -329,14 +275,12 @@ class App_controller{
 				$f3->set('color','red');
 				$f3->set('message',$f3->get('fieldsError'));
 				$f3->set('content','formProfilModif.htm');
-				$template=new Template;
-				echo $template->render('layout.htm');
 			}
 		}
 	}
 
 	/* modifier le mot de passe, retourne 1 si c'est bon, 0 si il y a une erreure */
-	function modifyMDP($f3){
+	public function modifyMDP($f3){
 		if(!$f3->get('SESSION.ID')){
 			$f3->reroute('/');
 		}else{
@@ -352,8 +296,6 @@ class App_controller{
 						$f3->set('color','green');
 						$f3->set('message',$f3->get('modificationValid'));
 						$f3->set('content','formProfilModif.htm');
-						$template=new Template;
-						echo $template->render('layout.htm');
 					}else{
 						$model = new App_model();
 						$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
@@ -361,8 +303,6 @@ class App_controller{
 						$f3->set('color','red');
 						$f3->set('message',$f3->get('modificationError'));
 						$f3->set('content','formProfilModif.htm');
-						$template=new Template;
-						echo $template->render('layout.htm');
 					}
 
 				}else{
@@ -372,8 +312,6 @@ class App_controller{
 					$f3->set('color','red');
 					$f3->set('message',$f3->get('uniqueMDPError'));
 					$f3->set('content','formProfilModif.htm');
-					$template=new Template;
-					echo $template->render('layout.htm');
 				}
 			}else{
 				$model = new App_model();
@@ -382,14 +320,12 @@ class App_controller{
 				$f3->set('color','red');
 				$f3->set('message',$f3->get('fieldsError'));
 				$f3->set('content','formProfilModif.htm');
-				$template=new Template;
-				echo $template->render('layout.htm');
 			}
 		}
 	}
 
 	/* sign out */
-	function loggout($f3){
+	public function loggout($f3){
 		session_destroy();
     	$f3->reroute('/');
 	}
@@ -411,8 +347,6 @@ class App_controller{
 		//Affichage d'un vin aléatoire 
     	$f3->set('randomWine', $app_controller->getRandomWine($f3));
 		$f3->set('content','pageAmez.htm');
-		$template=new Template;
-		echo $template->render('layout.htm');
 	}
 
 	//Afficher un vin aléatoire
