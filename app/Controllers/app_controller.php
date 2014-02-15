@@ -41,8 +41,7 @@ class App_controller extends Controller{
 
 	public function getTestThib($f3){
 		//echo 'ok';
-		$model=new App_model();
-		$result = $model->getResultTestThib($f3,$f3->get('PARAMS.beta'));
+		$result = $this->model->getResultTestThib($f3,$f3->get('PARAMS.beta'));
  		//$f3->set('users',$model->getUsers($f3,array('alpha'=>$f3->get('PARAMS.alpha'))));
  		//$model->getResultTest($f3,$f3->get('PARAMS.beta'));
 		$f3->set('plop',$f3->get('PARAMS.beta'));
@@ -84,8 +83,7 @@ class App_controller extends Controller{
 					if($f3->get('POST.majority')=="majeur"){
 						if(preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $f3->get('POST.mail'))){
 							if($f3->get('POST.mdp1')==$f3->get('POST.mdp2')){
-								$model = new App_model();
-								$ajout = $model->signUpUser($f3,$f3->get('POST.mail'), sha1($f3->get('POST.mdp1')));
+								$ajout = $this->model->signUpUser($f3,$f3->get('POST.mail'), sha1($f3->get('POST.mdp1')));
 								if($ajout['confirm']==1){
 									$user=array('ID'=>$ajout['user'][0]['user_mail'],'firstname'=>$ajout['user'][0]['user_firstname'],'lastname'=>$ajout['user'][0]['user_lastname']);
 									$f3->set('SESSION', $user);
@@ -118,9 +116,7 @@ class App_controller extends Controller{
 	public function signin($f3){
 		if($f3->get('POST.mail')!="" && $f3->get('POST.mdp')!=""){
 			if(preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $f3->get('POST.mail'))){
-				$model = new App_model();
-				$userSign = $model->signInUser($f3,$f3->get('POST.mail'),sha1($f3->get('POST.mdp')));
-				//print_r($userSign);
+				$userSign = $this->model->signInUser($f3,$f3->get('POST.mail'),sha1($f3->get('POST.mdp')));
 				if($userSign['confirm']==1){
 					$user=array('ID'=>$userSign['user'][0]['user_mail'],'firstname'=>$userSign['user'][0]['user_firstname'],'lastname'=>$userSign['user'][0]['user_lastname']);
 					$f3->set('SESSION',$user);
@@ -145,8 +141,7 @@ class App_controller extends Controller{
 		if(!$f3->get('SESSION.ID')){
 			$f3->reroute('/');
 		}else{
-			$model = new App_model();
-			$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+			$userProfil = $this->model->getUserProfil($f3,$f3->get('SESSION.ID'));
 			$f3->set('result',$userProfil);
 			$f3->set('content','profil.htm');
 		}
@@ -157,8 +152,7 @@ class App_controller extends Controller{
 		if(!$f3->get('SESSION.ID')){
 			$f3->reroute('/');
 		}else{
-			$model = new App_model();
-			$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+			$userProfil = $this->model->getUserProfil($f3,$f3->get('SESSION.ID'));
 			$f3->set('result',$userProfil);
 			$f3->set('content','formProfilModif.htm');
 		}
@@ -172,8 +166,7 @@ class App_controller extends Controller{
 		}else{
 			if($f3->get('POST.prenom')!="" || $f3->get('POST.nom')!="" || $f3->get('POST.street')!="" || $f3->get('POST.town')!=""  || $f3->get('POST.cp')!=""){
 
-				$model = new App_model();
-				$userOld = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+				$userOld = $this->model->getUserProfil($f3,$f3->get('SESSION.ID'));
 
 				if($f3->get('POST.nom')!=""){
 					$f3->set('nom',$f3->get('POST.nom'));
@@ -205,7 +198,7 @@ class App_controller extends Controller{
 					$f3->set('town',$userOld[0]['user_town']);
 				}
 
-				$userNew = $model->modifyUserProfil($f3,$f3->get('SESSION.ID'),$f3->get('nom'),$f3->get('prenom'),$f3->get('street'),$f3->get('town'),$f3->get('cp'));
+				$userNew = $this->model->modifyUserProfil($f3,$f3->get('SESSION.ID'),$f3->get('nom'),$f3->get('prenom'),$f3->get('street'),$f3->get('town'),$f3->get('cp'));
 				$f3->set('SESSION.ID',$userNew[0]['user_mail']);
 
 				$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
@@ -215,8 +208,7 @@ class App_controller extends Controller{
 				$f3->set('content','formProfilModif.htm');
 
 			}else{
-				$model = new App_model();
-				$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+				$userProfil = $this->model->getUserProfil($f3,$f3->get('SESSION.ID'));
 				$f3->set('result',$userProfil);
 				$f3->set('color','red');
 				$f3->set('message',$f3->get('modificationError'));
@@ -233,44 +225,38 @@ class App_controller extends Controller{
 			if($f3->get('POST.mail1')!="" && $f3->get('POST.mail2')!="" && $f3->get('POST.mail3')!=""){
 				if(preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $f3->get('POST.mail1')) && preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $f3->get('POST.mail2')) && preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $f3->get('POST.mail3'))){
 					if($f3->get('POST.mail2')==$f3->get('POST.mail3')){
-						$model = new App_model();
-						$changeMdp = $model->changeMail($f3,$f3->get('SESSION.ID'),$f3->get('POST.mail2'));
+						$changeMdp = $this->model->changeMail($f3,$f3->get('SESSION.ID'),$f3->get('POST.mail2'));
 						//print_r($changeMdp);
 						if($changeMdp['confirm']==1){
 							$f3->set('SESSION.ID',$changeMdp['user'][0]['user_mail']);
-							$model = new App_model();
-							$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+							$userProfil = $this->model->getUserProfil($f3,$f3->get('SESSION.ID'));
 							$f3->set('result',$userProfil);
 							$f3->set('color','green');
 							$f3->set('message',$f3->get('modificationValid'));
 							$f3->set('content','formProfilModif.htm');
 						}else{
-							$model = new App_model();
-							$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+							$userProfil = $this->model->getUserProfil($f3,$f3->get('SESSION.ID'));
 							$f3->set('result',$userProfil);
 							$f3->set('color','red');
 							$f3->set('message',$f3->get('modificationError'));
 							$f3->set('content','formProfilModif.htm');
 						}
 					}else{
-						$model = new App_model();
-						$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+						$userProfil = $this->model->getUserProfil($f3,$f3->get('SESSION.ID'));
 						$f3->set('result',$userProfil);
 						$f3->set('color','red');
 						$f3->set('message',$f3->get('uniqueMailError'));
 						$f3->set('content','formProfilModif.htm');
 					}
 				}else{
-					$model = new App_model();
-					$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+					$userProfil = $this->model->getUserProfil($f3,$f3->get('SESSION.ID'));
 					$f3->set('result',$userProfil);
 					$f3->set('color','red');
 					$f3->set('message',$f3->get('adMailError'));
 					$f3->set('content','formProfilModif.htm');
 				}
 			}else{
-				$model = new App_model();
-				$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+				$userProfil = $this->model->getUserProfil($f3,$f3->get('SESSION.ID'));
 				$f3->set('result',$userProfil);
 				$f3->set('color','red');
 				$f3->set('message',$f3->get('fieldsError'));
@@ -286,19 +272,16 @@ class App_controller extends Controller{
 		}else{
 			if($f3->get('POST.mdp1')!="" && $f3->get('POST.mdp2')!="" && $f3->get('POST.mdp3')!=""){
 				if($f3->get('POST.mdp2')==$f3->get('POST.mdp3')){
-					$model = new App_model();
-					$changeMdp = $model->changeMdp($f3,$f3->get('SESSION.ID'),sha1($f3->get('POST.mdp1')),sha1($f3->get('POST.mdp2')));
+					$changeMdp = $this->model->changeMdp($f3,$f3->get('SESSION.ID'),sha1($f3->get('POST.mdp1')),sha1($f3->get('POST.mdp2')));
 
 					if($changeMdp==1){
-						$model = new App_model();
-						$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+						$userProfil = $this->model->getUserProfil($f3,$f3->get('SESSION.ID'));
 						$f3->set('result',$userProfil);
 						$f3->set('color','green');
 						$f3->set('message',$f3->get('modificationValid'));
 						$f3->set('content','formProfilModif.htm');
 					}else{
-						$model = new App_model();
-						$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+						$userProfil = $this->model->getUserProfil($f3,$f3->get('SESSION.ID'));
 						$f3->set('result',$userProfil);
 						$f3->set('color','red');
 						$f3->set('message',$f3->get('modificationError'));
@@ -306,16 +289,14 @@ class App_controller extends Controller{
 					}
 
 				}else{
-					$model = new App_model();
-					$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+					$userProfil = $this->model->getUserProfil($f3,$f3->get('SESSION.ID'));
 					$f3->set('result',$userProfil);
 					$f3->set('color','red');
 					$f3->set('message',$f3->get('uniqueMDPError'));
 					$f3->set('content','formProfilModif.htm');
 				}
 			}else{
-				$model = new App_model();
-				$userProfil = $model->getUserProfil($f3,$f3->get('SESSION.ID'));
+				$userProfil = $this->model->getUserProfil($f3,$f3->get('SESSION.ID'));
 				$f3->set('result',$userProfil);
 				$f3->set('color','red');
 				$f3->set('message',$f3->get('fieldsError'));
@@ -342,10 +323,10 @@ class App_controller extends Controller{
 
 	public function homeAmeziane($f3){
 
-		$app_controller = new App_controller();
+		//$app_controller = new App_controller();
 
 		//Affichage d'un vin aléatoire 
-    	$f3->set('randomWine', $app_controller->getRandomWine($f3));
+    	$f3->set('randomWine', $this->getRandomWine($f3));
 		$f3->set('content','pageAmez.htm');
 	}
 
@@ -353,12 +334,11 @@ class App_controller extends Controller{
 	public function getRandomWine($f3){
 
     	$id = rand(1,10);
-    	//echo $id;
+    	//print_r($id);
 
-    	$model = new App_model();
-    	$randomWine=$model->getRandomWine($f3, $id);
+    	$randomWine=$this->model->getRandomWine($f3, $id);
 
-		return $randomWine[0];
+		return $randomWine;
 
 	}
 

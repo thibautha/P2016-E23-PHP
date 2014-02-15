@@ -122,7 +122,8 @@ class App_model{
 
 	function getRandomWine($f3, $id){
 		$randomWine = $f3->get('dB')->exec('SELECT * FROM wine WHERE wine_id="'.$id.'"');
-		return $randomWine;
+		//print_r($randomWine[0]);
+		return $randomWine[0];
 	}
 
 	/************************** Fin code améziane **********************************/
