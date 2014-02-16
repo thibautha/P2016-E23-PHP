@@ -218,6 +218,45 @@ class App_controller extends Controller{
 		}
 	}
 
+	/* upload avatar */
+	public function uploadAvatar($f3){
+		if(!$f3->get('SESSION.ID')){
+			$f3->reroute('/');
+		}else{
+			if($_FILES['img']['size']==0){
+				$user = $this->model->getUserProfil($f3->get('SESSION.ID'));
+				$f3->set('result',$user);
+				$f3->set('message',$f3->get('imageError'));
+				$f3->set('color','red');
+				$f3->set('content','formProfilModif.htm');
+			}else{
+				$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' );
+				$extension_upload = strtolower(  substr(  strrchr($_FILES['img']['name'], '.')  ,1)  );
+				if ( in_array($extension_upload,$extensions_valides) ){
+
+					$user = $this->model->getUserProfil($f3->get('SESSION.ID'));
+					$_FILES['img']['name']=$user[0]['user_id'].".".$extension_upload;
+					
+			        \Web::instance()->receive(function($file){},true,true);
+
+			        $imgAdd = $this->model->addAvatar($f3->get('SESSION.ID'), $_FILES['img']['name']);
+			        print_r($imgAdd);
+
+					$f3->set('result',$user);
+					$f3->set('message',$f3->get('modificationValid'));
+					$f3->set('color','green');
+					$f3->set('content','formProfilModif.htm');
+				}else{
+					$user = $this->model->getUserProfil($f3->get('SESSION.ID'));
+					$f3->set('result',$user);
+					$f3->set('message',$f3->get('imageExtensionError'));
+					$f3->set('color','red');
+					$f3->set('content','formProfilModif.htm');
+				}
+			}
+	    }     
+	}
+
 	/* modifier l'adresse mail (identifiant), retourne 1 si c'est bon, 0 si il y a une erreure */
 	public function modifyMail($f3){
 		if(!$f3->get('SESSION.ID')){

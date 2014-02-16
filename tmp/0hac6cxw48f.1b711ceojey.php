@@ -9,8 +9,10 @@
 		<span>Votre prénom : <?php echo $item['user_firstname']; ?></span>
 	    <br/>
 	    <span>Votre nom : <?php echo $item['user_lastname']; ?></span>
-	    <!--<br/>
-	    <img src="<?php echo $item['user_img']; ?>" alt="<?php echo $item['user_img']; ?>"/>-->
+	    <br/>
+	    <div class="img" style="height:100px;width:100px;overflow:hidden;">
+	    	<img style="height:120px;width:120px;" src="./avatars/<?php echo $item['user_img']; ?>" alt="<?php echo $item['user_img']; ?>"/>
+	    </div>
 	    <br/>
 	    <span>Votre adresse mail : <?php echo $item['user_mail']; ?></span>
 	    <br/>

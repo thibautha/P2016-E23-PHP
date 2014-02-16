@@ -1,15 +1,19 @@
 <br/>
 <span style="color:{{ @color }};">{{ @message }}</span>
 <repeat group="{{ @result }}" value="{{ @item }}">
-	<form method="post" action="modifyProfil">
+	<form method="post" action="modifyProfil" enctype="multipart/form-data">
 		<p>Modifier ou complétez votre profil : </p>
 		<label>Votre prénom : </label><input type="text" name="prenom"/><span>Ancien : ({{ @item.user_firstname  }})</span><br/>
 		<label>Votre nom : </label><input type="text" name="nom"/><span>Ancien : ({{ @item.user_lastname  }})</span><br/>
-		<!--<label>Votre image d'avatar : </label><input type="file" name="mdp1"/><br/>-->
 		<label>Votre adresse : </label><br/>
 		<label>Rue et numéro : </label><input type="text" name="street"/><span>Ancien : ({{ @item.user_street  }})</span><br/>
 		<label>Code postale : </label><input type="text" name="cp"/><span>Ancien : ({{ @item.user_cp  }})</span><br/>
 		<label>Ville : </label><input type="text" name="town"/><span>Ancien : ({{ @item.user_town  }})</span><br/>
+		<input type="submit" value="Enregistrer profil"/>
+	</form>
+	<form method="post" action="uploadAvatar" enctype="multipart/form-data">
+		<input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
+		<label>Votre image d'avatar : </label><input type="file" name="img" /><br/>
 		<input type="submit" value="Enregistrer profil"/>
 	</form>
 	<form method="post" action="modifyMail">

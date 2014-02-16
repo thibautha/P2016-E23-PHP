@@ -36,7 +36,7 @@ class App_model extends Model{
 		$user = $this->dB->exec('SELECT * FROM userwine WHERE user_mail="'.$mail.'"');
 		if(!$user){
 			$this->dB->exec('INSERT INTO userwine (user_id,user_firstname,user_lastname,user_mail,user_mdp,user_street,user_town,user_cp,user_img) 
-								VALUES ("","","","'.$mail.'","'.$mdp.'","","","","")');
+								VALUES ("","","","'.$mail.'","'.$mdp.'","","","","avatar.png")');
 			$user = $this->dB->exec('SELECT * FROM userwine WHERE user_mail="'.$mail.'"');
 			return $user[0];
 		}else{
@@ -97,6 +97,12 @@ class App_model extends Model{
 		}else{
 			return 0;
 		}
+	}
+
+	function addAvatar($mail, $image){
+		$this->dB->exec('UPDATE userwine SET user_img="'.$image.'" WHERE user_mail = "'.$mail.'"');
+		$user=$this->mapperUser->load(array('user_mail=?',$mail));
+		return $user[0]["user_img"];
 	}
 	/***********************************************************************************************************/
 	/******************************************** Fin code kévin **************************************************/
