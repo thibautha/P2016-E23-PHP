@@ -3,7 +3,7 @@
 <br/>
 <a href="homeLog">Retour page d'accueil</a>
 <br/>
-<a href="cave">ma cave</a>
+<a href="maCave">ma cave</a>
 <div id="user">
 	<?php foreach (($result?:array()) as $item): ?>
 		<span>Votre prénom : <?php echo $item['user_firstname']; ?></span>

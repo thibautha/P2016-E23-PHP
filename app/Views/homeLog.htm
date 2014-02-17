@@ -4,4 +4,4 @@
 <br/>
 <a href="profil">Profil</a>
 <br/>
-<a href="cave">Cave</a>
+<a href="maCave">Cave</a>

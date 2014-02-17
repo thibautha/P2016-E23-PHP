@@ -13,9 +13,12 @@ class App_controller extends Controller{
 
 	//page d'accueil
 	public function home($f3){
-		$f3->set('content','home.htm');
+		if(!$f3->get('SESSION.ID')){
+			$f3->set('content','home.htm');
+		}else{
+			$f3->set('content','homeLog.htm');
+		}
 	}
-
 
 
 	//page de notification
@@ -61,6 +64,14 @@ class App_controller extends Controller{
 
 	public 	function getTestKev($f3){
 		$f3->set('content','PageKev.htm');	
+	}
+
+	public function maCave($f3){
+		if(!$f3->get('SESSION.ID')){
+			$f3->reroute('/');
+		}else{
+			$f3->set('content','maCave.htm');
+		}
 	}
 
 	/* page d'accueil en loggé */
@@ -236,7 +247,7 @@ class App_controller extends Controller{
 
 					$user = $this->model->getUserProfil($f3->get('SESSION.ID'));
 					$_FILES['img']['name']=$user[0]['user_id'].".".$extension_upload;
-					
+
 			        \Web::instance()->receive(function($file){},true,true);
 
 			        $imgAdd = $this->model->addAvatar($f3->get('SESSION.ID'), $_FILES['img']['name']);
