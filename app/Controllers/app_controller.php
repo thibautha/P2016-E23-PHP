@@ -370,30 +370,52 @@ class App_controller extends Controller{
 
 
 
-	/***************** Code Améziane ******************/
+		/***************** Code Améziane ******************/
 
 	public function homeAmeziane($f3){
 
 		//$app_controller = new App_controller();
 
 		//Affichage d'un vin aléatoire 
-    	$f3->set('randomWine', $this->getRandomWine($f3));
-		$f3->set('content','pageAmez.htm');
+    	$f3->set('randomWine', $this->getRandomWine());
+    	//$f3->set('lastUsersWine', $this->getRandomWine($f3));
+		$f3->set('content','PageAmez.htm');
 	}
 
 	//Afficher un vin aléatoire
-	public function getRandomWine($f3){
+	public function getRandomWine(){
 
-    	$id = rand(1,10);
-    	//print_r($id);
-
-    	$randomWine=$this->model->getRandomWine($id);
+    	$randomWine=$this->model->getRandomWine();
 
 		return $randomWine;
 
 	}
 
-	/***************** Code Améziane ******************/
+	/*Rechercher un vin */
+	public function search($f3){
+
+		//si le champ 'wine' n'est pas vide
+		/*if(($f3->get('POST.wine'))!=""){*/
+			//alors on récupère le nom du vin rentré
+			$wine=$f3->get('POST.wine');
+			//on récupère le ou les vins correspondants
+			$f3->set('results', $this->model->search($wine));
+
+			$f3->set('content','Results.htm');
+		/*}
+		//Sinon on affiche un message d'erreur et restons sur la page d'accueil
+		else{
+			echo "Vous devez rentrer le nom d'un vin !";
+			$f3->set('content','Results.htm');
+		}*/
+	}
+
+	public function getWine($f3){
+		$wine=$f3->set('wine', $this->model->getWine($f3->get('PARAMS.id')));
+		$f3->set('content','Wine.htm');
+	}
+
+	/***************** Fin code Améziane ******************/
 
 
 }

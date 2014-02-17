@@ -112,12 +112,38 @@ class App_model extends Model{
 
 	/************************  Code d'améziane *****************************/
 
-	function getRandomWine($id){
-		$randomWine = $this->dB->exec('SELECT * FROM wine WHERE wine_id="'.$id.'"');
-		//print_r($randomWine[0]);
+	/* afficher un vin aléatoirement*/
+	function getRandomWine(){
+
+		// On sélectionne un vin aléatoirement dans la base de données  
+		// On stocke ses données dans la variable $randomWine qui est un array
+		$randomWine = $this->dB->exec('SELECT * FROM wine ORDER BY RAND() LIMIT 1');
+		// Cette variable contient elle-même un array avec toutes les informations sur le vin
+		// ON retourne celui-ci
 		return $randomWine[0];
 	}
 
+	/*rechercher un vin*/
+	function search($wine){
+		$results=$this->dB->exec('SELECT * FROM wine WHERE wine_name="'.$wine.'"');
+		if(!$results){
+			return 0;
+		}else{
+			return $results;
+		}
+	}
+
+	/* afficher un vin en single view*/
+	function getWine($id){
+		//on récupère les informations sur le vin avec l'id correspondant dans un array $wine
+		$wine = $this->dB->exec('SELECT * FROM wine WHERE wine_id="'.$id.'"');
+		//on récupère le prénom de son possesseur dans un array $user_firstname
+		$user_firstname= $this->dB->exec('SELECT user_firstname FROM userwine, wine WHERE userwine.user_id=wine.user_wine_id AND wine.wine_id="'.$id.'"');
+		//On l'ajoute dans l'array $wine
+		$wine[0]['user_firstname'] = $user_firstname[0]['user_firstname'];
+		// On retourne le tableau
+		return $wine[0];
+	}
 	/************************** Fin code améziane **********************************/
 
 }

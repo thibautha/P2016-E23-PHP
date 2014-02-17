@@ -1,1 +1,18 @@
-<p>Résultats</p>
+<h2>Résultats</h2>
+
+<check if="{{@results!=0}}" >
+	<true>
+		<repeat group="{{ @results }}" value="{{ @wine }}">
+
+		    <h3><a href="/vin/{{@wine.wine_id}}">{{ @wine.wine_name }}</a>, posté par <a href="/user/{{@wine.user_wine_id}}">{{ @wine.user_wine_id }}</a></h3>
+			<ul>
+				<li>Millésime : {{@wine.wine_millesime}}</li>
+				<li>Cépage : {{@wine.wine_cepage}}</li>
+				<li>Région : {{@wine.wine_origin}}</li>
+			</ul>
+		</repeat>
+	<true>
+	<false>
+		Aucun résultat.
+	</false>
+</check>
