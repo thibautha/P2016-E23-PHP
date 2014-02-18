@@ -66,14 +66,6 @@ class App_controller extends Controller{
 		$f3->set('content','PageKev.htm');	
 	}
 
-	public function maCave($f3){
-		if(!$f3->get('SESSION.ID')){
-			$f3->reroute('/');
-		}else{
-			$f3->set('content','maCave.htm');
-		}
-	}
-
 	/* page d'accueil en loggé */
 	public function homeLog($f3){
 		if(!$f3->get('SESSION.ID')){
@@ -153,6 +145,7 @@ class App_controller extends Controller{
 			$f3->reroute('/');
 		}else{
 			$userProfil = $this->model->getUserProfil($f3->get('SESSION.ID'));
+			//print_r($userProfil);
 			$f3->set('result',$userProfil);
 			$f3->set('content','profil.htm');
 		}
@@ -250,8 +243,7 @@ class App_controller extends Controller{
 
 			        \Web::instance()->receive(function($file){},true,true);
 
-			        $imgAdd = $this->model->addAvatar($f3->get('SESSION.ID'), $_FILES['img']['name']);
-			        print_r($imgAdd);
+			        $this->model->addAvatar($f3->get('SESSION.ID'), $_FILES['img']['name']);
 
 					$f3->set('result',$user);
 					$f3->set('message',$f3->get('modificationValid'));
@@ -352,6 +344,64 @@ class App_controller extends Controller{
 				$f3->set('color','red');
 				$f3->set('message',$f3->get('fieldsError'));
 				$f3->set('content','formProfilModif.htm');
+			}
+		}
+	}
+
+	public function maCave($f3){
+		if(!$f3->get('SESSION.ID')){
+			$f3->reroute('/');
+		}else{
+			$wines = $this->model->getUserWine($f3->get('SESSION.ID'));
+			//print_r($wines);
+			$f3->set('resultat',$wines);
+			$f3->set('content','maCave.htm');
+		}
+	}
+
+	public function addWine($f3){
+		if(!$f3->get('SESSION.ID')){
+			$f3->reroute('/');
+		}else{
+			switch($f3->get('VERB')){
+				case 'GET':
+					$f3->set('content','addWine.htm');
+				break;
+				case 'POST':
+					if($f3->exists('POST.wineName') && $f3->exists('POST.origin') && $f3->exists('POST.cepage') && $f3->exists('POST.millesim') && $f3->exists('POST.quantitee') && $f3->exists('POST.conseil') /*&& $f3->exists($_FILES['img'])*/){
+						if($f3->get('POST.wineName')!="" && $f3->get('POST.origin')!="" && $f3->get('POST.cepage')!="" && $f3->get('POST.millesim')!="" && $f3->get('POST.quantitee')!="" && $f3->get('POST.conseil')!="" /*&& $_FILES['img']['size']!=0*/){
+							$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' );
+							$extension_upload = strtolower(  substr(  strrchr($_FILES['wineImg']['name'], '.')  ,1)  );
+							if ( in_array($extension_upload,$extensions_valides) ){
+
+								$nbWine = $this->model->getNbWine($f3->get('SESSION.ID'));
+
+								$user = $this->model->getUserProfil($f3->get('SESSION.ID'));
+								$_FILES['wineImg']['name']="wine".$user[0]['user_id'].$nbWine.".".$extension_upload;
+
+						        \Web::instance()->receive(function($file){},true,true);
+						    }else{
+						    	$_FILES['wineImg']['name']="avatarWine.png";
+						    }
+							
+							$this->model->addWine($f3->get('SESSION.ID'),$f3->get('POST.wineName'),$f3->get('POST.origin'),$f3->get('POST.cepage'),$f3->get('POST.millesim'), $f3->get('POST.quantitee'), $f3->get('POST.conseil'),$_FILES['wineImg']['name']);
+
+							$wines = $this->model->getUserWine($f3->get('SESSION.ID'));
+							//print_r($wines);
+							$f3->set('resultat',$wines);
+							
+							$f3->set('content','maCave.htm');
+						}else{
+							$f3->set('color','red');
+							$f3->set('message',$f3->get('fieldsError'));
+							$f3->set('content','addWine.htm');
+						}
+					}else{
+						$f3->set('color','red');
+						$f3->set('message',$f3->get('fieldsErrorExist'));
+						$f3->set('content','addWine.htm');
+					}
+				break;
 			}
 		}
 	}

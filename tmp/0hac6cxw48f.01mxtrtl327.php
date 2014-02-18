@@ -1,7 +1,7 @@
 <br/>
 <span style="color:<?php echo $color; ?>;"><?php echo $message; ?></span>
 <?php foreach (($result?:array()) as $item): ?>
-	<form method="post" action="modifyProfil" enctype="multipart/form-data">
+	<form method="post" action="modifyProfil">
 		<p>Modifier ou complétez votre profil : </p>
 		<label>Votre prénom : </label><input type="text" name="prenom"/><span>Ancien : (<?php echo $item['user_firstname']; ?>)</span><br/>
 		<label>Votre nom : </label><input type="text" name="nom"/><span>Ancien : (<?php echo $item['user_lastname']; ?>)</span><br/>

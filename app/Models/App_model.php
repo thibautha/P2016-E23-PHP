@@ -102,7 +102,27 @@ class App_model extends Model{
 	function addAvatar($mail, $image){
 		$this->dB->exec('UPDATE userwine SET user_img="'.$image.'" WHERE user_mail = "'.$mail.'"');
 		$user=$this->mapperUser->load(array('user_mail=?',$mail));
-		return $user[0]["user_img"];
+	}
+
+	function getNbWine($mail){
+		$user=$this->mapperUser->load(array('user_mail=?',$mail));
+		return $this->mapperWine->count(array('user_wine_id=?',$user["user_id"]));
+	}
+
+	function getUserWine($mail){
+		$user=$this->mapperUser->load(array('user_mail=?',$mail));
+		return $this->dB->exec('SELECT * FROM wine WHERE user_wine_id="'.$user['user_id'].'" ORDER BY wine_date_add, wine_time_add');
+	}
+
+	function addWine($mail,$wineName,$origin,$cepage,$millesim,$quantitee,$conseil,$wineImg){
+		$date_add=date("Y/m/d");
+		$dateTime = new DateTime();
+		$time_add= $dateTime->getTimestamp();
+		$user=$this->mapperUser->load(array('user_mail=?',$mail));
+		$this->dB->exec('INSERT INTO wine (wine_id,wine_name,wine_date_add,wine_time_add,wine_value,wine_origin,wine_cepage,wine_millesime,wine_quantitee,wine_conseil,wine_img,user_wine_id) 
+								VALUES ("","'.$wineName.'","'.$date_add.'",'.$time_add.',0,"'.$origin.'","'.$cepage.'",'.$millesim.',"'.$quantitee.'","'.$conseil.'","'.$wineImg.'","'.$user["user_id"].'")');
+		//return $this->mapperWine->load(array('user_wine_id=?',$user[0]["user_id"]));
+		//return $user[0]["user_id"];
 	}
 	/***********************************************************************************************************/
 	/******************************************** Fin code kévin **************************************************/

@@ -1,1 +1,27 @@
 <p>Ma cave</p>
+<a href="addWine">Ajouter un vin !</a>
+<span style="color:{{ @color }};">{{ @message }}</span>
+<div class="wine">
+	<repeat group="{{ @resultat }}" value="{{ @item }}">
+		<div style="border:1px solid black;">
+			<span>Nom : {{ @item.wine_name  }}</span>
+		    <br/>
+		    <span>Date d'ajout : {{ @item.wine_date_add  }}</span>
+		    <br/>
+		    <div class="img" style="height:100px;width:100px;overflow:hidden;">
+		    	<img style="height:120px;width:120px;" src="./avatars/{{ @item.wine_img  }}" alt="{{ @item.wine_img  }}"/>
+		    </div>
+		    <br/>
+		    <span>Origine : {{ @item.wine_origin  }}</span>
+		    <br/>
+		    <span>Cépage : {{ @item.wine_cepage  }}</span>
+		    <br/>
+		    <span>Millésime : {{ @item.wine_millesime  }}</span>
+		    <br/>
+		    <span>Nombre de bouteilles disponibles : {{ @item.wine_quantitee  }}</span>
+		    <br/>
+		    <span>Commentaires et/ou conseil de dégustation : </span><br/>
+		    <span>{{ @item.wine_conseil  }}</span>
+		</div>
+	</repeat>
+</div>
