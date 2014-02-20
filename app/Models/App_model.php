@@ -143,15 +143,35 @@ class App_model extends Model{
 		return $randomWine[0];
 	}
 
+
 	/*rechercher un vin*/
-	function search($wine){
-		$results=$this->dB->exec('SELECT * FROM wine WHERE wine_name="'.$wine.'"');
+	function search($searchedWine){
+
+		// On récupère dans la BD le(s) vin(s) correspondants
+		$results=$this->dB->exec('SELECT * FROM wine WHERE wine_name="'.$searchedWine.'"');
+		
+		//si aucun vin n'a été trouvé 
 		if(!$results){
+			// on retourne le chiffre 0
 			return 0;
+		//sinon
 		}else{
+			//pour chaque vin trouvé, soit pour chaque array 'wine' dans le array 'results'
+			foreach($results as &$wine){
+
+				// on récupère le nom du propriétaire dans la bdd 
+				$user_firstname= $this->dB->exec('SELECT user_firstname FROM userwine, wine WHERE userwine.user_id=wine.user_wine_id AND wine.wine_id="'.$wine['wine_id'].'"');
+
+				// et on l'ajoute à l'array 'wine'
+				$wine['user_firstname'] = $user_firstname[0]['user_firstname'];
+
+			}
+
+			//On retourne les résultats
 			return $results;
 		}
 	}
+
 
 	/* afficher un vin en single view*/
 	function getWine($id){

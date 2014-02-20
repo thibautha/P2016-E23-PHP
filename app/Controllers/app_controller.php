@@ -13,6 +13,10 @@ class App_controller extends Controller{
 
 	//page d'accueil
 	public function home($f3){
+
+		// Ajout fonction d'Améziane : afficher un vin aléatoire 
+		$f3->set('randomWine', $this->getRandomWine());
+		
 		if(!$f3->get('SESSION.ID')){
 			$f3->set('content','home.htm');
 		}else{

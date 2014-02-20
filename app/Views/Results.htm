@@ -4,7 +4,7 @@
 	<true>
 		<repeat group="{{ @results }}" value="{{ @wine }}">
 
-		    <h3><a href="/vin/{{@wine.wine_id}}">{{ @wine.wine_name }}</a>, posté par <a href="/user/{{@wine.user_wine_id}}">{{ @wine.user_wine_id }}</a></h3>
+		    <h3><a href="./vin/{{@wine.wine_id}}">{{ @wine.wine_name }}</a>, posté par <a href="./user/{{@wine.user_wine_id}}">{{ @wine.user_wine_id }}</a></h3>
 			<ul>
 				<li>Millésime : {{@wine.wine_millesime}}</li>
 				<li>Cépage : {{@wine.wine_cepage}}</li>
