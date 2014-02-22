@@ -1,0 +1,14 @@
+<br/>
+<repeat group="{{ @result }}" value="{{ @item }}">
+	<div style="border:1px solid black;width:350px;display:inline-block;vertical-align:top;">
+		<span>Nom : {{ @item.user_lastname  }}</span>
+	    <br/>
+	    <span>Prénom : {{ @item.user_firstname  }}</span>
+	    <br/>
+	    <div class="img" style="height:100px;width:100px;overflow:hidden;">
+	    	<img style="height:120px;width:120px;" src="./avatars/{{ @item.user_img  }}" alt="{{ @item.user_img  }}"/>
+	    </div>
+	    <br/>
+	    <a href="addFavUser/{{ @item.user_id }}">Ajouter aux favoris</a>
+	</div>
+</repeat>
