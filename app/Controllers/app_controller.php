@@ -9,6 +9,7 @@ class App_controller extends Controller{
 		$f3->set('error', '');	
 		$f3->set('message','');
 		$f3->set('color','');
+		$f3->set('fav','favNo');
 	}
 
 	//page d'accueil
@@ -357,7 +358,19 @@ class App_controller extends Controller{
 			$f3->reroute('/');
 		}else{
 			$others = $this->model->getOtherUsers($f3->get('SESSION.ID'));
-			//print_r($others);
+			for($i=0; $i<sizeof($others);$i++){
+				$checkFav = $this->model->checkFav($f3->get('SESSION.ID'), $others[$i]['user_id']);
+				//print_r(sizeof($checkFav));
+				//print_r($checkFav);
+				if($checkFav==1){
+					$f3->set('fav','favYes');
+				}else{
+					$f3->set('fav','favNo');
+				}
+			}
+
+			//$checkFav = $this->model->checkFav($f3->get('SESSION.ID'))
+			//print_r(sizeof($others));
 			$f3->set('result',$others);
 			$f3->set('content','listUsers.htm');
 

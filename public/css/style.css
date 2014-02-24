@@ -1,0 +1,11 @@
+div.fav{
+	height: 10px;
+	width: 10px;
+	border:1px solid black;
+}
+div.favNo{
+	background-color:#124578;
+}
+div.favYes{
+	background-color:#895623;
+}

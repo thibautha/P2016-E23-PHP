@@ -129,10 +129,25 @@ class App_model extends Model{
 
 	function addFavUser($mail,$otherID){
 		$currentUser = $this->mapperUser->load(array('user_mail=?',$mail));
-		$this->mapperFavUser->user_id=$currentUser['user_id'];
-		$this->mapperFavUser->favori_id=$otherID;
-		$this->mapperFavUser->colorFavori="#124578";
-		$this->mapperFavUser->save();
+		$fav = $this->mapperFavUser->load(array('user_id=?',$currentUser['user_id']));
+		if($fav['favori_id']==$otherID){
+			$fav->erase();
+			return false;
+		}else{
+			$this->mapperFavUser->user_id=$currentUser['user_id'];
+			$this->mapperFavUser->favori_id=$otherID;
+			$this->mapperFavUser->save();
+			return true;
+		}
+	}
+	function checkFav($mail, $otherID){
+		$currentUser = $this->mapperUser->load(array('user_mail=?',$mail));
+		$fav = $this->mapperFavUser->load(array('user_id=?',$currentUser['user_id']));
+		if($fav['favori_id']==$otherID){
+			return 1;
+		}else{
+			return 0;
+		}
 	}
 
 	function getUserWines($mail){
