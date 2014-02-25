@@ -11,7 +11,8 @@
 </head>
 <body class="clearfix">
 	<p>Layout</p>
-	
+	<p>
+</p>
 	<?php echo $this->render('partials/header.htm',$this->mime,get_defined_vars()); ?>
 
 	<?php echo $this->render($content,$this->mime,get_defined_vars()); ?>

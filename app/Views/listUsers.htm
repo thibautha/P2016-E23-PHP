@@ -9,6 +9,6 @@
 	    	<img style="height:120px;width:120px;" src="./avatars/{{ @item.user_img  }}" alt="{{ @item.user_img  }}"/>
 	    </div>
 	    <br/>
-	    <a href="addFavUser/{{ @item.user_id }}"><div class="fav {{ @fav }}"></div></a>
+	    <a href="addFavUser/{{ @item.user_id }}"><div class="fav fav{{ @item.fav  }}"></div></a>
 	</div>
 </repeat>

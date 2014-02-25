@@ -134,20 +134,26 @@ class App_model extends Model{
 			$fav->erase();
 			return false;
 		}else{
-			$this->mapperFavUser->user_id=$currentUser['user_id'];
+			$this->dB->exec('INSERT INTO favoris_user(user_id, favori_id) VALUES ("'.$currentUser["user_id"].'","'.$otherID.'")');
+			/*$this->mapperFavUser->user_id=$currentUser['user_id'];
 			$this->mapperFavUser->favori_id=$otherID;
-			$this->mapperFavUser->save();
+			$this->mapperFavUser->save();*/
 			return true;
 		}
 	}
+
 	function checkFav($mail, $otherID){
 		$currentUser = $this->mapperUser->load(array('user_mail=?',$mail));
-		$fav = $this->mapperFavUser->load(array('user_id=?',$currentUser['user_id']));
-		if($fav['favori_id']==$otherID){
-			return 1;
-		}else{
-			return 0;
+		//$fav = $this->mapperFavUser->load(array('user_id=?',$currentUser['user_id']));
+		$fav = $this->dB->exec('SELECT favori_id FROM favoris_user WHERE user_id="'.$currentUser['user_id'].'"');
+		$rep = "No";
+		for($i=0; $i<sizeof($fav);$i++){
+			if($fav[$i]['favori_id']==$otherID){
+				$rep = "Yes";
+			}
 		}
+		return $rep;
+		print_r($fav);
 	}
 
 	function getUserWines($mail){

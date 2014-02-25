@@ -9,6 +9,6 @@
 	    	<img style="height:120px;width:120px;" src="./avatars/<?php echo $item['user_img']; ?>" alt="<?php echo $item['user_img']; ?>"/>
 	    </div>
 	    <br/>
-	    <a href="addFavUser/<?php echo $item['user_id']; ?>"><div class="fav <?php echo $fav; ?>"></div></a>
+	    <a href="addFavUser/<?php echo $item['user_id']; ?>"><div class="fav fav<?php echo $item['fav']; ?>"></div></a>
 	</div>
 <?php endforeach; ?>

@@ -358,19 +358,12 @@ class App_controller extends Controller{
 			$f3->reroute('/');
 		}else{
 			$others = $this->model->getOtherUsers($f3->get('SESSION.ID'));
-			for($i=0; $i<sizeof($others);$i++){
-				$checkFav = $this->model->checkFav($f3->get('SESSION.ID'), $others[$i]['user_id']);
-				//print_r(sizeof($checkFav));
-				//print_r($checkFav);
-				if($checkFav==1){
-					$f3->set('fav','favYes');
-				}else{
-					$f3->set('fav','favNo');
-				}
-			}
 
-			//$checkFav = $this->model->checkFav($f3->get('SESSION.ID'))
-			//print_r(sizeof($others));
+			foreach ($others as &$other) {
+			    $other['fav'] = $this->model->checkFav($f3->get('SESSION.ID'), $other['user_id']);
+			}
+			unset($other);
+
 			$f3->set('result',$others);
 			$f3->set('content','listUsers.htm');
 
