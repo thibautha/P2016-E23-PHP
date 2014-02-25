@@ -7,6 +7,7 @@ class App_model extends Model{
 		$this->mapperUser=$this->getMapper('userwine');
 		$this->mapperWine=$this->getMapper('wine');
 		$this->mapperFavUser=$this->getMapper('favoris_user');
+		$this->mapperFavWine=$this->getMapper('favoris_wine');
 	}
 
 
@@ -203,6 +204,51 @@ class App_model extends Model{
 		$wine=$this->mapperWine->load(array('wine_id=?',$wineID));
 		$wine->wine_img=$img;
 		$wine->save();
+	}
+
+	function getOtherWines($mail){
+		//return $this->mapperUser->load(array('user_mail!=?',$mail));
+		$currentUser = $this->mapperUser->load(array('user_mail!=?',$mail));
+		return $this->dB->exec('SELECT wine_name, wine_img, wine_id FROM wine WHERE user_wine_id!="'.$currentUser['user_id'].'" ORDER BY wine_name DESC');
+	}
+
+	function addFavWine($mail,$otherWineID){
+		$currentUser = $this->mapperUser->load(array('user_mail=?',$mail));
+		$favWine = $this->mapperFavWine->find(array('user_id=?',$currentUser['user_id']));
+		$val=1;
+		$pos=0;
+		for($i=0;$i<sizeof($favWine);$i++){
+			if($favWine[$i]['wine_id']==$otherWineID){
+				$val=0;
+				$pos=$i;
+			}
+		}
+		if($val==0){
+			$favWine[$pos]->erase();
+			return false;
+		}else{
+			$this->dB->exec('INSERT INTO favoris_wine(wine_id, user_id) VALUES ("'.$otherWineID.'", "'.$currentUser["user_id"].'")');
+			/*$this->mapperFavUser->user_id=$currentUser['user_id'];
+			$this->mapperFavUser->favori_id=$otherID;
+			$this->mapperFavUser->save();*/
+			return true;
+		}
+	}
+
+	function checkFavWine($mail, $otherWineID){
+		$currentUser = $this->mapperUser->load(array('user_mail=?',$mail));
+		//$fav = $this->mapperFavUser->load(array('user_id=?',$currentUser['user_id']));
+		$favWine = $this->dB->exec('SELECT wine_id FROM favoris_wine WHERE user_id="'.$currentUser['user_id'].'"');
+		//print_r("ça passe");
+		//print_r($favWine[0]['wine_id']);
+		//print_r($otherWineID);
+		$rep = "No";
+		for($i=0; $i<sizeof($favWine);$i++){
+			if($favWine[$i]['wine_id']==$otherWineID){
+				$rep = "Yes";
+			}
+		}
+		return $rep;
 	}
 	/***********************************************************************************************************/
 	/******************************************** Fin code kévin **************************************************/

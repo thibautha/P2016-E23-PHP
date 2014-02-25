@@ -570,6 +570,32 @@ class App_controller extends Controller{
 	    }  	
 	}
 
+	public function otherWines($f3){
+		if(!$f3->get('SESSION.ID')){
+			$f3->reroute('/');
+		}else{
+			$otherWines = $this->model->getOtherWines($f3->get('SESSION.ID'));
+
+			foreach ($otherWines as &$otherWine) {
+			    $otherWine['fav'] = $this->model->checkFavWine($f3->get('SESSION.ID'), $otherWine['wine_id']);
+			}
+			unset($otherWine);
+
+			$f3->set('result',$otherWines);
+			$f3->set('content','listWines.htm');
+
+		}
+	}
+
+	public function addFavWine($f3){
+		if(!$f3->get('SESSION.ID')){
+			$f3->reroute('/');
+		}else{
+			$test = $this->model->addFavWine($f3->get('SESSION.ID'),$f3->get('PARAMS.otherWineId'));
+			$f3->reroute('/otherWines');
+		}
+	}
+
 	/* sign out */
 	public function loggout($f3){
 		session_destroy();

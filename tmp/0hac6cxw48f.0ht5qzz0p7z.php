@@ -6,7 +6,9 @@
 <br/>
 <a href="maCave">Cave</a>
 <br/>
-<a href="otherUsers">Les autres</a>
+<a href="otherUsers">Les autres users</a>
+<br/>
+<a href="otherWines">Les autres vins</a>
 
 <?php echo $this->render('./partials/SearchWine.htm',$this->mime,get_defined_vars()); ?>
 <?php echo $this->render('./partials/WineShuffle.htm',$this->mime,get_defined_vars()); ?>
