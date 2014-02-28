@@ -19,8 +19,10 @@ class App_controller extends Controller{
 		$f3->set('randomWine', $this->getRandomWine());
 		
 		if(!$f3->get('SESSION.ID')){
+			$f3->set('lastWines', $this->getLastWines());
 			$f3->set('content','home.htm');
 		}else{
+			$f3->set('lastWines', $this->getFavoriteUsersLastWines());
 			$f3->set('content','homeLog.htm');
 		}
 	}
@@ -622,14 +624,6 @@ class App_controller extends Controller{
 		$f3->set('content','PageAmez.htm');
 	}
 
-	//Afficher un vin aléatoire
-	public function getRandomWine(){
-
-    	$randomWine=$this->model->getRandomWine();
-
-		return $randomWine;
-
-	}
 
 	/*Rechercher un vin */
 	public function search($f3){
@@ -648,6 +642,33 @@ class App_controller extends Controller{
 			echo "Vous devez rentrer le nom d'un vin !";
 			$f3->set('content','Results.htm');
 		}*/
+	}
+
+	/* Récupérer les derniers vins */
+	public function getLastWines(){
+
+		$lastWines = $this->model->getLastWines();
+
+		return $lastWines;
+	}
+
+
+	/*Récupérer les 5 derniers vins de nos utilisateurs favoris*/
+	public function getFavoriteUsersLastWines(){
+
+		$results = $this->model->getFavoriteUsersLastWines(2);
+
+		return $results;
+	}
+
+
+	//Afficher un vin aléatoire
+	public function getRandomWine(){
+
+    	$randomWine=$this->model->getRandomWine();
+
+		return $randomWine;
+
 	}
 
 	public function getWine($f3){

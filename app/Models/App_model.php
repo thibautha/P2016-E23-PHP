@@ -258,56 +258,70 @@ class App_model extends Model{
 
 	/************************  Code d'améziane *****************************/
 
-	/* afficher un vin aléatoirement*/
-	function getRandomWine(){
-
-		// On sélectionne un vin aléatoirement dans la base de données  
-		// On stocke ses données dans la variable $randomWine qui est un array
-		$randomWine = $this->dB->exec('SELECT * FROM wine ORDER BY RAND() LIMIT 1');
-		// Cette variable contient elle-même un array avec toutes les informations sur le vin
-		// ON retourne celui-ci
-		return $randomWine[0];
-	}
-
-
 	/*rechercher un vin*/
 	function search($searchedWine){
 
 		// On récupère dans la BD le(s) vin(s) correspondants
-		$results=$this->dB->exec('SELECT * FROM wine WHERE wine_name="'.$searchedWine.'"');
+		$results=$this->dB->exec('SELECT * FROM wine, userwine WHERE wine.user_wine_id = userwine.user_id AND wine_name="'.$searchedWine.'"');
 		
 		//si aucun vin n'a été trouvé 
 		if(!$results){
 			// on retourne le chiffre 0
 			return 0;
-		//sinon
+		//sinon on retourne les résultats 
 		}else{
-			//pour chaque vin trouvé, soit pour chaque array 'wine' dans le array 'results'
-			foreach($results as &$wine){
-
-				// on récupère le nom du propriétaire dans la bdd 
-				$user_firstname= $this->dB->exec('SELECT user_firstname FROM userwine, wine WHERE userwine.user_id=wine.user_wine_id AND wine.wine_id="'.$wine['wine_id'].'"');
-
-				// et on l'ajoute à l'array 'wine'
-				$wine['user_firstname'] = $user_firstname[0]['user_firstname'];
-
-			}
-
-			//On retourne les résultats
 			return $results;
 		}
+	}
+
+
+	/* Afficher les derniers vins*/
+	function getLastWines(){
+		$lastWines = $this->dB->exec('
+			SELECT wine_id, wine_name, wine_img, user_wine_id, user_firstname 
+			FROM wine, userwine 
+			WHERE wine.user_wine_id = userwine.user_id
+			ORDER BY wine_date_add DESC 
+			LIMIT 5
+			');
+
+		return $lastWines;
+	}
+
+	/* Afficher les derniers vins de nos utilisateurs favoris */
+	function getFavoriteUsersLastWines($id){
+
+		//On récupère et stocke les 5 derniers vins de nos utilisateurs favoris dans la variable suivante : 
+		$results = $this->dB->exec('
+			SELECT us.user_id, us.user_firstname, wine_id, wine_name, wine_img
+			FROM favoris_user fa
+			INNER JOIN userwine us ON fa.favori_id = us.user_id
+			INNER JOIN wine ON us.user_id = wine.user_wine_id
+			WHERE fa.user_id ="'.$id.'"
+			ORDER BY wine_time_add DESC
+			LIMIT 5 
+		');
+		//On retourne celle-ci : 
+		return $results;
+	}
+
+	/* Afficher un vin aléatoirement*/
+	function getRandomWine(){
+
+		// On sélectionne un vin aléatoirement dans la base de données  
+		// On stocke ses données dans la variable $randomWine qui est un array
+		$randomWine = $this->dB->exec('SELECT * FROM wine ORDER BY RAND() LIMIT 1');
+		// Cette variable contient l'array avec toutes les informations sur le vin
+		// On retourne celui-ci
+		return $randomWine[0];
 	}
 
 
 	/* afficher un vin en single view*/
 	function getWine($id){
 		//on récupère les informations sur le vin avec l'id correspondant dans un array $wine
-		$wine = $this->dB->exec('SELECT * FROM wine WHERE wine_id="'.$id.'"');
-		//on récupère le prénom de son possesseur dans un array $user_firstname
-		$user_firstname= $this->dB->exec('SELECT user_firstname FROM userwine, wine WHERE userwine.user_id=wine.user_wine_id AND wine.wine_id="'.$id.'"');
-		//On l'ajoute dans l'array $wine
-		$wine[0]['user_firstname'] = $user_firstname[0]['user_firstname'];
-		// On retourne le tableau
+		$wine = $this->dB->exec('SELECT * FROM wine, userwine WHERE wine.user_wine_id = userwine.user_id AND wine_id="'.$id.'"');
+		// On retourne le résultat
 		return $wine[0];
 	}
 	/************************** Fin code améziane **********************************/
