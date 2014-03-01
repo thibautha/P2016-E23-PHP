@@ -1,18 +1,13 @@
-div.fav{
-	height: 10px;
-	width: 10px;
-	border:1px solid black;
-}
-div.favNo{
-	background-color:#124578;
-}
-div.favYes{
-	background-color:#895623;
-}/* BALISES GENERALES */
+/* BALISES GENERALES */
 
-html, body {
+/*html, body {
 	height: 100%;
+}*/
+
+html {
+	width:100%;
 }
+
 
 @font-face {
 font-family: 'Calligraffiti';
@@ -642,7 +637,7 @@ html {
 	#profil h3 {
 		color:#81363b;
 		display: inline-block;
-		margin-top: 65px;
+		margin-top: 55px;
 		margin-bottom: 14px;
 		width:100%;
 		font-size: 1.5em;
@@ -999,8 +994,161 @@ color:black;
 	    background: white;
 	    }
 	    
-	
+	    
+	    
+	    
+	    
+	    
+	    
+#overlay3{
+    display: none;
+    position: fixed;
+    top:0; right:0; bottom:0; left:0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    
+    
+    
+    
+    
+}
+#overlay3:target{
+    display: block;
+}
+.popup_block{
+    background: #fff;
+    padding: 20px;
+    border: 2px solid #81363b;
+    position: relative;
+    margin: 10% auto;
+    width: 680px;
+    height:385px;
+    background: rgba(230,205,170,1);
+    box-shadow: 0px 0px 20px #000;
+    
+}
+
+	.popup_block label{
+		width:295px;
+		display:inline-block;
+		margin-bottom: 28px;
+		color:#887559;
+		font-size: 0.8em;
+		
 			
+	}
+	
+	.popup_block > h2 {
+		text-align: center;
+		font-size: 1.2em;
+		color:#887559;
+	}
+	
+		.popup_block > h2:after {
+			content: "";
+			display: block;
+			height: 1px;
+			background: #887559;
+			width: 114px;
+			margin-top: 16px;
+			margin: 0 auto;
+			margin-top: 1px;
+		}
+	
+	.popup_block form {
+		width:510px;
+		margin: 0 auto;
+		margin-top:35px;
+	}
+	
+	.popup_block input {
+		height:25px;
+		width:205px;
+		background: #e0c8a6;
+		border: 1px solid #c3ac8c;
+		text-align: center;
+		color: #81363b;
+		font-size: 1em;
+		
+	}
+	
+	.popup_block #photo{
+		width:170px;
+		margin-top: 33px;
+		
+	}
+	
+	.popup_block img{
+		height:93px;
+		width:52px;
+		display:inline;
+		position:absolute;
+		margin-left: 18px;
+		
+	}
+	
+	.popup_block a {
+		width:90px;
+		text-decoration: none;
+		padding:2px 30px 2px 30px;
+		line-height: 6;
+		
+	}
+	
+	.popup_block a:nth-child(3) {
+	
+		background:#81363b;
+		color:white;
+		margin-left: 220px;
+	}
+	
+	.popup_block a:nth-child(4) {
+		
+		background:#e6cdaa;
+		color:#81363b;
+		border: 1px solid #81363b;
+		margin-left: 20px;
+		
+	}
 
 	
 	
+img.btn_close {
+    float: right;
+    margin: -55px -55px 0 0;
+    
+}
+
+
+
+
+
+#erreur {
+	width:659px;
+	height:313px;
+	background: url(../img/fond-404.png);
+	padding: 65px 75px 55px;
+	position:absolute;
+	text-align: center;
+	margin-top: 100px;
+left: 18%;
+}
+
+#erreur h1 {
+		font-size: 2em;
+	color:white;
+	margin-bottom: 30px;
+}
+
+
+#erreur p {
+	margin-bottom: 50px;
+
+	color:white;	
+}
+
+#background {
+	background: url(../img/background-404.png);
+	height:100%;
+	
+}
