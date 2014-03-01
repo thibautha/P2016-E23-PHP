@@ -8,4 +8,999 @@ div.favNo{
 }
 div.favYes{
 	background-color:#895623;
+}/* BALISES GENERALES */
+
+html, body {
+	height: 100%;
 }
+
+@font-face {
+font-family: 'Calligraffiti';
+src: url('Calligraffiti-webfont.eot#') format('eot');
+      url('Calligraffiti-webfont.otf') format('truetype'),
+      url('Calligraffiti-webfont.woff') format('woff'),
+      url('Calligraffiti-webfont.svg#Calligraffiti-webfont') format('svg');
+}
+a, p, input {
+	font-family: FuturaStd;
+}
+
+footer {
+	height:10px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	clear:both;
+	background-color: #b04c4c;
+	position:absolute;
+}
+
+
+header {
+	height:70px;
+	width:100%;
+	background:rgba(0,0,0,0.3);
+
+}
+
+html {
+	background:url(../img/visuel_header.jpg);
+}
+
+.wrap {
+	padding-bottom: 10px;
+	height:100%;
+}
+
+.main {
+	min-height: 100%;
+	position: relative;;
+}
+
+.layout {
+	width:1240px;
+	margin: 0 auto;
+	height:100%;
+}
+
+
+
+
+
+/* PAGE INDEX */ 
+
+#logo {
+	margin-top: 18px;
+	display:inline-block;
+}
+
+#logo > img {
+	vertical-align: middle;
+}
+
+#users {
+	display:inline-block;
+	float:right;
+	height:100%;
+}
+
+.nav {
+	width:190px;
+	display:inline-block;
+	height:100%;
+	text-align: center;
+}
+	.nav:nth-child(1){
+		background:rgba(163, 0, 0, 0.3);
+			
+}
+	.nav:nth-child(2) > a{
+		color:#ffcc99;
+		
+	}
+	
+	.nav > a {
+		 position: relative;
+		 line-height: 4;
+		 
+		 text-decoration: none;
+		 color:white;
+	 }
+	
+	
+	.nav > a > img {
+		margin-left: 5px;
+	}
+
+
+#display-home {
+	height:357px;
+	width:100%;
+}
+	#message-home {
+		margin: 0 auto;
+		width: 995px;
+		text-align: center;
+		margin-top: 75px;
+		margin-bottom: 75px;
+}
+	#message-home > h1 {
+		color:white;
+		font-size: 1.5em;
+	}
+	
+	
+	
+	#search-home {
+		text-align:center;
+	}
+	
+	#search-home > input:nth-child(1) {
+		width:500px;
+		border-radius:10px;
+		border:solid 1px white;
+		height:50px;
+		opacity:0.75;
+		text-align: center;
+		font-size: 1.5em;
+	}
+	
+	
+	#search-home > input:nth-child(2) {
+		width:150px;
+		border-radius:10px;
+		margin-left:18px;
+		border:none;
+		height:50px;
+		background:#b04c4c;
+		color:#f0d7af;
+		-moz-box-shadow: 0px 3px 0px 0px #81363b;
+		-webkit-box-shadow: 0px 3px 0px 0px #81363b;
+		-o-box-shadow: 0px 3px 0px 0px #81363b;
+		box-shadow: 0px 3px 0px 0px #81363b;
+		filter:progid:DXImageTransform.Microsoft.Shadow(color=#660000, Direction=180, Strength=0);
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+		font-size: 1.5em;
+
+	}
+	
+#under-home {
+	height:505px;
+	width:100%;
+	padding-top: 45px;
+	background-image:url(../img/texture_bois.jpg);
+}	
+
+	#last-wines {
+	background:rgba(255,255,255,0.9);
+	width:725px;
+	height:380px;
+	float:left;
+	margin-top: 30px;
+	padding: 0px 45px 6px 45px;
+	}
+	
+	
+
+		#last-wines:before {
+		  height: 0;
+			margin-top: 0px;
+			width: 755px;
+			content: "";
+			position: absolute;
+			border-bottom: 30px solid rgba(255, 255, 255, 0.9);
+			border-left: 30px solid rgba(0,0,0,0);
+			border-right: 30px solid rgba(0,0,0,0);
+			margin-top: -30px;
+			margin-left: -45px;
+		}
+		#last-wines:after {
+		   height: 0;
+		   width: 755px;
+		   border-bottom: 30px  rgba(255, 255, 255, 0.9);
+		   content:"";
+		   position: absolute; 
+		   border-top: 30px solid rgba(255, 255, 255, 0.9);
+		   border-left: 30px solid rgba(0,0,0,0);  
+		   border-right: 30px solid rgba(0,0,0,0); 
+		 margin: 340px 0 0 -45px;
+		}
+			
+			
+			
+	
+	
+	
+	#last-wines > .last-wine:nth-child(n+3){
+		margin-left: 40px;
+		
+	}
+		
+		.last-wine {
+			float:left;
+			width:150px;
+			height:338px;
+			text-align: center;
+		}
+		
+		.last-wine > a, .last-wine > p { 
+		display:inline;
+		padding:2px;
+		color:#b04c4c;
+		
+		}
+		
+		.last-wine > a:nth-last-child(1){
+			color:#b04c4c;
+			text-decoration: none;
+			border: 1px solid #b04c4c;
+			background: white;
+			margin-top: 10px;
+			line-height: 2;
+			border-radius: 3px;
+			padding-right: 15px;
+			padding-left: 15px;
+		}
+		
+		 .last-wine > a:nth-last-child(2){
+		color:#b04c4c;
+			text-decoration: none;
+			border: 1px solid #b04c4c;
+			background: white;
+			margin-top: 10px;
+			line-height: 2;
+			border-radius: 3px;
+			padding-left: 12px;
+			padding-right: 12px;
+			
+		}
+	
+		#display-last-wine {
+			height:235px;
+			width:150px;
+			background: #b04c4c;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			
+		}
+		
+		#display-last-wine > h3 {
+			color:white;
+			margin-top: 8px;
+			font-size: 1.2em;
+		}
+		
+		#display-last-wine > img {
+			width:141px;
+			height:190px;
+			margin-top: 5px;
+		}
+		
+		
+	#random {
+		background:rgba(255,255,255,0.9);
+		width:346px;
+		height:380px;
+		float:right;
+		padding: 0px 25px 6px 25px;
+		margin-top: 30px;
+		
+		
+	}
+	
+	#random:before {
+		  height: 0;
+			margin-top: 0px;
+			width: 335px;
+			content: "";
+			position: absolute;
+			border-bottom: 30px solid rgba(255, 255, 255, 0.9);
+			border-left: 30px solid rgba(0,0,0,0);
+			border-right: 30px solid rgba(0,0,0,0);
+			margin-top: -30px;
+			margin-left: -25px;
+		}
+		#random:after {
+		   height: 0;
+		   width: 336px;
+		   border-bottom: 30px  rgba(255, 255, 255, 0.9);
+		   content:"";
+		   position: absolute; 
+		   border-top: 30px solid rgba(255, 255, 255, 0.9);
+		   border-left: 30px solid rgba(0,0,0,0);  
+		   border-right: 30px solid rgba(0,0,0,0); 
+		 margin: 62px 0 0 -228px;
+		}
+
+	
+		#random-wine {
+			height:253px;
+			width:351px;
+			margin-top: 50px;
+		}
+		
+		#random-wine > h3 {
+			margin-left: 132px;
+			background: #b04c4c;
+			color: white;
+			padding: 5px 5px 5px 20px;
+			font-size: 1.3em;
+		}
+		
+		#random-wine > ul {
+			margin-top: 30px;
+			margin-left: 169px;
+			margin-bottom: 30px;
+			color:#b04c4c;
+		}
+		
+		#random-wine > ul > li {
+			line-height: 2;
+		}
+		
+		#ptit-conseil{
+			margin-left: 164px;
+			background: white;
+			border: 1px solid #b04c4c;
+			color:#b04c4c;
+			padding:5px;
+		}
+			#random-wine > img {
+				border: 2px solid #b04c4c;
+				height:242px;
+				width:142px;
+				float:left;
+			}
+			
+			#random > a {
+				text-decoration: none;
+				color:#b04c4c;
+				margin-left: 139px;
+				line-height: 3;				
+			}
+	
+	#last-wines h2, #random h2 {
+		color:#b04c4c;
+		text-align: center;
+		margin-bottom: 25px;
+			font-size: 1.3em;
+		
+	}
+	
+	
+	
+	
+	
+	
+
+
+
+/* PAGE RESULTATS */
+
+#wrapper {
+	min-height: 725px;
+
+	width:100%;
+	background: url(../img/texture_bois.jpg);
+	padding-top: 20px;
+	position:absolute;
+	padding-bottom:20px;
+	
+}
+
+#display-results{
+	height:70px;
+	text-align: center;
+	color:white;
+
+}
+
+#display-results  p {
+	position:relative;
+	top:50%;
+	
+}
+
+#filtre-results {
+	height:530px;
+	width:271px;
+	background:#904c4a;
+	border:2px solid white;
+	float:left;
+	-moz-box-shadow: 0px 2px 5px 0px #656565;
+	-webkit-box-shadow: 0px 2px 5px 0px #656565;
+	-o-box-shadow: 0px 2px 5px 0px #656565;
+	box-shadow: 0px 2px 5px 0px #656565;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=180, Strength=5);
+
+	
+}
+			input[type="checkbox"]:not(:checked),  
+			input[type="checkbox"]:checked {  
+		  position: absolute;  
+		  left: -9999px;  
+		}  
+			input[type="checkbox"]:not(:checked) + label,  
+			input[type="checkbox"]:checked + label {  
+		  position: relative; /* permet de positionner les pseudo-éléments */  
+		  padding-left: 25px; /* fait un peu d'espace pour notre case à venir */  
+		  cursor: pointer;    /* affiche un curseur adapté */  
+		}  
+		/* Aspect des checkboxes */  
+		/* :before sert à créer la case à cocher */  
+		input[type="checkbox"]:not(:checked) + label:before,  
+		input[type="checkbox"]:checked + label:before {  
+		  content: '';  
+		  position: absolute;  
+		  left:0; top: 2px;  
+		  width: 11px; 
+		  height: 11px; /* dim. de la case */  
+		  border: 1px solid #aaa;  
+		  background: #d2b7b6;   /* angles arrondis */  
+		  box-shadow: inset 0 1px 3px rgba(0,0,0,.3) /* légère ombre interne */  
+		}  
+   
+		/* Aspect général de la coche */  
+		input[type="checkbox"]:not(:checked) + label:after,  
+		input[type="checkbox"]:checked + label:after {  
+		  content: '✔';  
+		  position: absolute;  
+		  top: 1px; left: 3px;  
+		  font-size: 14px;  
+		  color: #641430;  
+		  transition: all .2s; /* on prévoit une animation */  
+		}  
+		/* Aspect si "pas cochée" */  
+		input[type="checkbox"]:not(:checked) + label:after {  
+		  opacity: 0; /* coche invisible */  
+		  transform: scale(0); /* mise à l'échelle à 0 */  
+		}  
+		/* Aspect si "cochée" */  
+		input[type="checkbox"]:checked + label:after {  
+		  opacity: 1; /* coche opaque */  
+		  transform: scale(1); /* mise à l'échelle 1:1 */  
+		  
+		  
+		}
+
+  
+			#filtre-results form p {
+			display:block;
+			color:#f3c7c7;
+			margin-left: 80px;
+			margin-left: 20px;
+			margin-top: 5px;
+			margin-bottom: 13px;
+			font-size: 0.9em;
+			
+			
+		}
+		
+		
+			.filtre-choice {
+			display:block;
+			color:white;
+			margin-left: 50px;
+			margin-top: 20px;
+			margin-bottom: 10px;
+			
+			}
+		
+		#filtre-results form {
+			width:149px;
+			margin: 0 auto;
+		}
+		
+		/*#filtre-results input {
+			display:inline-block;
+			margin-bottom: 1px;
+		}*/
+		
+		/*#filtre-results label {
+			display:inline-block;
+			width:125px;
+			color:#f3c7c7;
+			margin-top: 5px;
+		*/
+
+
+	
+
+	#wine-results{
+		width: 940px;
+		height:100%;
+		margin-left: 300px;
+		}
+.wine-result {
+	width: 452px;
+	height: 263px;
+	background: #faf4ec;
+	padding: 10px 0px 0px 10px;
+	float: left;
+	margin-right: 8px;
+	margin-bottom: 8px;
+	-moz-box-shadow: 0px 2px 5px 0px #656565;
+	-webkit-box-shadow: 0px 2px 5px 0px #656565;
+	-o-box-shadow: 0px 2px 5px 0px #656565;
+	box-shadow: 0px 2px 5px 0px #656565;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=180, Strength=5);
+	} 
+	
+	.wine-result img {
+		width:135px;
+		height:251px;
+	}
+	
+	.wine-result a {
+		color:#81363b;
+	}
+
+.infos {
+	width:296px;
+	height:249px;
+	border: 1px solid #b04c4c;
+	float:left;
+	margin-right: 10px;
+	background: white;
+
+}
+		.proposition input {
+			border: none;
+			width: 240px;
+			margin-left: 26px;
+			margin-top: 20px;
+			background:#84383d;
+			color: white;
+			font-size: 1.2em;
+			height: 25px;
+		}
+		
+		.proposition:before { 
+		height: 0;
+		   width: 218px;
+		   margin: 10px 0px 0px 26px;
+		   content:"";
+		   position: absolute; 
+		   border-bottom: 11px solid #84383d;
+		   border-left: 11px solid rgba(0,0,0,0); 
+		   border-right:11px solid rgba(0,0,0,0);
+			
+		}
+		
+		
+		
+		.proposition:after {
+
+   height: 0;
+   width: 218px;
+   content:"";
+   position: absolute; 
+   border-top: 11px solid #84383d; 
+   border-left: 11px solid rgba(0,0,0,0); 
+   border-right:11px solid rgba(0,0,0,0);
+    margin-top: 45px;
+   margin-left: -240px;
+}
+			
+		
+		
+		
+		.infos h1 {
+			text-align: center;
+			color:#b04c4c;
+			margin-top: 10px;
+			font-size: 1.5em;
+		}
+		
+
+		.infos p:nth-child(2){
+			margin-left: 170px;
+			color:#b04c4c;
+		}
+		
+		.infos ul {
+			margin-left: 40px;
+			margin-top: 12px;
+		}
+		
+		.title-info {
+			color:#b04c4c;
+		}
+		
+		.infos ul li {
+			color:#663333;
+			margin-top: 5px;
+		}
+		
+		.infos p:nth-child(2) > a {
+			font-weight: 100;
+			color: #b04c4c;
+}
+
+
+
+
+/* Display profil */
+
+
+#display-profil {
+	height:252px;
+}
+
+	#profil {
+		height:180px;
+		width:680px;
+		margin: 0 auto;
+		background: white;
+		margin-top: 37px;
+		background: url(../img/fond-profil.png);
+	
+	}
+	
+	#profil h3 {
+		color:#81363b;
+		display: inline-block;
+		margin-top: 65px;
+		margin-bottom: 14px;
+		width:100%;
+		font-size: 1.5em;
+		text-align: center;
+	}
+	
+	.roundedImage{
+    overflow:hidden;
+    -webkit-border-radius:50px;
+    -moz-border-radius:50px;
+    border-radius:50px;
+    width:77px;
+    height:77px;
+    border: #81363b 2px solid;
+	position: absolute;
+	margin-left: 300px;
+	margin-top: -25px;
+	}
+	
+	#profil-infos {
+	width: 605px;
+	height: 43px;
+	margin-left: 75px;
+	}
+	
+	#profil-infos p {
+		display:inline-block;
+		color:#5d2529;
+	}
+	
+	#profil-infos p:nth-child(1),  #profil-infos p:nth-child(3){
+	width:322px;
+		
+	}
+	
+	#profil-infos p:nth-child(2),  #profil-infos p:nth-child(4){
+		width:245px;
+	}
+	
+	#profil > a {
+		color:#5d2529;
+		margin-left: 475px;
+		line-height: 2;
+	}
+	
+	
+	
+	
+#my-cave {
+	width:956px;
+	height:100%;
+	float:left;
+}
+
+#my-cave h2, #my-friend h2{
+	text-align: center;
+	font-size:1.5em;
+	color:#81363b;
+	margin-bottom: 10px;
+}
+
+#my-cave p:nth-child(2), #my-friend p:nth-child(2) {
+	text-align: center;
+	color:#81363b;
+}
+
+	#display-cave {
+		margin-top:30px;
+		width:956px;
+		height:100%;
+	}
+		
+		 .display-wine {
+			 width:269px;
+			 height:223px;
+			 float:left;
+			 display:inline-block;
+			 margin-right: 20px;
+			 margin-bottom: 20px;
+		 }
+		
+		#add-wine {
+			background: white;
+			opacity:0.5;
+			border: 4px dashed grey;
+			width:290px;
+			height:248px;
+			display:inline-block;
+			float:left;
+			margin-right: 20px;
+		}
+		
+		
+		#add {
+			width:122px;
+			height:95px;
+			position: relative;
+			top: 25%;
+			left: 30%;
+			text-align: center;
+			
+			
+}
+			
+		#add input {
+		-webkit-border-radius:50px;
+	    -moz-border-radius:50px;
+	    border-radius:50px;
+	    width:80px;
+	    height:80px;
+	    font-size: 2.5em;
+	    color:white;
+	    border:none;
+	    border-bottom: 2px solid grey;
+	    margin-bottom: 20px;
+	    cursor:pointer;
+	
+			
+		}	
+		#add a {
+			color:black;
+			position:relative;
+			text-decoration: none;
+		}
+		
+		.display-wine {
+		
+		border:5px solid white;
+		background: #f2e2c8;
+		padding:10px;
+		-moz-box-shadow: 0px 2px 5px 0px #656565;
+		-webkit-box-shadow: 0px 2px 5px 0px #656565;
+		-o-box-shadow: 0px 2px 5px 0px #656565;
+		box-shadow: 0px 2px 5px 0px #656565;
+		filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=180, Strength=5);
+
+			
+		}
+		
+			.display-wine h1 {
+				color:#81363b;
+				text-align: center;
+				font-size: 1.3em;
+				
+			}
+			.display-wine-infos {
+				
+				width:292px;
+				height:141px;
+				margin-top: 20px;
+			}
+				.display-wine-infos a {
+					color:#81363b;
+				}
+			
+				.display-wine-infos img {
+					height:138px;
+					width:77px;
+					float:left;
+					margin-right: 15px;
+				}
+				
+				.display-wine-infos ul {
+				position: relative;
+				top: 5%;
+				
+				}
+				
+				.display-wine-infos ul li {
+						color:#663333;
+						margin-top: 5px;
+					}
+					
+				
+				.display-wine input {
+					border:none;
+					background:#81363b;
+					color:white;
+					margin-top: 16px;
+					font-size: 1em;
+					width:80px;
+					cursor:pointer;
+				}
+				
+				.display-wine input:nth-child(3) {
+					margin-left: 60px;
+				}
+				
+				
+				
+#my-friend {
+	width:243px;
+	height:100%;
+	float:right;
+	
+}
+	
+	#display-friend {
+		height: 475px;
+		width:210px;
+		margin-top: 30px;
+		background:#edd4ab;
+		padding-left:34px;
+		padding-right: 5px;
+		padding-top: 25px;
+		overflow: hidden;
+		-moz-box-shadow: 0px 2px 5px 0px #656565;
+		-webkit-box-shadow: 0px 2px 5px 0px #656565;
+		-o-box-shadow: 0px 2px 5px 0px #656565;
+		box-shadow: 0px 2px 5px 0px #656565;
+		filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=180, Strength=5);
+	}
+	
+	.friend {
+		height:90px;
+		width:70px;
+		text-align: center;
+		color:#81363b;
+		font-size: 1em;
+		float:left;
+		margin-right: 35px;
+		margin-bottom: 25px;
+	}
+	
+	.friend img {
+		height: 60px;
+		width:60px;
+		border:4px solid white;
+		outline: #9b5f63 2px solid;
+		margin-bottom: 5px;
+	}
+	
+	.friend a {
+		text-decoration: none;
+		color:#5d2529;
+		word-wrap: break-word;
+	}
+	
+	
+	
+/* INSCRIPTION */ 
+
+
+#inscription {
+	width: 725px;
+height: 100%;
+margin: 0 auto;
+padding-bottom: 30px;
+}
+	
+	#envoyer{
+		width:155px;
+		height:38px;
+		border:none;
+		background: #81363b;
+		color:white;
+		margin-left: 282px;
+		margin-top: 30px;
+		font-size: 1em;
+	}
+	
+	#inscription h1 {
+		text-align: center;
+		font-size: 2em;
+		color:#81363b;
+	}
+	
+	#inscription p {
+		text-align: center;
+		color:#81363b;
+	}
+	
+	#inscription p:nth-child(1){
+		margin-bottom: 30px;
+	}
+	
+	#inscription h1:after{
+		display: block;
+			content: '';
+			height: 1px;
+			width: 100%;
+			background: #81363b;
+			margin-top: 30px;
+	}
+	
+	#champs {
+		width:725px;
+		height:467px;
+		margin-top: 30px;
+		margin-bottom: 65px;
+			}
+	
+		#champs h2 {
+			font-size: 1.5em;
+			color:#81363b;
+			margin-bottom: 15px;
+		}
+		
+		#champs-left {
+			float: left;text-align: center;
+			height:100%;	
+			
+				}
+		
+		
+		#champs-right {
+			text-align: center; 
+			height:100%;
+			float:right;
+		}
+		
+		#champs input {
+		width:271px;
+		height:26px;
+		background:#e0c8a6;
+		border:none;
+		margin-bottom: 30px;
+		-moz-box-shadow: inset 0px 1px 3px 0px #656565;
+-webkit-box-shadow: inset 0px 1px 3px 0px #656565;
+-o-box-shadow: inset 0px 1px 3px 0px #656565;
+box-shadow: inset 0px 1px 3px 0px #656565;
+filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=180, Strength=3);
+text-align: center;
+color:black;
+
+		}
+		
+		#add-wine2{
+			background: white;
+			opacity:0.5;
+			border: 4px dashed grey;
+			width:110px;
+			height:85px;
+			display:inline-block;
+		
+		}
+		
+			
+
+			
+		#add2 input {
+		-webkit-border-radius:50px;
+	    -moz-border-radius:50px;
+	    border-radius:50px;
+	    width:40px;
+	    height:40px;
+	    font-size: 2.5em;
+	    color:#81363b;
+	    font-size: 1.8em;
+		margin-top: 21px;
+	    border-bottom: 2px solid grey ;
+	    margin-bottom: 20px;
+	    cursor:pointer;
+	    background: white;
+	    }
+	    
+	
+			
+
+	
+	
