@@ -1,15 +1,21 @@
-<h2>Les derniers vins ajoutés</h2>
+				<article id="last-wines">
+					<h2>Les derniers vins de vos utilisateurs favoris</h2>
 
 <check if="{{@lastWines!=0}}" >
 	<true>
 		<repeat group="{{ @lastWines }}" value="{{ @wine }}">
 
-			<div class="result-wine" style="width=100px; height=200px; display:inline-block; padding:20px; border:1px solid;">
-				<span><a href="./user/{{@wine.user_wine_id}}">{{@wine.user_firstname}}</a> a ajouté :</span><br/>
-				<a href="{{ @wine.wine_id }}"><img src="./avatars/{{@wine.wine_img}}" alt="{{@wine.wine_img}}" width="100px" height="100px"></a><br/>
-				<span><a href="./wine/{{ @wine.wine_id }}">{{ @wine.wine_name }}</a></span><br/>
-				<a href="#">Voir la fiche</a><br/>
-				<a href="#">Faire une proposition</a><br/>
+			<div class="last-wine">
+				<a href="./user/{{@wine.user_wine_id}}">{{@wine.user_firstname}}</a> a ajouté :
+				<div id="display-last-wine">
+
+				<a href="{{ @wine.wine_id }}"><img src="./avatars/{{@wine.wine_img}}" alt="{{@wine.wine_img}}"></a>
+
+				<h3><a href="./wine/{{ @wine.wine_id }}">{{ @wine.wine_name }}</a></h3>
+				</div>
+
+				<a href="./wine/{{ @wine.wine_id }}">Voir la fiche</a>
+				<a href="#">Proposition</a>
 			</div>
 
 		</repeat>
@@ -18,3 +24,8 @@
 		Il n'y a pas encore de vins rajoutés pour le moment. 	
 	</false>
 </check>
+
+						</ul>
+				</article>				
+
+						

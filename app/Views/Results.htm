@@ -1,18 +1,100 @@
-<h2>Résultats</h2>
+
+		<!-- début main -->
+		<section class="main">
+		
+			<!-- début wrap -->
+			<section class="wrap">
+			
+					<article id="display-results">
+						<div class="layout">
+										<p>Les résultats de votre recherche (7)</p>
+						</div>
+					</article>
+
+				<section id="wrapper">
+				
+						<!-- début layout -->
+						<div class="layout">
+		
+										
+								<include href="./partials/ResultFilter.htm" />
+
+
+					
+						<!-- début wine results -->
+						<article id="wine-results">
 
 <check if="{{@results!=0}}" >
 	<true>
 		<repeat group="{{ @results }}" value="{{ @wine }}">
 
-		    <h3><a href="./vin/{{@wine.wine_id}}">{{ @wine.wine_name }}</a>, posté par <a href="./user/{{@wine.user_wine_id}}">{{ @wine.user_wine_id }}</a></h3>
-			<ul>
-				<li>Millésime : {{@wine.wine_millesime}}</li>
-				<li>Cépage : {{@wine.wine_cepage}}</li>
-				<li>Région : {{@wine.wine_origin}}</li>
+							<!-- debut wine result -->
+						<div class="wine-result">
+							
+								<!-- debut infos -->
+								<div class="infos">
+
+		    <h1><a href="./vin/{{@wine.wine_id}}">{{ @wine.wine_name }}</a></h1>
+
+
+		    	<p>proposé par  <a href="./user/{{@wine.user_wine_id}}">{{ @wine.user_wine_id }}</a></p>
+
+		    		<ul>
+				<li>
+					<p>
+					<span class="title-info">Millésime :</span>  {{@wine.wine_millesime}}</p>
+</li>
+
+
+				<li><p>
+														<span class="title-info">Cépage : </span>{{@wine.wine_cepage}}</p></li>
+				<li><p>
+														<span class="title-info">Région : </span>{{@wine.wine_origin}}</p></li>
+																											<li>
+														<p>
+														<span class="title-info">Le ptit conseil :</span>
+														TEXTE EN DUR
+														</p>
+													</li>
+													<li>
+														<p>
+														<span class="title-info">Valeur estimée :</span>
+														<a href="#">TEXTE EN DUR</a>
+														</p>
+													</li>
 			</ul>
+
+															<div class="proposition"><input type="submit" value="Faire une proposition" /></div>
+												
+										</div>
+										<!-- fin infos -->
+								</div>
+								<!-- fin wine result -->
 		</repeat>
 	<true>
 	<false>
 		Aucun résultat.
 	</false>
-</check>
+</check> 
+
+											
+									
+
+								
+									
+								
+															
+						</article>
+						<!-- fin wine results -->
+						</div> 
+						<!-- fin layout -->
+						
+						
+						
+			</section>
+			<!-- fin wrap -->
+			
+		</section>
+		<!-- fin main -->
+		
+		
