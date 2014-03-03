@@ -282,7 +282,7 @@ class App_model extends Model{
 			FROM wine, userwine 
 			WHERE wine.user_wine_id = userwine.user_id
 			ORDER BY wine_time_add DESC 
-			LIMIT 5
+			LIMIT 4
 			');
 
 		return $lastWines;
