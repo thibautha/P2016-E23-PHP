@@ -1,9 +1,13 @@
-<h2>Chercher un vin :</h2>
+<!-- searchedWine.htm -->
 
-<form method="post" action="search">
+<article id="search-home">
 
-	<input type="text" name="wine" placeholder="Tapez le nom d'un vin" required>
+	<form method="post" action="search">
 
-	<input type="submit" value="Rechercher">
+		<input type="text" name="wine" placeholder="votre recherche..." required>
+		
+		<input type="submit" value="rechercher" />
+	
+	</form>
 
-</form>
+</article>

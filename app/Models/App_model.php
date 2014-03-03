@@ -281,7 +281,7 @@ class App_model extends Model{
 			SELECT wine_id, wine_name, wine_img, user_wine_id, user_firstname 
 			FROM wine, userwine 
 			WHERE wine.user_wine_id = userwine.user_id
-			ORDER BY wine_date_add DESC 
+			ORDER BY wine_time_add DESC 
 			LIMIT 5
 			');
 

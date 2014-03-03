@@ -20,6 +20,19 @@ a, p, input {
 	font-family: FuturaStd;
 }
 
+/* kévin */
+.fav{
+	height:10px;
+	width:10px;
+}
+.favYes{
+	background-color:#124578;
+}
+.favNo{
+	background-color:#fff000;
+}
+/* fin kévin */
+
 footer {
 	height:10px;
 	bottom: 0;
