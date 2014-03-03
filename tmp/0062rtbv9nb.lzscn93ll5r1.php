@@ -1,34 +1,67 @@
-<<<<<<< HEAD
 <p>home</p>
+
+<p>Loggin</p>
+<div class="error"><?php echo $error; ?></div>
+<form method="post" action="signin">
+	<label>Mail : </label><input type="text" name="mail"/>
+	<label>Mdp : </label><input type="password" name="mdp"/>
+	<input type="submit" value="Sign in"/>
+</form>
+<div class="trait"></div>
+<a href="signup">Sign</a>
+
+
+		
+		
+		<!-- début main -->
+		<section class="main">
+		
+			<!-- début wrap -->
+			<section class="wrap">
+			
+			
+			
+		
+			
+			<!-- Début display d'accueil -->
+			<section id="display-home">	
+				
+				
+				
+				<!-- début message home -->
+				<article id="message-home">
+					
+					<!-- message d'accueil -->
+					<h1>ALANOTRE est une plate-forme d’échange de bouteille de vin de particuliers à particuliers.
+Tapez le nom de votre vin préféré et découvrez si un autre parisien souhaite l’échanger !</h1>
+
+				</article>
+				<!-- fin message home -->
+				
+				
+				
+		<?php echo $this->render('./partials/SearchWine.htm',$this->mime,get_defined_vars()); ?>
+
+				
+					</div>
+					<!-- fin layout -->
+			</section>
+			<!-- fin display d'accueil -->
+				<!-- Début sous-home -->
+			<section id="under-home">
+			
+			<!-- début layout -->
+			<div class="layout">
+			
+
+<?php echo $this->render('./partials/LastWines.htm',$this->mime,get_defined_vars()); ?>
 <?php echo $this->render('./partials/WineShuffle.htm',$this->mime,get_defined_vars()); ?>
-<?php echo $this->render('./partials/LastUsrFavoritWine.htm',$this->mime,get_defined_vars()); ?>
-
-
-=======
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  
-	<title>&Aacute; la notre !</title>
-	<meta name="description" content="">
-  	<base href="<?php echo $BASE; ?>/" />
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-  	<link href="style.css" rel="stylesheet" type="text/css" />
-</head>
-	<body>
-		<p>home</p>
-		<div class="trait"></div>
-		<p>Loggin</p>
-		<div class="error"><?php echo $error; ?></div>
-		<form method="post" action="signin">
-			<label>Mail : </label><input type="text" name="mail"/>
-			<label>Mdp : </label><input type="password" name="mdp"/>
-			<input type="submit" value="Sign in"/>
-		</form>
-		<div class="trait"></div>
-		<a href="signup">Sign</a>
-	</body>
-</html>
->>>>>>> c162ae1cbf0ecdcb467d25b7ba38c5db500372de
+			</div>
+			<!-- fin layout -->
+			</section>
+			<!-- fin sous home -->
+			</section>
+			<!-- fin wrap -->
+			
+		</section>
+		<!-- fin main -->
