@@ -1,12 +1,37 @@
-<br/>
-<span style="color:{{ @color }};">{{ @message }}</span>
-<repeat group="{{ @result }}" value="{{ @item }}">
-	<form method="post" action="modifyProfil">
+		<!-- début main -->
+		<section class="main">
+		
+			<!-- début wrap -->
+			<section class="wrap">
+			
+				
+				<section id="wrapper">
+				
+						<div class="layout">
+							<span style="color:{{ @color }};">{{ @message }}</span>
+
+							
+							<section id="inscription">
+								<h1>Rejoignez-nous</h1>
+								
+							
+								
+								<article id="champs">
+										
 		<p>Modifier ou complétez votre profil : </p>
-		<label>Votre prénom : </label><input type="text" name="prenom"/><span>Ancien : ({{ @item.user_firstname  }})</span><br/>
-		<label>Votre nom : </label><input type="text" name="nom"/><span>Ancien : ({{ @item.user_lastname  }})</span><br/>
-		<label>Votre adresse : </label><br/>
-		<label>Rue et numéro : </label><input type="text" name="street"/><span>Ancien : ({{ @item.user_street  }})</span><br/>
+
+															
+<repeat group="{{ @result }}" value="{{ @item }}">
+									<div id="champs-left">
+
+
+	<form method="post" action="modifyProfil">
+		<h2>Votre prénom : </h2>
+		<input type="text" name="prenom" placeholder="{{ @item.user_firstname  }}"/>
+		<h2>Votre nom : </h2>
+		<input type="text" name="nom" placeholder="{{ @item.user_lastname  }}"/>
+		<h2>Rue et numéro : </h2>
+		<input type="text" name="street" placeholder="{{ @item.user_street  }}"/>
 		<label>Code postale : </label><input type="text" name="cp"/><span>Ancien : ({{ @item.user_cp  }})</span><br/>
 		<label>Ville : </label><input type="text" name="town"/><span>Ancien : ({{ @item.user_town  }})</span><br/>
 		<input type="submit" value="Enregistrer profil"/>
@@ -16,6 +41,16 @@
 		<label>Votre image d'avatar : </label><input type="file" name="img" /><br/>
 		<input type="submit" value="Enregistrer profil"/>
 	</form>
+
+								</div>
+								<!-- fin champs left -->
+									
+
+									
+
+								<div id="champs-right">
+
+
 	<form method="post" action="modifyMail">
 		<p>Modifier votre identifiant (mail) :</p>
 		<label>Votre ancienne adresse mail : </label><input type="text" name="mail1"/><br/>
@@ -31,4 +66,53 @@
 		<input type="submit" value="Enregistrer MDP"/>
 	</form>
 </repeat>
+
+								</div>
+								<!-- fin champs right -->
+								</article>
+								<!-- fin champs -->
+								<p>Ces informations seront privées et serviront à localiser le Nicolas le plus proche de chez vous
+lorsque vous souhaiterez prendre renvez-vous avec un troqueur.</p>
+							
 <a href="profil">Retour sur votre profil</a>
+							
+							</section>
+							<!-- fin inscription -->
+							
+							
+							
+							
+							
+						</div> 
+						<!-- fin layout -->
+						
+						
+						<footer>
+						</footer>
+						
+						</section>
+						<!-- fin wrapper -->
+						
+					</section>
+					<!-- fin wrapper -->
+						
+						
+			</section>
+			<!-- fin wrap -->
+			
+		</section>
+		<!-- fin main -->
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</body>
+	
+</html>
