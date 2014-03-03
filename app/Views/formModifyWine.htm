@@ -1,20 +1,96 @@
-<br/>
+
+			<!-- début main -->
+		<section class="main">
+		
+			<!-- début wrap -->
+			<section class="wrap">
+			
+				
+				<section id="wrapper">
+				
+						<div class="layout">
 <span style="color:{{ @color }};">{{ @message }}</span>
+							
+							<section id="inscription">
+								<h1>Modifier ou complétez un vin : </h1>
+								
+							
+								
+								<article id="champs">
+									
+
+															
 <repeat group="{{ @resultWine }}" value="{{ @item }}">
+									<div id="champs-left">
+
 	<form method="post" action="modifyWine/{{ @item.wine_id  }}">
-		<p>Modifier ou complétez votre profil : </p>
-		<label>Nom : </label><input type="text" name="wineName"/><span>Ancien : ({{ @item.wine_name  }})</span><br/>
-		<label>Origine : </label><input type="text" name="wineOrigin"/><span>Ancien : ({{ @item.wine_origin  }})</span><br/>
-		<label>Cépage : </label><input type="text" name="wineCepage"/><span>Ancien : ({{ @item.wine_cepage  }})</span><br/>
-		<label>Millésime : </label><input type="text" name="wineMillesim"/><span>Ancien : ({{ @item.wine_millesime  }})</span><br/>
-		<label>Nombre de bouteilles : </label><input type="text" name="wineNb"/><span>Ancien : ({{ @item.wine_quantitee  }})</span><br/>
-		<label>Conseil : </label><textarea name="wineConseil"></textarea><span>Ancien : ({{ @item.wine_conseil  }})</span><br/>
+		<h2>Nom : </h2>
+		<input type="text" name="wineName" placeholder="{{ @item.wine_name  }}"/>
+		<h2>Origine : </h2>
+		<input type="text" name="wineOrigin" placeholder="{{ @item.wine_origin  }}"/>
+		<h2>Cépage : </h2>
+		<input type="text" name="wineCepage" placeholder="{{ @item.wine_cepage  }}"/>
+		<h2>Millésime : </h2>
+		<input type="text" name="wineMillesim" placeholder="{{ @item.wine_millesime  }}"/>
+
+		<h2>Conseil : </h2>
+		<textarea name="wineConseil" placeholder="{{ @item.wine_conseil  }}"></textarea>
 		<input type="submit" value="Modifier le vin"/>
 	</form>
+
+								</div>
+								<!-- fin champs left -->
+									
+
+									
+
+								<div id="champs-right">
 	<form method="post" action="changeAvatarWine/{{ @item.wine_id  }}" enctype="multipart/form-data">
 		<input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
-		<label>Changer l'image du vin : </label><input type="file" name="imgWine" /><br/>
+		<h2>Changer l'image du vin : </h2>
+		<input type="file" name="imgWine" /><br/>
 		<input type="submit" value="Enregistrer l'image"/>
 	</form>
-</repeat>
+
+
+								</div>
+								<!-- fin champs right -->
+								</repeat>
+
+								</article>
+								<!-- fin champs -->
+								
+							
 <a href="maCave">Retour sur votre cave</a>
+
+							
+							</section>
+							<!-- fin inscription -->
+							
+							
+							
+							
+							
+						</div> 
+						<!-- fin layout -->
+						
+						
+						<footer>
+						</footer>
+						
+						</section>
+						<!-- fin wrapper -->
+						
+					</section>
+					<!-- fin wrapper -->
+						
+						
+			</section>
+			<!-- fin wrap -->
+			
+		</section>
+		<!-- fin main -->
+		
+				<!--<h2>Nombre de bouteilles : </h2>
+		<input type="text" name="wineNb" placeholder="{{ @item.wine_quantitee  }}"/>-->
+		

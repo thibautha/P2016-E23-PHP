@@ -32,13 +32,15 @@
 		<input type="text" name="nom" placeholder="{{ @item.user_lastname  }}"/>
 		<h2>Rue et numéro : </h2>
 		<input type="text" name="street" placeholder="{{ @item.user_street  }}"/>
-		<label>Code postale : </label><input type="text" name="cp"/><span>Ancien : ({{ @item.user_cp  }})</span><br/>
-		<label>Ville : </label><input type="text" name="town"/><span>Ancien : ({{ @item.user_town  }})</span><br/>
+		<h2>Code postale : </h2>
+		<input type="text" name="cp" placeholder="{{ @item.user_cp  }}"/>
+		<h2>Ville : </h2>
+		<input type="text" name="town" placeholder="{{ @item.user_town  }}"/>
 		<input type="submit" value="Enregistrer profil"/>
 	</form>
 	<form method="post" action="uploadAvatar" enctype="multipart/form-data">
 		<input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
-		<label>Votre image d'avatar : </label><input type="file" name="img" /><br/>
+		<h2>Votre image d'avatar : </h2><input type="file" name="img" /><br/>
 		<input type="submit" value="Enregistrer profil"/>
 	</form>
 
@@ -52,23 +54,30 @@
 
 
 	<form method="post" action="modifyMail">
-		<p>Modifier votre identifiant (mail) :</p>
-		<label>Votre ancienne adresse mail : </label><input type="text" name="mail1"/><br/>
-		<label>Votre nouvelle adresse mail: </label><input type="text" name="mail2"/><br/>
-		<label>Confirmer votre nouvelle adresse mail : </label><input type="text" name="mail3"/><br/>
+		<h2>Modifier votre identifiant (mail) :</h2>
+		<h2>Votre ancienne adresse mail : </h2>
+		<input type="text" name="mail1" placeholder="TEXTE EN DUR"/><br/>
+		<h2>Votre nouvelle adresse mail: </h2>
+		<input type="text" name="mail2" placeholder=""/><br/>
+		<h2>Confirmer votre nouvelle adresse mail : </h2>
+		<input type="text" name="mail3" placeholder=""/><br/>
 		<input type="submit" value="Enregistrer mail"/>
 	</form>
 	<form method="post" action="modifyMDP">
-		<p>Modifier votre mot de passe :</p>
-		<label>Votre ancien mot de passe : </label><input type="password" name="mdp1"/><br/>
-		<label>Votre nouveau mot de passe : </label><input type="password" name="mdp2"/><br/>
-		<label>Confirmer votre nouveau mot de passe : </label><input type="password" name="mdp3"/><br/>
+		<h2>Modifier votre mot de passe :</h2>
+		<h2>Votre ancien mot de passe : </h2>
+		<input type="password" name="mdp1" placeholder=""/><br/>
+		<h2>Votre nouveau mot de passe : </h2>
+		<input type="password" name="mdp2" placeholder=""/><br/>
+		<h2>Confirmer votre nouveau mot de passe : </h2>
+		<input type="password" name="mdp3" placeholder=""/><br/>
 		<input type="submit" value="Enregistrer MDP"/>
 	</form>
-</repeat>
 
 								</div>
 								<!-- fin champs right -->
+								</repeat>
+
 								</article>
 								<!-- fin champs -->
 								<p>Ces informations seront privées et serviront à localiser le Nicolas le plus proche de chez vous
@@ -104,15 +113,3 @@ lorsque vous souhaiterez prendre renvez-vous avec un troqueur.</p>
 		<!-- fin main -->
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	</body>
-	
-</html>
