@@ -37,7 +37,7 @@
 		    <h1><a href="./vin/{{@wine.wine_id}}">{{ @wine.wine_name }}</a></h1>
 
 
-		    	<p>proposé par  <a href="./user/{{@wine.user_wine_id}}">{{ @wine.user_wine_id }}</a></p>
+		    	<p>proposé par  <a href="./user/{{@wine.user_wine_id}}">{{ @wine.user_firstname }}</a></p>
 
 		    		<ul>
 				<li>
@@ -53,13 +53,13 @@
 																											<li>
 														<p>
 														<span class="title-info">Le ptit conseil :</span>
-														TEXTE EN DUR
+														{{@wine.wine_conseil}}
 														</p>
 													</li>
 													<li>
 														<p>
 														<span class="title-info">Valeur estimée :</span>
-														<a href="#">TEXTE EN DUR</a>
+														{{@wine.wine_value}} €
 														</p>
 													</li>
 			</ul>
