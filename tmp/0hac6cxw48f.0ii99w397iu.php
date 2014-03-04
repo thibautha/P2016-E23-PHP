@@ -1,5 +1,5 @@
 				<article id="last-wines">
-					<h2>Les derniers vins de vos utilisateurs favoris</h2>
+					<h2>Les derniers vins ajoutés</h2>
 
 <?php if ($lastWines!=0): ?>
 	
@@ -15,7 +15,7 @@
 				</div>
 
 				<a href="./wine/<?php echo $wine['wine_id']; ?>">Voir la fiche</a>
-				<a href="#">Proposition</a>
+				<a href="/proposition/<?php echo $wine['wine_id']; ?>">Proposition</a>
 			</div>
 
 		<?php endforeach; ?>

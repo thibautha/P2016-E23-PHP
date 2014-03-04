@@ -53,7 +53,7 @@ Tapez le nom de votre vin préféré et découvrez si un autre parisien souhaite
 			<div class="layout">
 			
 
-<?php echo $this->render('./partials/LastWines.htm',$this->mime,get_defined_vars()); ?>
+<?php echo $this->render('./partials/FavoriteUsersLastWines.htm',$this->mime,get_defined_vars()); ?>
 <?php echo $this->render('./partials/WineShuffle.htm',$this->mime,get_defined_vars()); ?>
 			</div>
 			<!-- fin layout -->

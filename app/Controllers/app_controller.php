@@ -602,6 +602,32 @@ class App_controller extends Controller{
 		}
 	}
 
+	public function getAlertsPage($f3){
+		if(!$f3->get('SESSION.ID')){
+			$f3->set('randomWine', $this->getRandomWine());
+			$f3->set('lastWines', $this->getLastWines());
+			$f3->reroute('/');
+		}else{
+			$f3->set('content','alert.htm');
+		}
+	}
+
+	public function getPropositionPage($f3){
+		if(!$f3->get('SESSION.ID')){
+			$f3->set('randomWine', $this->getRandomWine());
+			$f3->set('lastWines', $this->getLastWines());
+			$f3->reroute('/');
+		}else{
+			$f3->set('wineDemand',$this->getWineDemand($f3->get('PARAMS.wineId')));
+			$f3->set('content','proposition.htm');
+		}
+	}
+
+	public function getWineDemand($wineDemand){
+		$wine = $this->model->getWineDemand($wineDemand);
+		return $wine[0];
+	}
+
 	/* sign out */
 	public function loggout($f3){
 		session_destroy();

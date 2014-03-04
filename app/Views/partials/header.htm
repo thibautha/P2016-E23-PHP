@@ -23,7 +23,7 @@
 				</div>
 				
 				<div class="nav">
-					<a href="#">Mes alertes
+					<a href="alert">Mes alertes
 						<img src="./public/img/icon-alert.png" />
 					</a>
 				</div>
