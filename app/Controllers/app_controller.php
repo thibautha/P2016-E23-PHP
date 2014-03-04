@@ -5,7 +5,7 @@ class App_controller extends Controller{
 
 	public function __construct($f3){
 		parent::__construct();
-		$f3->set('CACHE','memcache=localhost');
+		//$f3->set('CACHE','memcache=localhost');
 		//new Session();
 		session_start();
 		$f3->set('error', '');	
