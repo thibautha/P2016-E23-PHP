@@ -643,21 +643,7 @@ class App_controller extends Controller{
 	/**************************************************************************************************/
 
 
-
-
-
-		/***************** Code Améziane ******************/
-
-	public function homeAmeziane($f3){
-
-		//$app_controller = new App_controller();
-
-		//Affichage d'un vin aléatoire 
-    	$f3->set('randomWine', $this->getRandomWine());
-    	//$f3->set('lastUsersWine', $this->getRandomWine($f3));
-		$f3->set('content','PageAmez.htm');
-	}
-
+	/***************** Code Améziane ******************/
 
 	/*Rechercher un vin */
 	public function search($f3){

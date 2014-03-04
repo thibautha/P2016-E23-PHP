@@ -1,7 +1,7 @@
 				<article id="last-wines">
 					<h2>Les derniers vins des utilisateurs</h2>
 
-<check if="{{@lastWines =0}}" >
+<check if="{{@lastWines != 0}}" >
 	<true>
 		<repeat group="{{ @lastWines }}" value="{{ @wine }}">
 
