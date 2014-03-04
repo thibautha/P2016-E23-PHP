@@ -22,7 +22,7 @@ class App_controller extends Controller{
 			$f3->set('lastWines', $this->getLastWines());
 			$f3->set('content','home.htm');
 		}else{
-			$f3->set('lastWines', $this->getFavoriteUsersLastWines());
+			$f3->set('lastWines', $this->getFavoriteUsersLastWines(1));
 			$f3->set('content','homeLog.htm');
 		}
 	}
@@ -75,9 +75,12 @@ class App_controller extends Controller{
 
 	/* page d'accueil en loggé */
 	public function homeLog($f3){
+		$f3->set('randomWine', $this->getRandomWine());
 		if(!$f3->get('SESSION.ID')){
+			$f3->set('lastWines', $this->getLastWines());
 			$f3->reroute('/');
 		}else{
+			$f3->set('lastWines', $this->getFavoriteUsersLastWines(1));
 			$f3->set('content','homeLog.htm');
 		}
 	}
@@ -134,7 +137,8 @@ class App_controller extends Controller{
 		        }else{
 		          	$user=array('ID'=>$userSign['user_mail'],'firstname'=>$userSign['user_firstname'],'lastname'=>$userSign['user_lastname']);
 					$f3->set('SESSION',$user);
-					$f3->set('content','homeLog.htm');
+					/*$f3->set('content','homeLog.htm');*/
+					$f3->reroute('/homeLog');
 		        }
 			}else{
 				$f3->set('error', $f3->get('adMailError'));
@@ -598,6 +602,32 @@ class App_controller extends Controller{
 		}
 	}
 
+	public function getAlertsPage($f3){
+		if(!$f3->get('SESSION.ID')){
+			$f3->set('randomWine', $this->getRandomWine());
+			$f3->set('lastWines', $this->getLastWines());
+			$f3->reroute('/');
+		}else{
+			$f3->set('content','alert.htm');
+		}
+	}
+
+	public function getPropositionPage($f3){
+		if(!$f3->get('SESSION.ID')){
+			$f3->set('randomWine', $this->getRandomWine());
+			$f3->set('lastWines', $this->getLastWines());
+			$f3->reroute('/');
+		}else{
+			$f3->set('wineDemand',$this->getWineDemand($f3->get('PARAMS.wineId')));
+			$f3->set('content','proposition.htm');
+		}
+	}
+
+	public function getWineDemand($wineDemand){
+		$wine = $this->model->getWineDemand($wineDemand);
+		return $wine[0];
+	}
+
 	/* sign out */
 	public function loggout($f3){
 		session_destroy();
@@ -648,17 +678,15 @@ class App_controller extends Controller{
 	public function getLastWines(){
 
 		$lastWines = $this->model->getLastWines();
-
 		return $lastWines;
 	}
 
 
 	/*Récupérer les 5 derniers vins de nos utilisateurs favoris*/
-	public function getFavoriteUsersLastWines(){
+	public function getFavoriteUsersLastWines($f3){
 
-		$results = $this->model->getFavoriteUsersLastWines(2);
-
-		return $results;
+			$results = $this->model->getFavoriteUsersLastWines(1);
+			return $results;
 	}
 
 

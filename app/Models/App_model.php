@@ -250,6 +250,11 @@ class App_model extends Model{
 		}
 		return $rep;
 	}
+
+	function getWineDemand($wineDemand){
+		return $this->dB->exec('SELECT wine_name, wine_img, wine_value FROM wine WHERE wine_id="'.$wineDemand.'"');
+	}
+
 	/***********************************************************************************************************/
 	/******************************************** Fin code kévin **************************************************/
 	/**********************************************************************************************************/
@@ -281,8 +286,8 @@ class App_model extends Model{
 			SELECT wine_id, wine_name, wine_img, user_wine_id, user_firstname 
 			FROM wine, userwine 
 			WHERE wine.user_wine_id = userwine.user_id
-			ORDER BY wine_date_add DESC 
-			LIMIT 5
+			ORDER BY wine_time_add DESC 
+			LIMIT 4
 			');
 
 		return $lastWines;
@@ -299,8 +304,9 @@ class App_model extends Model{
 			INNER JOIN wine ON us.user_id = wine.user_wine_id
 			WHERE fa.user_id ="'.$id.'"
 			ORDER BY wine_time_add DESC
-			LIMIT 5 
+			LIMIT 4 
 		');
+
 		//On retourne celle-ci : 
 		return $results;
 	}
