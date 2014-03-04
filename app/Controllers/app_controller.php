@@ -1,6 +1,8 @@
 <?php
 class App_controller extends Controller{
 
+	private $identifiant;
+
 	public function __construct($f3){
 		parent::__construct();
 		$f3->set('CACHE','memcache=localhost');
@@ -10,6 +12,7 @@ class App_controller extends Controller{
 		$f3->set('message','');
 		$f3->set('color','');
 		$f3->set('fav','favNo');
+
 	}
 
 	//page d'accueil
@@ -137,6 +140,7 @@ class App_controller extends Controller{
 		        }else{
 		          	$user=array('ID'=>$userSign['user_mail'],'firstname'=>$userSign['user_firstname'],'lastname'=>$userSign['user_lastname']);
 					$f3->set('SESSION',$user);
+					$identifiant = $userSign['user_id'];
 					/*$f3->set('content','homeLog.htm');*/
 					$f3->reroute('/homeLog');
 		        }
@@ -683,9 +687,9 @@ class App_controller extends Controller{
 
 
 	/*Récupérer les 5 derniers vins de nos utilisateurs favoris*/
-	public function getFavoriteUsersLastWines($f3){
+	public function getFavoriteUsersLastWines($identifiant){
 
-			$results = $this->model->getFavoriteUsersLastWines(1);
+			$results = $this->model->getFavoriteUsersLastWines($identifiant);
 			return $results;
 	}
 
