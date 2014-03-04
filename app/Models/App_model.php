@@ -299,8 +299,9 @@ class App_model extends Model{
 			INNER JOIN wine ON us.user_id = wine.user_wine_id
 			WHERE fa.user_id ="'.$id.'"
 			ORDER BY wine_time_add DESC
-			LIMIT 5 
+			LIMIT 4 
 		');
+
 		//On retourne celle-ci : 
 		return $results;
 	}

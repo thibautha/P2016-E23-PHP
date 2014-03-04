@@ -6,7 +6,7 @@
 		<?php foreach (($lastWines?:array()) as $wine): ?>
 
 			<div class="last-wine">
-				<a href="./user/<?php echo $wine['user_wine_id']; ?>"><?php echo $wine['user_firstname']; ?></a> a ajouté :
+				<a href="./user/<?php echo $wine['user_id']; ?>"><?php echo $wine['user_firstname']; ?></a> a ajouté :
 				<div id="display-last-wine">
 
 				<a href="<?php echo $wine['wine_id']; ?>"><img src="./avatars/<?php echo $wine['wine_img']; ?>" alt="<?php echo $wine['wine_img']; ?>"></a>
