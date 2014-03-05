@@ -3,31 +3,38 @@
 <span style="color:{{ @color }};">{{ @message }}</span>
 <br/>
 <div class="wine">
-	<repeat group="{{ @resultat }}" value="{{ @item }}">
-		<div style="border:1px solid black;width:350px;display:inline-block;vertical-align:top;">
-			<span>Nom : {{ @item.wine_name  }}</span>
-		    <br/>
-		    <span>Date d'ajout : {{ @item.wine_time_add  }}</span>
-		    <br/>
-		    <span>Propriétaire : {{ @proprietaire  }}</span>
-		    <br/>
-		    <div class="img" style="height:100px;width:100px;overflow:hidden;">
-		    	<img style="height:120px;width:120px;" src="./avatars/{{ @item.wine_img  }}" alt="{{ @item.wine_img  }}"/>
-		    </div>
-		    <br/>
-		    <span>Origine : {{ @item.wine_origin  }}</span>
-		    <br/>
-		    <span>Cépage : {{ @item.wine_cepage  }}</span>
-		    <br/>
-		    <span>Millésime : {{ @item.wine_millesime  }}</span>
-		    <br/>
-		    <span>Nombre de bouteilles disponibles : {{ @item.wine_quantitee  }}</span>
-		    <br/>
-		    <span>Commentaires et/ou conseil de dégustation : </span><br/>
-		    <span>{{ @item.wine_conseil  }}</span>
-		    <br/>
-		    <a href="delete/{{ @item.wine_id  }}">Supprimer le vin</a>
-		    <a href="modifyWine/{{ @item.wine_id  }}">Modifier le vin</a>
-		</div>
-	</repeat>
+	<check if="{{@resultat != 0}}" >
+		<true>
+			<repeat group="{{ @resultat }}" value="{{ @item }}">
+				<div style="border:1px solid black;width:350px;display:inline-block;vertical-align:top;">
+					<span>Nom : {{ @item.wine_name  }}</span>
+				    <br/>
+				    <span>Date d'ajout : {{ @item.wine_time_add  }}</span>
+				    <br/>
+				    <span>Propriétaire : {{ @proprietaire  }}</span>
+				    <br/>
+				    <div class="img" style="height:100px;width:100px;overflow:hidden;">
+				    	<img style="height:120px;width:120px;" src="./avatars/{{ @item.wine_img  }}" alt="{{ @item.wine_img  }}"/>
+				    </div>
+				    <br/>
+				    <span>Origine : {{ @item.wine_origin  }}</span>
+				    <br/>
+				    <span>Cépage : {{ @item.wine_cepage  }}</span>
+				    <br/>
+				    <span>Millésime : {{ @item.wine_millesime  }}</span>
+				    <br/>
+				    <span>Nombre de bouteilles disponibles : {{ @item.wine_quantitee  }}</span>
+				    <br/>
+				    <span>Commentaires et/ou conseil de dégustation : </span><br/>
+				    <span>{{ @item.wine_conseil  }}</span>
+				    <br/>
+				    <a href="delete/{{ @item.wine_id  }}">Supprimer le vin</a>
+				    <a href="modifyWine/{{ @item.wine_id  }}">Modifier le vin</a>
+				</div>
+			</repeat>
+		</true>
+		<false>
+			<p>Vous n'avez pas encore ajouté de vin.</p>	
+		</false>
+	</check>
 </div>

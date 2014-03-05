@@ -4,8 +4,6 @@ class App_controller extends Controller{
 
 	public function __construct($f3){
 		parent::__construct();
-		//$f3->set('CACHE','memcache=localhost');
-		//new Session();
 		session_start();
 		$f3->set('error', '');	
 		$f3->set('message','');
@@ -23,7 +21,7 @@ class App_controller extends Controller{
 			$f3->set('lastWines', $this->getLastWines());
 			$f3->set('content','home.htm');
 		}else{
-			$f3->set('lastWines', $this->getFavoriteUsersLastWines($f3->get('identifiant')));
+			$f3->set('lastWines', $this->getFavoriteUsersLastWines($f3->get('SESSION.ID')));
 			$f3->set('content','homeLog.htm');
 		}
 	}
@@ -75,17 +73,18 @@ class App_controller extends Controller{
 	}
 
 	/* page d'accueil en loggé */
-	public function homeLog($f3){
+	/*public function homeLog($f3){
 		$f3->set('randomWine', $this->getRandomWine());
 		if(!$f3->get('SESSION.mail')){
 			$f3->set('lastWines', $this->getLastWines());
 			$f3->reroute('/');
 		}else{
-			//print_r($f3->get('identifiant'));
-			$f3->set('lastWines', $this->getFavoriteUsersLastWines($f3->get('identifiant')));
+			print_r($f3->get('SESSION.mail'));
+			print_r($f3->get('SESSION.ID'));
+			$f3->set('lastFavWines', $this->getFavoriteUsersLastWines($f3->get('SESSION.ID')));
 			$f3->set('content','homeLog.htm');
 		}
-	}
+	}*/
 
 	/* formulaire d'inscription et inscription : envoie sur la page profil */
 	public function signup($f3){
@@ -104,7 +103,7 @@ class App_controller extends Controller{
 									$f3->set('error', $f3->get('loginSingUpError'));
 									$f3->set('content','signup.htm');
 								}else{
-									$user=array('mail'=>$ajout['user_mail'],'firstname'=>$ajout['user_firstname'],'lastname'=>$ajout['user_lastname']);
+									$user=array('mail'=>$ajout['user_mail'],'firstname'=>$ajout['user_firstname'],'lastname'=>$ajout['user_lastname'],'ID'=>$ajout['user_id']);
 									$f3->set('SESSION', $user);
 									$f3->reroute('/profil');
 								}
@@ -137,12 +136,10 @@ class App_controller extends Controller{
 			        $f3->set('error', $f3->get('mdpError'));
 					$f3->set('content','home.htm');
 		        }else{
-		          	$user=array('mail'=>$userSign['user_mail'],'firstname'=>$userSign['user_firstname'],'lastname'=>$userSign['user_lastname']);
+		          	$user=array('mail'=>$userSign['user_mail'],'firstname'=>$userSign['user_firstname'],'lastname'=>$userSign['user_lastname'],'ID'=>$userSign['user_id']);
 					$f3->set('SESSION',$user);
 					$f3->set('identifiant',$userSign['user_id']);
-
-					/*$f3->set('content','homeLog.htm');*/
-					$f3->reroute('/homeLog');
+					$f3->reroute('/');
 		        }
 			}else{
 				$f3->set('error', $f3->get('adMailError'));
@@ -219,7 +216,7 @@ class App_controller extends Controller{
 				}
 
 				$userNew = $this->model->modifyUserProfil($f3->get('SESSION.mail'),$f3->get('nom'),$f3->get('prenom'),$f3->get('street'),$f3->get('town'),$f3->get('cp'));
-				$user=array('mail'=>$userNew[0]['user_mail'],'firstname'=>$userNew[0]['user_firstname'],'lastname'=>$userNew[0]['user_lastname']);
+				$user=array('mail'=>$userNew[0]['user_mail'],'firstname'=>$userNew[0]['user_firstname'],'lastname'=>$userNew[0]['user_lastname'],'ID'=>$userNew[0]['user_id']);
 				$f3->set('SESSION',$user);
 
 				$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
@@ -285,7 +282,6 @@ class App_controller extends Controller{
 				if(preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $f3->get('POST.mail1')) && preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $f3->get('POST.mail2')) && preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $f3->get('POST.mail3'))){
 					if($f3->get('POST.mail2')==$f3->get('POST.mail3')){
 						$changeMdp = $this->model->changeMail($f3->get('SESSION.mail'),$f3->get('POST.mail2'));
-						//print_r($changeMdp);
 						if($changeMdp['confirm']==1){
 							$f3->set('SESSION.mail',$changeMdp['user'][0]['user_mail']);
 							$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
@@ -377,7 +373,6 @@ class App_controller extends Controller{
 
 			$f3->set('result',$others);
 			$f3->set('content','listUsers.htm');
-
 		}
 	}
 
@@ -675,7 +670,6 @@ class App_controller extends Controller{
 
 	/*Récupérer les 5 derniers vins de nos utilisateurs favoris*/
 	public function getFavoriteUsersLastWines($id){
-
 			$results = $this->model->getFavoriteUsersLastWines($id);
 			return $results;
 	}
@@ -683,11 +677,8 @@ class App_controller extends Controller{
 
 	//Afficher un vin aléatoire
 	public function getRandomWine(){
-
     	$randomWine=$this->model->getRandomWine();
-
 		return $randomWine;
-
 	}
 
 	public function getWine($f3){
