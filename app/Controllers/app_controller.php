@@ -20,9 +20,13 @@ class App_controller extends Controller{
 		if(!$f3->get('SESSION.mail')){
 			$f3->set('lastWines', $this->getLastWines());
 			$f3->set('content','home.htm');
+			$f3->set('navigation','partials/navNotlog.htm');
+
 		}else{
 			$f3->set('lastWines', $this->getFavoriteUsersLastWines($f3->get('SESSION.ID')));
 			$f3->set('content','homeLog.htm');
+			$f3->set('navigation','partials/navlog.htm');
+
 		}
 	}
 
