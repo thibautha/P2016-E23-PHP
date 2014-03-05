@@ -85,7 +85,7 @@ html {
 	height:100%;
 	text-align: center;
 }
-	.nav:nth-child(1){
+	.nav:hover {
 		background:rgba(163, 0, 0, 0.3);
 			
 }
