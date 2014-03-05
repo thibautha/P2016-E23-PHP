@@ -1,11 +1,23 @@
-<div style="width:700px;height:300px;background-color:white;">
-	<p>proposition</p>
-	<div id="wineDemand">
-		<h3>{{@wineDemand.wine_name}}</h3>
-		<img src="./avatars/{{@wineDemand.wine_img}}" alt="{{@wineDemand.wine_img}}">
-		<p>{{@wineDemand.wine_value}}</p>
-	</div>
-	<div id="cavePourChoisir">
+<p>proposition</p>
+<br/>
 
+<form method="post" action="makeProposition">
+	<div id="wineDemand" style="background-color:#458956;">
+		<p>Voici le vin que vous souhaitez :</p>
+		<h3>{{@wineDemand.wine_name}}</h3>
+		<input type="hidden" name="wineDemandName" value="{{@wineDemand.wine_name}}"/>
+		<p>{{@wineDemand.wine_value}}</p>
+		<input type="hidden" name="wineValue" value="{{@wineDemand.wine_value}}"/>
 	</div>
-</div>
+
+	<div id="cavePourChoisir" style="background-color:#124789;margin-top:20px;">
+		<p>Choisissez le vin que vous voulez offrir.</p>
+		<repeat group="{{ @wineCave }}" value="{{ @wine }}">
+			<input type="checkbox" name="wineProp" value="{{ @wine.wine_id }}"><br/>
+			<h3>{{ @wine.wine_name }}</h3>
+			<p>{{ @wine.wine_value }}</p>
+		</repeat>
+	</div>
+
+	<input type="submit" value="Valider la proposition"/>
+</form>

@@ -255,6 +255,10 @@ class App_model extends Model{
 		return $this->dB->exec('SELECT wine_name, wine_img, wine_value FROM wine WHERE wine_id="'.$wineDemand.'"');
 	}
 
+	function getCaveWines($userId){
+		return $this->dB->exec('SELECT * FROM wine WHERE user_wine_id="'.$userId.'"');
+	}
+
 	/***********************************************************************************************************/
 	/******************************************** Fin code kévin **************************************************/
 	/**********************************************************************************************************/

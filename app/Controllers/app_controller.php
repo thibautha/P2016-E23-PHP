@@ -618,7 +618,8 @@ class App_controller extends Controller{
 			$f3->set('lastWines', $this->getLastWines());
 			$f3->reroute('/');
 		}else{
-			$f3->set('wineDemand',$this->getWineDemand($f3->get('PARAMS.wineId')));
+			$f3->set('wineDemand', $this->getWineDemand($f3->get('PARAMS.wineId')));
+			$f3->set('wineCave', $this->model->getCaveWines($f3->get('SESSION.ID')));
 			$f3->set('content','proposition.htm');
 		}
 	}
@@ -626,6 +627,48 @@ class App_controller extends Controller{
 	public function getWineDemand($wineDemand){
 		$wine = $this->model->getWineDemand($wineDemand);
 		return $wine[0];
+	}
+
+	public function makeProposition($f3){
+
+		/* récupérer les données */
+
+		$f3 -> set ( 'from' , $f3->get('POST.mailFrom') ); 
+		$f3 -> set ( 'to' , $f3->get('POST.mailTo') ); 
+		$f3 -> set ( 'subject' , $f3->get('POST.subject') );
+		$f3->set('msg',$f3->get('POST.msg') );
+		ini_set ( 'sendmail_from' , $f3 -> get ( 'from' )); 
+		mail ( 
+		    $f3 -> get ( 'to' ), 
+		    $f3 -> get ( 'subject' ),
+		    $f3 -> get ( 'msg' ) 
+		);
+		$f3->reroute('/email');
+	}
+
+	public function getPageEmail($f3){
+		if(!$f3->get('SESSION.mail')){
+			$f3->set('randomWine', $this->getRandomWine());
+			$f3->set('lastWines', $this->getLastWines());
+			$f3->reroute('/');
+		}else{
+			$f3->
+			$f3->set('content','partials/email.htm');
+		}
+	}
+
+	public function envoieMail($f3){
+		$f3 -> set ( 'from' , $f3->get('POST.mailFrom') ); 
+		$f3 -> set ( 'to' , $f3->get('POST.mailTo') ); 
+		$f3 -> set ( 'subject' , $f3->get('POST.subject') );
+		$f3->set('msg',$f3->get('POST.msg') );
+		ini_set ( 'sendmail_from' , $f3 -> get ( 'from' )); 
+		mail ( 
+		    $f3 -> get ( 'to' ), 
+		    $f3 -> get ( 'subject' ),
+		    $f3 -> get ( 'msg' ) 
+		);
+		$f3->reroute('/email');
 	}
 
 	/* sign out */
