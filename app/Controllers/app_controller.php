@@ -4,7 +4,7 @@ class App_controller extends Controller{
 
 	public function __construct($f3){
 		parent::__construct();
-		$f3->set('CACHE','memcache=localhost');
+		//$f3->set('CACHE','memcache=localhost');
 		//new Session();
 		session_start();
 		$f3->set('error', '');	
@@ -644,21 +644,7 @@ class App_controller extends Controller{
 	/**************************************************************************************************/
 
 
-
-
-
-		/***************** Code Améziane ******************/
-
-	public function homeAmeziane($f3){
-
-		//$app_controller = new App_controller();
-
-		//Affichage d'un vin aléatoire 
-    	$f3->set('randomWine', $this->getRandomWine());
-    	//$f3->set('lastUsersWine', $this->getRandomWine($f3));
-		$f3->set('content','PageAmez.htm');
-	}
-
+	/***************** Code Améziane ******************/
 
 	/*Rechercher un vin */
 	public function search($f3){
