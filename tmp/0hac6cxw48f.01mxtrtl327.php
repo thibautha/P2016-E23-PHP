@@ -1,0 +1,115 @@
+		<!-- début main -->
+		<section class="main">
+		
+			<!-- début wrap -->
+			<section class="wrap">
+			
+				
+				<section id="wrapper">
+				
+						<div class="layout">
+							<span style="color:<?php echo $color; ?>;"><?php echo $message; ?></span>
+
+							
+							<section id="inscription">
+								<h1>Rejoignez-nous</h1>
+								
+							
+								
+								<article id="champs">
+										
+		<p>Modifier ou complétez votre profil : </p>
+
+															
+<?php foreach (($result?:array()) as $item): ?>
+									<div id="champs-left">
+
+
+	<form method="post" action="modifyProfil">
+		<h2>Votre prénom : </h2>
+		<input type="text" name="prenom" placeholder="<?php echo $item['user_firstname']; ?>"/>
+		<h2>Votre nom : </h2>
+		<input type="text" name="nom" placeholder="<?php echo $item['user_lastname']; ?>"/>
+		<h2>Rue et numéro : </h2>
+		<input type="text" name="street" placeholder="<?php echo $item['user_street']; ?>"/>
+		<h2>Code postale : </h2>
+		<input type="text" name="cp" placeholder="<?php echo $item['user_cp']; ?>"/>
+		<h2>Ville : </h2>
+		<input type="text" name="town" placeholder="<?php echo $item['user_town']; ?>"/>
+		<input type="submit" value="Enregistrer profil"/>
+	</form>
+	<form method="post" action="uploadAvatar" enctype="multipart/form-data">
+		<input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
+		<h2>Votre image d'avatar : </h2><input type="file" name="img" /><br/>
+		<input type="submit" value="Enregistrer profil"/>
+	</form>
+
+								</div>
+								<!-- fin champs left -->
+									
+
+									
+
+								<div id="champs-right">
+
+
+	<form method="post" action="modifyMail">
+		<h2>Modifier votre identifiant (mail) :</h2>
+		<h2>Votre ancienne adresse mail : </h2>
+		<input type="text" name="mail1" placeholder="TEXTE EN DUR"/><br/>
+		<h2>Votre nouvelle adresse mail: </h2>
+		<input type="text" name="mail2" placeholder=""/><br/>
+		<h2>Confirmer votre nouvelle adresse mail : </h2>
+		<input type="text" name="mail3" placeholder=""/><br/>
+		<input type="submit" value="Enregistrer mail"/>
+	</form>
+	<form method="post" action="modifyMDP">
+		<h2>Modifier votre mot de passe :</h2>
+		<h2>Votre ancien mot de passe : </h2>
+		<input type="password" name="mdp1" placeholder=""/><br/>
+		<h2>Votre nouveau mot de passe : </h2>
+		<input type="password" name="mdp2" placeholder=""/><br/>
+		<h2>Confirmer votre nouveau mot de passe : </h2>
+		<input type="password" name="mdp3" placeholder=""/><br/>
+		<input type="submit" value="Enregistrer MDP"/>
+	</form>
+
+								</div>
+								<!-- fin champs right -->
+								<?php endforeach; ?>
+
+								</article>
+								<!-- fin champs -->
+								<p>Ces informations seront privées et serviront à localiser le Nicolas le plus proche de chez vous
+lorsque vous souhaiterez prendre renvez-vous avec un troqueur.</p>
+							
+<a href="profil">Retour sur votre profil</a>
+							
+							</section>
+							<!-- fin inscription -->
+							
+							
+							
+							
+							
+						</div> 
+						<!-- fin layout -->
+						
+						
+						<footer>
+						</footer>
+						
+						</section>
+						<!-- fin wrapper -->
+						
+					</section>
+					<!-- fin wrapper -->
+						
+						
+			</section>
+			<!-- fin wrap -->
+			
+		</section>
+		<!-- fin main -->
+		
+		

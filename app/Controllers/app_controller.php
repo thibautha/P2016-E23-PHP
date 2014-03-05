@@ -1,7 +1,6 @@
 <?php
 class App_controller extends Controller{
 
-	private $identifiant;
 
 	public function __construct($f3){
 		parent::__construct();
@@ -12,7 +11,6 @@ class App_controller extends Controller{
 		$f3->set('message','');
 		$f3->set('color','');
 		$f3->set('fav','favNo');
-
 	}
 
 	//page d'accueil
@@ -21,11 +19,11 @@ class App_controller extends Controller{
 		// Ajout fonction d'Améziane : afficher un vin aléatoire 
 		$f3->set('randomWine', $this->getRandomWine());
 		
-		if(!$f3->get('SESSION.ID')){
+		if(!$f3->get('SESSION.mail')){
 			$f3->set('lastWines', $this->getLastWines());
 			$f3->set('content','home.htm');
 		}else{
-			$f3->set('lastWines', $this->getFavoriteUsersLastWines(1));
+			$f3->set('lastWines', $this->getFavoriteUsersLastWines($f3->get('identifiant')));
 			$f3->set('content','homeLog.htm');
 		}
 	}
@@ -79,11 +77,12 @@ class App_controller extends Controller{
 	/* page d'accueil en loggé */
 	public function homeLog($f3){
 		$f3->set('randomWine', $this->getRandomWine());
-		if(!$f3->get('SESSION.ID')){
+		if(!$f3->get('SESSION.mail')){
 			$f3->set('lastWines', $this->getLastWines());
 			$f3->reroute('/');
 		}else{
-			$f3->set('lastWines', $this->getFavoriteUsersLastWines(1));
+			//print_r($f3->get('identifiant'));
+			$f3->set('lastWines', $this->getFavoriteUsersLastWines($f3->get('identifiant')));
 			$f3->set('content','homeLog.htm');
 		}
 	}
@@ -105,7 +104,7 @@ class App_controller extends Controller{
 									$f3->set('error', $f3->get('loginSingUpError'));
 									$f3->set('content','signup.htm');
 								}else{
-									$user=array('ID'=>$ajout['user_mail'],'firstname'=>$ajout['user_firstname'],'lastname'=>$ajout['user_lastname']);
+									$user=array('mail'=>$ajout['user_mail'],'firstname'=>$ajout['user_firstname'],'lastname'=>$ajout['user_lastname']);
 									$f3->set('SESSION', $user);
 									$f3->reroute('/profil');
 								}
@@ -138,9 +137,10 @@ class App_controller extends Controller{
 			        $f3->set('error', $f3->get('mdpError'));
 					$f3->set('content','home.htm');
 		        }else{
-		          	$user=array('ID'=>$userSign['user_mail'],'firstname'=>$userSign['user_firstname'],'lastname'=>$userSign['user_lastname']);
+		          	$user=array('mail'=>$userSign['user_mail'],'firstname'=>$userSign['user_firstname'],'lastname'=>$userSign['user_lastname']);
 					$f3->set('SESSION',$user);
-					$identifiant = $userSign['user_id'];
+					$f3->set('identifiant',$userSign['user_id']);
+
 					/*$f3->set('content','homeLog.htm');*/
 					$f3->reroute('/homeLog');
 		        }
@@ -153,14 +153,15 @@ class App_controller extends Controller{
 			$f3->set('content','home.htm');
 		}
 	}
+	
 
 
 	/* page profil si on est loggé sinon retour sur home non loggé */
 	public function getProfil($f3){
-		if(!$f3->get('SESSION.ID')){
+		if(!$f3->get('SESSION.mail')){
 			$f3->reroute('/');
 		}else{
-			$userProfil = $this->model->getUserProfil($f3->get('SESSION.ID'));
+			$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
 			$f3->set('result',$userProfil);
 			$f3->set('content','profil.htm');
 		}
@@ -168,10 +169,10 @@ class App_controller extends Controller{
 
 	/* formulaire de modification des données du profil si on est loggé sinon retour home non loggé */
 	public function formProfilModif($f3){
-		if(!$f3->get('SESSION.ID')){
+		if(!$f3->get('SESSION.mail')){
 			$f3->reroute('/');
 		}else{
-			$userProfil = $this->model->getUserProfil($f3->get('SESSION.ID'));
+			$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
 			$f3->set('result',$userProfil);
 			$f3->set('content','formProfilModif.htm');
 		}
@@ -180,12 +181,12 @@ class App_controller extends Controller{
 
 	/* modification des données utlisateurs : renvoie sur le formulaire pour modifier les données */
 	public function modifyProfil($f3){
-		if(!$f3->get('SESSION.ID')){
+		if(!$f3->get('SESSION.mail')){
 			$f3->reroute('/');
 		}else{
 			if($f3->get('POST.prenom')!="" || $f3->get('POST.nom')!="" || $f3->get('POST.street')!="" || $f3->get('POST.town')!=""  || $f3->get('POST.cp')!=""){
 
-				$userOld = $this->model->getUserProfil($f3->get('SESSION.ID'));
+				$userOld = $this->model->getUserProfil($f3->get('SESSION.mail'));
 
 				if($f3->get('POST.nom')!=""){
 					$f3->set('nom',$f3->get('POST.nom'));
@@ -217,18 +218,18 @@ class App_controller extends Controller{
 					$f3->set('town',$userOld[0]['user_town']);
 				}
 
-				$userNew = $this->model->modifyUserProfil($f3->get('SESSION.ID'),$f3->get('nom'),$f3->get('prenom'),$f3->get('street'),$f3->get('town'),$f3->get('cp'));
-				$user=array('ID'=>$userNew[0]['user_mail'],'firstname'=>$userNew[0]['user_firstname'],'lastname'=>$userNew[0]['user_lastname']);
+				$userNew = $this->model->modifyUserProfil($f3->get('SESSION.mail'),$f3->get('nom'),$f3->get('prenom'),$f3->get('street'),$f3->get('town'),$f3->get('cp'));
+				$user=array('mail'=>$userNew[0]['user_mail'],'firstname'=>$userNew[0]['user_firstname'],'lastname'=>$userNew[0]['user_lastname']);
 				$f3->set('SESSION',$user);
 
-				$userProfil = $this->model->getUserProfil($f3->get('SESSION.ID'));
+				$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
 				$f3->set('result',$userProfil);
 				$f3->set('message',$f3->get('modificationValid'));
 				$f3->set('color','green');
 				$f3->set('content','formProfilModif.htm');
 
 			}else{
-				$userProfil = $this->model->getUserProfil($f3->get('SESSION.ID'));
+				$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
 				$f3->set('result',$userProfil);
 				$f3->set('color','red');
 				$f3->set('message',$f3->get('modificationError'));
@@ -239,11 +240,11 @@ class App_controller extends Controller{
 
 	/* upload avatar */
 	public function uploadAvatar($f3){
-		if(!$f3->get('SESSION.ID')){
+		if(!$f3->get('SESSION.mail')){
 			$f3->reroute('/');
 		}else{
 			if($_FILES['img']['size']==0){
-				$user = $this->model->getUserProfil($f3->get('SESSION.ID'));
+				$user = $this->model->getUserProfil($f3->get('SESSION.mail'));
 				$f3->set('result',$user);
 				$f3->set('message',$f3->get('imageError'));
 				$f3->set('color','red');
@@ -253,19 +254,19 @@ class App_controller extends Controller{
 				$extension_upload = strtolower(  substr(  strrchr($_FILES['img']['name'], '.')  ,1)  );
 				if ( in_array($extension_upload,$extensions_valides) ){
 
-					$user = $this->model->getUserProfil($f3->get('SESSION.ID'));
+					$user = $this->model->getUserProfil($f3->get('SESSION.mail'));
 					$_FILES['img']['name']=$user[0]['user_id'].".".$extension_upload;
 
 			        \Web::instance()->receive(function($file){},true,true);
 
-			        $this->model->addAvatar($f3->get('SESSION.ID'), $_FILES['img']['name']);
+			        $this->model->addAvatar($f3->get('SESSION.mail'), $_FILES['img']['name']);
 
 					$f3->set('result',$user);
 					$f3->set('message',$f3->get('modificationValid'));
 					$f3->set('color','green');
 					$f3->set('content','formProfilModif.htm');
 				}else{
-					$user = $this->model->getUserProfil($f3->get('SESSION.ID'));
+					$user = $this->model->getUserProfil($f3->get('SESSION.mail'));
 					$f3->set('result',$user);
 					$f3->set('message',$f3->get('imageExtensionError'));
 					$f3->set('color','red');
@@ -277,44 +278,44 @@ class App_controller extends Controller{
 
 	/* modifier l'adresse mail (identifiant), retourne 1 si c'est bon, 0 si il y a une erreure */
 	public function modifyMail($f3){
-		if(!$f3->get('SESSION.ID')){
+		if(!$f3->get('SESSION.mail')){
 			$f3->reroute('/');
 		}else{
 			if($f3->get('POST.mail1')!="" && $f3->get('POST.mail2')!="" && $f3->get('POST.mail3')!=""){
 				if(preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $f3->get('POST.mail1')) && preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $f3->get('POST.mail2')) && preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $f3->get('POST.mail3'))){
 					if($f3->get('POST.mail2')==$f3->get('POST.mail3')){
-						$changeMdp = $this->model->changeMail($f3->get('SESSION.ID'),$f3->get('POST.mail2'));
+						$changeMdp = $this->model->changeMail($f3->get('SESSION.mail'),$f3->get('POST.mail2'));
 						//print_r($changeMdp);
 						if($changeMdp['confirm']==1){
-							$f3->set('SESSION.ID',$changeMdp['user'][0]['user_mail']);
-							$userProfil = $this->model->getUserProfil($f3->get('SESSION.ID'));
+							$f3->set('SESSION.mail',$changeMdp['user'][0]['user_mail']);
+							$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
 							$f3->set('result',$userProfil);
 							$f3->set('color','green');
 							$f3->set('message',$f3->get('modificationValid'));
 							$f3->set('content','formProfilModif.htm');
 						}else{
-							$userProfil = $this->model->getUserProfil($f3->get('SESSION.ID'));
+							$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
 							$f3->set('result',$userProfil);
 							$f3->set('color','red');
 							$f3->set('message',$f3->get('modificationError'));
 							$f3->set('content','formProfilModif.htm');
 						}
 					}else{
-						$userProfil = $this->model->getUserProfil($f3->get('SESSION.ID'));
+						$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
 						$f3->set('result',$userProfil);
 						$f3->set('color','red');
 						$f3->set('message',$f3->get('uniqueMailError'));
 						$f3->set('content','formProfilModif.htm');
 					}
 				}else{
-					$userProfil = $this->model->getUserProfil($f3->get('SESSION.ID'));
+					$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
 					$f3->set('result',$userProfil);
 					$f3->set('color','red');
 					$f3->set('message',$f3->get('adMailError'));
 					$f3->set('content','formProfilModif.htm');
 				}
 			}else{
-				$userProfil = $this->model->getUserProfil($f3->get('SESSION.ID'));
+				$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
 				$f3->set('result',$userProfil);
 				$f3->set('color','red');
 				$f3->set('message',$f3->get('fieldsError'));
@@ -325,21 +326,21 @@ class App_controller extends Controller{
 
 	/* modifier le mot de passe, retourne 1 si c'est bon, 0 si il y a une erreure */
 	public function modifyMDP($f3){
-		if(!$f3->get('SESSION.ID')){
+		if(!$f3->get('SESSION.mail')){
 			$f3->reroute('/');
 		}else{
 			if($f3->get('POST.mdp1')!="" && $f3->get('POST.mdp2')!="" && $f3->get('POST.mdp3')!=""){
 				if($f3->get('POST.mdp2')==$f3->get('POST.mdp3')){
-					$changeMdp = $this->model->changeMdp($f3->get('SESSION.ID'),sha1($f3->get('POST.mdp1')),sha1($f3->get('POST.mdp2')));
+					$changeMdp = $this->model->changeMdp($f3->get('SESSION.mail'),sha1($f3->get('POST.mdp1')),sha1($f3->get('POST.mdp2')));
 
 					if($changeMdp==1){
-						$userProfil = $this->model->getUserProfil($f3->get('SESSION.ID'));
+						$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
 						$f3->set('result',$userProfil);
 						$f3->set('color','green');
 						$f3->set('message',$f3->get('modificationValid'));
 						$f3->set('content','formProfilModif.htm');
 					}else{
-						$userProfil = $this->model->getUserProfil($f3->get('SESSION.ID'));
+						$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
 						$f3->set('result',$userProfil);
 						$f3->set('color','red');
 						$f3->set('message',$f3->get('modificationError'));
@@ -347,14 +348,14 @@ class App_controller extends Controller{
 					}
 
 				}else{
-					$userProfil = $this->model->getUserProfil($f3->get('SESSION.ID'));
+					$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
 					$f3->set('result',$userProfil);
 					$f3->set('color','red');
 					$f3->set('message',$f3->get('uniqueMDPError'));
 					$f3->set('content','formProfilModif.htm');
 				}
 			}else{
-				$userProfil = $this->model->getUserProfil($f3->get('SESSION.ID'));
+				$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
 				$f3->set('result',$userProfil);
 				$f3->set('color','red');
 				$f3->set('message',$f3->get('fieldsError'));
@@ -364,13 +365,13 @@ class App_controller extends Controller{
 	}
 
 	public function otherUsers($f3){
-		if(!$f3->get('SESSION.ID')){
+		if(!$f3->get('SESSION.mail')){
 			$f3->reroute('/');
 		}else{
-			$others = $this->model->getOtherUsers($f3->get('SESSION.ID'));
+			$others = $this->model->getOtherUsers($f3->get('SESSION.mail'));
 
 			foreach ($others as &$other) {
-			    $other['fav'] = $this->model->checkFav($f3->get('SESSION.ID'), $other['user_id']);
+			    $other['fav'] = $this->model->checkFav($f3->get('SESSION.mail'), $other['user_id']);
 			}
 			unset($other);
 
@@ -381,19 +382,19 @@ class App_controller extends Controller{
 	}
 
 	public function addFavUser($f3){
-		if(!$f3->get('SESSION.ID')){
+		if(!$f3->get('SESSION.mail')){
 			$f3->reroute('/');
 		}else{
-			$this->model->addFavUser($f3->get('SESSION.ID'),$f3->get('PARAMS.otherUserId'));
+			$this->model->addFavUser($f3->get('SESSION.mail'),$f3->get('PARAMS.otherUserId'));
 			$f3->reroute('/otherUsers');
 		}
 	}
 
 	public function maCave($f3){
-		if(!$f3->get('SESSION.ID')){
+		if(!$f3->get('SESSION.mail')){
 			$f3->reroute('/');
 		}else{
-			$wines = $this->model->getUserWines($f3->get('SESSION.ID'));
+			$wines = $this->model->getUserWines($f3->get('SESSION.mail'));
 			if(isset($wines['wines'])){
 				for($i=0; $i<count($wines['wines']); $i++){
 					$wines['wines'][$i]['wine_time_add']=date("d/m/Y", strtotime(substr($wines['wines'][$i]['wine_time_add'],0,10)));
@@ -407,7 +408,7 @@ class App_controller extends Controller{
 	}
 
 	public function addWine($f3){
-		if(!$f3->get('SESSION.ID')){
+		if(!$f3->get('SESSION.mail')){
 			$f3->reroute('/');
 		}else{
 			switch($f3->get('VERB')){
@@ -421,9 +422,9 @@ class App_controller extends Controller{
 							$extension_upload = strtolower(  substr(  strrchr($_FILES['wineImg']['name'], '.')  ,1)  );
 							if ( in_array($extension_upload,$extensions_valides) ){
 
-								$nbWine = $this->model->getNbWine($f3->get('SESSION.ID'));
+								$nbWine = $this->model->getNbWine($f3->get('SESSION.mail'));
 
-								$user = $this->model->getUserProfil($f3->get('SESSION.ID'));
+								$user = $this->model->getUserProfil($f3->get('SESSION.mail'));
 								$_FILES['wineImg']['name']="wine".$user[0]['user_id'].$nbWine.".".$extension_upload;
 
 						        \Web::instance()->receive(function($file){},true,true);
@@ -431,7 +432,7 @@ class App_controller extends Controller{
 						    	$_FILES['wineImg']['name']="avatarWine.png";
 						    }
 							
-							$this->model->addWine($f3->get('SESSION.ID'),$f3->get('POST.wineName'),$f3->get('POST.origin'),$f3->get('POST.cepage'),$f3->get('POST.millesim'), $f3->get('POST.quantitee'), $f3->get('POST.conseil'),$_FILES['wineImg']['name']);
+							$this->model->addWine($f3->get('SESSION.mail'),$f3->get('POST.wineName'),$f3->get('POST.origin'),$f3->get('POST.cepage'),$f3->get('POST.millesim'), $f3->get('POST.quantitee'), $f3->get('POST.conseil'),$_FILES['wineImg']['name']);
 							
 							$f3->reroute('/maCave');
 						}else{
@@ -450,7 +451,7 @@ class App_controller extends Controller{
 	}
 
 	public function deleteWine($f3){
-		if(!$f3->get('SESSION.ID')){
+		if(!$f3->get('SESSION.mail')){
 			$f3->reroute('/');
 		}else{
 			$wineDelete = $this->model->deleteWine($f3->get('PARAMS.wineID'));
@@ -463,7 +464,7 @@ class App_controller extends Controller{
 	}
 
 	public function modifyWine($f3){
-		if(!$f3->get('SESSION.ID')){
+		if(!$f3->get('SESSION.mail')){
 			$f3->reroute('/');
 		}else{
 			switch($f3->get('VERB')){
@@ -539,7 +540,7 @@ class App_controller extends Controller{
 	}
 
 	function changeAvatarWine($f3){
-		if(!$f3->get('SESSION.ID')){
+		if(!$f3->get('SESSION.mail')){
 			$f3->reroute('/');
 		}else{
 			if($_FILES['imgWine']['size']>=0){
@@ -555,8 +556,8 @@ class App_controller extends Controller{
 						\Web::instance()->receive(function($file){},true,true);
 
 					}else{
-						$nbWine = $this->model->getNbWine($f3->get('SESSION.ID'));
-						$user = $this->model->getUserProfil($f3->get('SESSION.ID'));
+						$nbWine = $this->model->getNbWine($f3->get('SESSION.mail'));
+						$user = $this->model->getUserProfil($f3->get('SESSION.mail'));
 
 						$_FILES['imgWine']['name']="wine".$user[0]['user_id'].$nbWine.".".$extension_upload;
 
@@ -581,13 +582,13 @@ class App_controller extends Controller{
 	}
 
 	public function otherWines($f3){
-		if(!$f3->get('SESSION.ID')){
+		if(!$f3->get('SESSION.mail')){
 			$f3->reroute('/');
 		}else{
-			$otherWines = $this->model->getOtherWines($f3->get('SESSION.ID'));
+			$otherWines = $this->model->getOtherWines($f3->get('SESSION.mail'));
 
 			foreach ($otherWines as &$otherWine) {
-			    $otherWine['fav'] = $this->model->checkFavWine($f3->get('SESSION.ID'), $otherWine['wine_id']);
+			    $otherWine['fav'] = $this->model->checkFavWine($f3->get('SESSION.mail'), $otherWine['wine_id']);
 			}
 			unset($otherWine);
 
@@ -598,16 +599,16 @@ class App_controller extends Controller{
 	}
 
 	public function addFavWine($f3){
-		if(!$f3->get('SESSION.ID')){
+		if(!$f3->get('SESSION.mail')){
 			$f3->reroute('/');
 		}else{
-			$test = $this->model->addFavWine($f3->get('SESSION.ID'),$f3->get('PARAMS.otherWineId'));
+			$test = $this->model->addFavWine($f3->get('SESSION.mail'),$f3->get('PARAMS.otherWineId'));
 			$f3->reroute('/otherWines');
 		}
 	}
 
 	public function getAlertsPage($f3){
-		if(!$f3->get('SESSION.ID')){
+		if(!$f3->get('SESSION.mail')){
 			$f3->set('randomWine', $this->getRandomWine());
 			$f3->set('lastWines', $this->getLastWines());
 			$f3->reroute('/');
@@ -617,7 +618,7 @@ class App_controller extends Controller{
 	}
 
 	public function getPropositionPage($f3){
-		if(!$f3->get('SESSION.ID')){
+		if(!$f3->get('SESSION.mail')){
 			$f3->set('randomWine', $this->getRandomWine());
 			$f3->set('lastWines', $this->getLastWines());
 			$f3->reroute('/');
@@ -687,9 +688,9 @@ class App_controller extends Controller{
 
 
 	/*Récupérer les 5 derniers vins de nos utilisateurs favoris*/
-	public function getFavoriteUsersLastWines($identifiant){
+	public function getFavoriteUsersLastWines($id){
 
-			$results = $this->model->getFavoriteUsersLastWines($identifiant);
+			$results = $this->model->getFavoriteUsersLastWines($id);
 			return $results;
 	}
 
