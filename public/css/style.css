@@ -67,6 +67,7 @@ html {
 #logo {
 	margin-top: 18px;
 	display:inline-block;
+	float: left;
 }
 
 #logo > img {
@@ -80,7 +81,7 @@ html {
 }
 
 .nav {
-	width:190px;
+	width:220px;
 	display:inline-block;
 	height:100%;
 	text-align: center;
