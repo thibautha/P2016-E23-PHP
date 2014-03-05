@@ -34,21 +34,28 @@ class App_controller extends Controller{
 	//page de notification
 	public function getNotification($f3){
 		$f3->set('content','notif.htm');
+		$f3->set('navigation','partials/navlog.htm');
+
 	}
 
 	//page de profil
 	public function getMember($f3){
 		$f3->set('content','Member.htm');
+		$f3->set('navigation','partials/navlog.htm');
+
 	}
 
 	//page de vision d'un utilisateur
 	public function getUsers($f3){
 		$f3->set('content','Users.htm');
+		$f3->set('navigation','partials/navlog.htm');
+
 	}
 
 	//page de résultat
 	public function getResults($f3){
 		$f3->set('content','Results.htm');	
+		$f3->set('navigation','partials/navlog.htm');
 	}
 
 
@@ -165,6 +172,7 @@ class App_controller extends Controller{
 			$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
 			$f3->set('result',$userProfil);
 			$f3->set('content','profil.htm');
+			$f3->set('navigation','partials/navlog.htm');
 		}
 	}
 
