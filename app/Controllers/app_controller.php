@@ -707,6 +707,7 @@ class App_controller extends Controller{
 			$f3->set('results', $this->model->search($wine));
 
 			$f3->set('content','Results.htm');
+			$f3->set('navigation','partials/navlog.htm');
 		/*}
 		//Sinon on affiche un message d'erreur et restons sur la page d'accueil
 		else{
