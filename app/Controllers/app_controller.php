@@ -101,6 +101,7 @@ class App_controller extends Controller{
 	public function signup($f3){
 		switch($f3->get('VERB')){
 			case 'GET':
+				$f3->set('navigation','partials/navlog.htm');
 				$f3->set('content','signup.htm');
 			break;
 			case 'POST':
@@ -111,6 +112,7 @@ class App_controller extends Controller{
 								$ajout = $this->model->signUpUser($f3->get('POST.mail'), sha1($f3->get('POST.mdp1')));
 								//print_r($ajout['user_mail']);
 								if(!$ajout){
+									$f3->set('navigation','partials/navlog.htm');
 									$f3->set('error', $f3->get('loginSingUpError'));
 									$f3->set('content','signup.htm');
 								}else{
@@ -119,18 +121,22 @@ class App_controller extends Controller{
 									$f3->reroute('/profil');
 								}
 							}else{
+								$f3->set('navigation','partials/navlog.htm');
 								$f3->set('error', $f3->get('uniqueMDPError'));
 								$f3->set('content','signup.htm');
 							}
 						}else{
+							$f3->set('navigation','partials/navlog.htm');
 							$f3->set('error', $f3->get('adMailError'));
 							$f3->set('content','signup.htm');
 						}
 					}else{
+						$f3->set('navigation','partials/navlog.htm');
 						$f3->set('error', $f3->get('majorityError'));
 						$f3->set('content','signup.htm');
 					}
 				}else{
+					$f3->set('navigation','partials/navlog.htm');
 					$f3->set('error', $f3->get('fieldsError'));
 					$f3->set('content','signup.htm');
 				}
@@ -144,6 +150,7 @@ class App_controller extends Controller{
 			if(preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $f3->get('POST.mail'))){
 				$userSign = $this->model->signInUser($f3->get('POST.mail'),sha1($f3->get('POST.mdp')));
 		        if(!$userSign){
+		        	$f3->set('navigation','partials/navlog.htm');
 			        $f3->set('error', $f3->get('mdpError'));
 					$f3->set('content','home.htm');
 		        }else{
@@ -153,10 +160,12 @@ class App_controller extends Controller{
 					$f3->reroute('/');
 		        }
 			}else{
+				$f3->set('navigation','partials/navlog.htm');
 				$f3->set('error', $f3->get('adMailError'));
 				$f3->set('content','home.htm');
 			}
 		}else{
+			$f3->set('navigation','partials/navlog.htm');
 			$f3->set('error', $f3->get('fieldsError'));
 			$f3->set('content','home.htm');
 		}
@@ -182,6 +191,7 @@ class App_controller extends Controller{
 			$f3->reroute('/');
 		}else{
 			$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
+			$f3->set('navigation','partials/navlog.htm');
 			$f3->set('result',$userProfil);
 			$f3->set('content','formProfilModif.htm');
 		}
@@ -235,6 +245,7 @@ class App_controller extends Controller{
 				$f3->set('result',$userProfil);
 				$f3->set('message',$f3->get('modificationValid'));
 				$f3->set('color','green');
+				$f3->set('navigation','partials/navlog.htm');
 				$f3->set('content','formProfilModif.htm');
 
 			}else{
@@ -242,6 +253,7 @@ class App_controller extends Controller{
 				$f3->set('result',$userProfil);
 				$f3->set('color','red');
 				$f3->set('message',$f3->get('modificationError'));
+				$f3->set('navigation','partials/navlog.htm');
 				$f3->set('content','formProfilModif.htm');
 			}
 		}
@@ -257,6 +269,7 @@ class App_controller extends Controller{
 				$f3->set('result',$user);
 				$f3->set('message',$f3->get('imageError'));
 				$f3->set('color','red');
+				$f3->set('navigation','partials/navlog.htm');
 				$f3->set('content','formProfilModif.htm');
 			}else{
 				$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' );
@@ -273,12 +286,14 @@ class App_controller extends Controller{
 					$f3->set('result',$user);
 					$f3->set('message',$f3->get('modificationValid'));
 					$f3->set('color','green');
+					$f3->set('navigation','partials/navlog.htm');
 					$f3->set('content','formProfilModif.htm');
 				}else{
 					$user = $this->model->getUserProfil($f3->get('SESSION.mail'));
 					$f3->set('result',$user);
 					$f3->set('message',$f3->get('imageExtensionError'));
 					$f3->set('color','red');
+					$f3->set('navigation','partials/navlog.htm');
 					$f3->set('content','formProfilModif.htm');
 				}
 			}
@@ -300,12 +315,14 @@ class App_controller extends Controller{
 							$f3->set('result',$userProfil);
 							$f3->set('color','green');
 							$f3->set('message',$f3->get('modificationValid'));
+							$f3->set('navigation','partials/navlog.htm');
 							$f3->set('content','formProfilModif.htm');
 						}else{
 							$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
 							$f3->set('result',$userProfil);
 							$f3->set('color','red');
 							$f3->set('message',$f3->get('modificationError'));
+							$f3->set('navigation','partials/navlog.htm');
 							$f3->set('content','formProfilModif.htm');
 						}
 					}else{
@@ -313,6 +330,7 @@ class App_controller extends Controller{
 						$f3->set('result',$userProfil);
 						$f3->set('color','red');
 						$f3->set('message',$f3->get('uniqueMailError'));
+						$f3->set('navigation','partials/navlog.htm');
 						$f3->set('content','formProfilModif.htm');
 					}
 				}else{
@@ -320,6 +338,7 @@ class App_controller extends Controller{
 					$f3->set('result',$userProfil);
 					$f3->set('color','red');
 					$f3->set('message',$f3->get('adMailError'));
+					$f3->set('navigation','partials/navlog.htm');
 					$f3->set('content','formProfilModif.htm');
 				}
 			}else{
@@ -327,6 +346,7 @@ class App_controller extends Controller{
 				$f3->set('result',$userProfil);
 				$f3->set('color','red');
 				$f3->set('message',$f3->get('fieldsError'));
+				$f3->set('navigation','partials/navlog.htm');
 				$f3->set('content','formProfilModif.htm');
 			}
 		}
@@ -346,12 +366,14 @@ class App_controller extends Controller{
 						$f3->set('result',$userProfil);
 						$f3->set('color','green');
 						$f3->set('message',$f3->get('modificationValid'));
+						$f3->set('navigation','partials/navlog.htm');
 						$f3->set('content','formProfilModif.htm');
 					}else{
 						$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
 						$f3->set('result',$userProfil);
 						$f3->set('color','red');
 						$f3->set('message',$f3->get('modificationError'));
+						$f3->set('navigation','partials/navlog.htm');
 						$f3->set('content','formProfilModif.htm');
 					}
 
@@ -360,6 +382,7 @@ class App_controller extends Controller{
 					$f3->set('result',$userProfil);
 					$f3->set('color','red');
 					$f3->set('message',$f3->get('uniqueMDPError'));
+					$f3->set('navigation','partials/navlog.htm');
 					$f3->set('content','formProfilModif.htm');
 				}
 			}else{
@@ -367,6 +390,7 @@ class App_controller extends Controller{
 				$f3->set('result',$userProfil);
 				$f3->set('color','red');
 				$f3->set('message',$f3->get('fieldsError'));
+				$f3->set('navigation','partials/navlog.htm');
 				$f3->set('content','formProfilModif.htm');
 			}
 		}
@@ -384,6 +408,7 @@ class App_controller extends Controller{
 			unset($other);
 
 			$f3->set('result',$others);
+			$f3->set('navigation','partials/navlog.htm');
 			$f3->set('content','listUsers.htm');
 		}
 	}
@@ -410,6 +435,7 @@ class App_controller extends Controller{
 			
 			$f3->set('proprietaire', $wines['proprio']['user_firstname'].' '.$wines['proprio']['user_lastname']);
 			$f3->set('resultat',$wines['wines']);
+			$f3->set('navigation','partials/navlog.htm');
 			$f3->set('content','maCave.htm');
 		}
 	}
@@ -420,6 +446,7 @@ class App_controller extends Controller{
 		}else{
 			switch($f3->get('VERB')){
 				case 'GET':
+				$f3->set('navigation','partials/navlog.htm');
 					$f3->set('content','addWine.htm');
 				break;
 				case 'POST':
@@ -445,11 +472,13 @@ class App_controller extends Controller{
 						}else{
 							$f3->set('color','red');
 							$f3->set('message',$f3->get('fieldsError'));
+							$f3->set('navigation','partials/navlog.htm');
 							$f3->set('content','addWine.htm');
 						}
 					}else{
 						$f3->set('color','red');
 						$f3->set('message',$f3->get('fieldsErrorExist'));
+						$f3->set('navigation','partials/navlog.htm');
 						$f3->set('content','addWine.htm');
 					}
 				break;
@@ -478,6 +507,7 @@ class App_controller extends Controller{
 				case 'GET':
 					$wine = $this->model->getUserWine($f3->get('PARAMS.wineID'));
 					$f3->set('resultWine', $wine);
+					$f3->set('navigation','partials/navlog.htm');
 					$f3->set('content','formModifyWine.htm');
 				break;
 				case 'POST':
@@ -527,18 +557,21 @@ class App_controller extends Controller{
 							$f3->set('resultWine',$wine);
 							$f3->set('message',$f3->get('modificationValid'));
 							$f3->set('color','green');
+							$f3->set('navigation','partials/navlog.htm');
 							$f3->set('content','formModifyWine.htm');
 
 						}else{
 							$f3->set('resultWine',$wineOld);
 							$f3->set('color','red');
 							$f3->set('message',$f3->get('modificationError'));
+							$f3->set('navigation','partials/navlog.htm');
 							$f3->set('content','formModifyWine.htm');
 						}
 					}else{
 							$f3->set('resultWine',$wine);
 							$f3->set('color','red');
 							$f3->set('message',$f3->get('fieldsErrorExist'));
+							$f3->set('navigation','partials/navlog.htm');
 							$f3->set('content','formModifyWine.htm');
 					}
 				break;
@@ -577,12 +610,14 @@ class App_controller extends Controller{
 					$f3->set('resultWine',$wine);
 					$f3->set('message',$f3->get('modificationValid'));
 					$f3->set('color','green');
+					$f3->set('navigation','partials/navlog.htm');
 					$f3->set('content','formModifyWine.htm');
 			    }
 			}else{
 				$f3->set('resultWine',$wine);
 				$f3->set('color','red');
 				$f3->set('message',$f3->get('imageError'));
+				$f3->set('navigation','partials/navlog.htm');
 				$f3->set('content','formModifyWine.htm');
 			}
 	    }  	
@@ -600,6 +635,7 @@ class App_controller extends Controller{
 			unset($otherWine);
 
 			$f3->set('result',$otherWines);
+			$f3->set('navigation','partials/navlog.htm');
 			$f3->set('content','listWines.htm');
 
 		}
@@ -620,6 +656,7 @@ class App_controller extends Controller{
 			$f3->set('lastWines', $this->getLastWines());
 			$f3->reroute('/');
 		}else{
+			$f3->set('navigation','partials/navlog.htm');
 			$f3->set('content','alert.htm');
 		}
 	}
@@ -632,6 +669,7 @@ class App_controller extends Controller{
 		}else{
 			$f3->set('wineDemand', $this->getWineDemand($f3->get('PARAMS.wineId')));
 			$f3->set('wineCave', $this->model->getCaveWines($f3->get('SESSION.ID')));
+			$f3->set('navigation','partials/navlog.htm');
 			$f3->set('content','proposition.htm');
 		}
 	}
@@ -664,7 +702,7 @@ class App_controller extends Controller{
 			$f3->set('lastWines', $this->getLastWines());
 			$f3->reroute('/');
 		}else{
-			$f3->
+			$f3->set('navigation','partials/navlog.htm');
 			$f3->set('content','partials/email.htm');
 		}
 	}
@@ -706,6 +744,8 @@ class App_controller extends Controller{
 			//on récupère le ou les vins correspondants
 			$f3->set('results', $this->model->search($wine));
 
+			$f3->set('navigation','partials/navlog.htm');
+
 			$f3->set('content','Results.htm');
 			$f3->set('navigation','partials/navlog.htm');
 		/*}
@@ -739,6 +779,7 @@ class App_controller extends Controller{
 
 	public function getWine($f3){
 		$wine=$f3->set('wine', $this->model->getWine($f3->get('PARAMS.id')));
+		$f3->set('navigation','partials/navlog.htm');
 		$f3->set('content','Wine.htm');
 	}
 

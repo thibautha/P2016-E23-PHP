@@ -1,0 +1,33 @@
+<!-- nav sur la droite -->
+			<nav id="users">
+				
+				
+				<div class="nav">
+					<a href="profil">Mon espace membre 
+						<img src="./public/img/logo-membre.png" />
+					</a>
+				</div>
+				
+				<div class="nav">
+					<a href="alert">Mes alertes
+						<img src="./public/img/icon-alert.png" />
+					</a>
+				</div>
+								<div class="nav">
+					<a href="loggout">Déconnecter
+						<img src="#" />
+					</a>
+				</div>
+				
+			</nav>
+			<!-- fin nav -->
+
+<!--<a href="profil">Profil</a>
+
+<a href="maCave">Cave</a>
+
+<a href="otherUsers">Les autres users</a>
+
+<a href="otherWines">Les autres vins</a>
+
+<a href="email">Page email</a>-->
