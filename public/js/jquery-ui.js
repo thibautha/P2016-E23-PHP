@@ -6668,8 +6668,8 @@ $.widget( "ui.autocomplete", {
 		this.isNewMenu = true;
 
 		this.element
-			.addClass( "ui-autocomplete-input" )
-			.attr( "autocomplete", "off" );
+			//.addClass( "ui-autocomplete-input" )
+			//.attr( "autocomplete", "off" );
 
 		this._on( this.element, {
 			keydown: function( event ) {
@@ -6889,12 +6889,12 @@ $.widget( "ui.autocomplete", {
 			}
 		});
 
-		this.liveRegion = $( "<span>", {
+		/*this.liveRegion = $( "<br/><span>", {
 				role: "status",
 				"aria-live": "polite"
 			})
 			.addClass( "ui-helper-hidden-accessible" )
-			.insertBefore( this.element );
+			.insertAfter( this.element.next() );*/
 
 		// turning off autocomplete prevents the browser from remembering the
 		// value when navigating through history, so we re-enable autocomplete
