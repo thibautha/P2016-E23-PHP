@@ -14,7 +14,7 @@
 				    <span>Propriétaire : <?php echo $proprietaire; ?></span>
 				    <br/>
 				    <div class="img" style="height:100px;width:100px;overflow:hidden;">
-				    	<img style="height:120px;width:120px;" src="./public/avatars/<?php echo $item['wine_img']; ?>" alt="<?php echo $item['wine_img']; ?>"/>
+				    	<img style="height:120px;width:120px;" src="./public/img/avatars/<?php echo $item['wine_img']; ?>" alt="<?php echo $item['wine_img']; ?>"/>
 				    </div>
 				    <br/>
 				    <span>Origine : <?php echo $item['wine_origin']; ?></span>

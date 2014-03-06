@@ -75,7 +75,7 @@ class App_model extends Model{
 		$user->user_town = $town;
 		$user->user_cp = $cp;
 		$user->save();
-		return $this->dB->exec('SELECT user_mail, user_firstname, user_lastname FROM userwine WHERE user_mail="'.$mail.'"');
+		return $this->dB->exec('SELECT user_mail, user_firstname, user_lastname, user_id FROM userwine WHERE user_mail="'.$mail.'"');
 	}
 
 	/* modifier l'adresse mail (identifiant) */
