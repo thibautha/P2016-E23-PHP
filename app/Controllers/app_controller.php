@@ -16,9 +16,14 @@ class App_controller extends Controller{
 
 		// Ajout fonction d'Améziane : afficher un vin aléatoire 
 		$f3->set('randomWine', $this->getRandomWine());
+
+		//($f3->get('randomWine'));
 		
 		if(!$f3->get('SESSION.mail')){
 			$f3->set('lastWines', $this->getLastWines());
+
+			print_r($f3->get('lastWines'));
+
 			$f3->set('content','home.htm');
 			$f3->set('navigation','partials/navNotlog.htm');
 
@@ -82,20 +87,6 @@ class App_controller extends Controller{
 	public 	function getTestKev($f3){
 		$f3->set('content','PageKev.htm');	
 	}
-
-	/* page d'accueil en loggé */
-	/*public function homeLog($f3){
-		$f3->set('randomWine', $this->getRandomWine());
-		if(!$f3->get('SESSION.mail')){
-			$f3->set('lastWines', $this->getLastWines());
-			$f3->reroute('/');
-		}else{
-			print_r($f3->get('SESSION.mail'));
-			print_r($f3->get('SESSION.ID'));
-			$f3->set('lastFavWines', $this->getFavoriteUsersLastWines($f3->get('SESSION.ID')));
-			$f3->set('content','homeLog.htm');
-		}
-	}*/
 
 	/* formulaire d'inscription et inscription : envoie sur la page profil */
 	public function signup($f3){
@@ -766,8 +757,8 @@ class App_controller extends Controller{
 
 	/*Récupérer les 5 derniers vins de nos utilisateurs favoris*/
 	public function getFavoriteUsersLastWines($id){
-			$results = $this->model->getFavoriteUsersLastWines($id);
-			return $results;
+		$results = $this->model->getFavoriteUsersLastWines($id);
+		return $results;
 	}
 
 
