@@ -20,7 +20,7 @@
 												<?php foreach (($result?:array()) as $item): ?>
 
 											<div class="roundedImage">
-												<img src="./avatars/<?php echo $item['user_img']; ?>" alt="<?php echo $item['user_img']; ?>" />
+												<img src="./public/img/avatars/<?php echo $item['user_img']; ?>" alt="<?php echo $item['user_img']; ?>" />
 											</div>
 											<h3><?php echo $item['user_firstname']; ?> <?php echo $item['user_lastname']; ?></h3>
 												<div id="profil-infos">

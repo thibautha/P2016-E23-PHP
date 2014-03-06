@@ -323,7 +323,11 @@ class App_model extends Model{
 		$randomWine = $this->dB->exec('SELECT * FROM wine ORDER BY RAND() LIMIT 1');
 		// Cette variable contient l'array avec toutes les informations sur le vin
 		// On retourne celui-ci
-		return $randomWine[0];
+		if($randomWine){
+			return $randomWine[0];
+		}else{
+			return '';
+		}
 	}
 
 
