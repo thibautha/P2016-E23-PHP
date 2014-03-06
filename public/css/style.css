@@ -951,7 +951,11 @@ padding-bottom: 30px;
 		}
 
 		.majority {
-			/**/
+			width: 27px !important;
+			-webkit-box-shadow: inset 0px 0px 0px 0px #656565 !important;
+			-o-box-shadow: inset 0px 0px 0px 0px #656565 !important;
+			box-shadow: inset 0px 0px 0px 0px #656565 !important;
+}
 		}
 
 		#champs-left {
