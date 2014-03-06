@@ -92,7 +92,7 @@ class App_controller extends Controller{
 	public function signup($f3){
 		switch($f3->get('VERB')){
 			case 'GET':
-				$f3->set('navigation','partials/navlog.htm');
+				$f3->set('navigation','partials/navNotLog.htm');
 				$f3->set('content','signup.htm');
 			break;
 			case 'POST':
@@ -170,6 +170,12 @@ class App_controller extends Controller{
 			$f3->reroute('/');
 		}else{
 			$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
+
+			$wines = $this->maCave($f3);
+			$f3->set('resultat', $wines['wines']);
+
+			$f3->set('nbWines',count($wines['wines']));
+
 			$f3->set('result',$userProfil);
 			$f3->set('content','profil.htm');
 			$f3->set('navigation','partials/navlog.htm');
@@ -413,7 +419,7 @@ class App_controller extends Controller{
 		}
 	}
 
-	public function maCave($f3){
+	/*public function maCave($f3){
 		if(!$f3->get('SESSION.mail')){
 			$f3->reroute('/');
 		}else{
@@ -429,6 +435,17 @@ class App_controller extends Controller{
 			$f3->set('navigation','partials/navlog.htm');
 			$f3->set('content','maCave.htm');
 		}
+	}*/
+
+	public function maCave($f3){
+			$wines = $this->model->getUserWines($f3->get('SESSION.mail'));
+			if(isset($wines['wines'])){
+				for($i=0; $i<count($wines['wines']); $i++){
+					$wines['wines'][$i]['wine_time_add']=date("d/m/Y", strtotime(substr($wines['wines'][$i]['wine_time_add'],0,10)));
+				}
+			}
+
+			return $wines;
 	}
 
 	public function addWine($f3){
@@ -459,7 +476,7 @@ class App_controller extends Controller{
 							
 							$this->model->addWine($f3->get('SESSION.mail'),$f3->get('POST.wineName'),$f3->get('POST.origin'),$f3->get('POST.cepage'),$f3->get('POST.millesim'), $f3->get('POST.quantitee'), $f3->get('POST.conseil'),$_FILES['wineImg']['name']);
 							
-							$f3->reroute('/maCave');
+							$f3->reroute('/profil');
 						}else{
 							$f3->set('color','red');
 							$f3->set('message',$f3->get('fieldsError'));
@@ -727,24 +744,14 @@ class App_controller extends Controller{
 
 	/*Rechercher un vin */
 	public function search($f3){
-
-		//si le champ 'wine' n'est pas vide
-		/*if(($f3->get('POST.wine'))!=""){*/
-			//alors on récupère le nom du vin rentré
-			$wine=$f3->get('POST.wine');
-			//on récupère le ou les vins correspondants
-			$f3->set('results', $this->model->search($wine));
-
-			$f3->set('navigation','partials/navlog.htm');
-
-			$f3->set('content','Results.htm');
-			$f3->set('navigation','partials/navlog.htm');
-		/*}
-		//Sinon on affiche un message d'erreur et restons sur la page d'accueil
-		else{
-			echo "Vous devez rentrer le nom d'un vin !";
-			$f3->set('content','Results.htm');
-		}*/
+		$wine=$f3->get('POST.wine');
+		$f3->set('results', $this->model->search($wine));
+		if(!$f3->get('SESSION.mail')){
+			$f3->set('navigation','partials/navNotLog.htm');
+		}else{
+			$f3->set('navigation','partials/navLog.htm');
+		}
+		$f3->set('content','Results.htm');
 	}
 
 	/* Récupérer les derniers vins */
@@ -770,7 +777,11 @@ class App_controller extends Controller{
 
 	public function getWine($f3){
 		$wine=$f3->set('wine', $this->model->getWine($f3->get('PARAMS.id')));
-		$f3->set('navigation','partials/navlog.htm');
+		if(!$f3->get('SESSION.mail')){
+			$f3->set('navigation','partials/navNotLog.htm');
+		}else{
+			$f3->set('navigation','partials/navLog.htm');
+		}
 		$f3->set('content','Wine.htm');
 	}
 

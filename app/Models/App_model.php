@@ -276,7 +276,7 @@ class App_model extends Model{
 		//si aucun vin n'a été trouvé 
 		if(!$results){
 			// on retourne le chiffre 0
-			return 0;
+			return '';
 		//sinon on retourne les résultats 
 		}else{
 			return $results;
@@ -295,7 +295,7 @@ class App_model extends Model{
 			');
 
 		if(empty($lastWines)){
-			return '';
+			return 0;
 		}else{
 			return $lastWines;
 		}

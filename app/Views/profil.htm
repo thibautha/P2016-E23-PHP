@@ -36,206 +36,70 @@
 								
 								<h2>Ma cave</h2>
 								
-								<p>Je possède actuellement 7 vins dans ma cave</p>
+								<p>Je possède actuellement {{ @nbWines }} vins dans ma cave</p>
 								
 									<article id="display-cave">
-									
-										<div id="add-wine">
-											<div id="add">
-												<input type="submit" name="ajout-vin" value="+"/>
-												<a href="#">Ajouter un vin</a>
+										<a href="addWine">
+											<div id="add-wine">
+												<div id="add">
+													<input type="submit" name="ajout-vin" value="+"/>
+													<p>Ajouter un vin !</p>
+												</div>
 											</div>
-										</div>
+										</a>
 										<!-- fin add wine -->
 										
-										<div class="display-wine">
-										 <h1>Romanée St Vivant</h1>
-										 	<div class="display-wine-infos">
-										 		<img src="#" alt="photo du vin" />
-										 		
-										 		<ul>
-													<li>
-														<p>
-															<span class="title-info">Millésime :</span> 
-															2005
-														</p>
-													</li>
-													<li>
-														<p>
-														<span class="title-info">Cêpage :</span>
-														 pinot noir
-														</p>
-													</li>
-													<li>
-														<p>
-														<span class="title-info">Région :</span>
-														bourgogne
-														</p>
-													</li>
-													<li>
-														<p>
-														<span class="title-info">Le ptit conseil :</span>
-														A déguster avec des chaires fines et des viandes blancs
-														</p>
-													</li>
-													<li>
-														<p>
-														<span class="title-info">Valeur estimée :</span>
-														<a href="#">2500 points</a>
-														</p>
-													</li>
-													
-												
-											</ul>
-										 	
-										 	</div>
-										 	<!-- fin wine infos -->
-										 	
-										 	<input type="submit" type="text" value="modifier" />
-										 	<input type="submit" type="text" value="supprimer" />
-										 	
-										</div>
-										<div class="display-wine">
-										 <h1>Romanée St Vivant</h1>
-										 	<div class="display-wine-infos">
-										 		<img src="#" alt="photo du vin" />
-										 		
-										 		<ul>
-													<li>
-														<p>
-															<span class="title-info">Millésime :</span> 
-															2005
-														</p>
-													</li>
-													<li>
-														<p>
-														<span class="title-info">Cêpage :</span>
-														 pinot noir
-														</p>
-													</li>
-													<li>
-														<p>
-														<span class="title-info">Région :</span>
-														bourgogne
-														</p>
-													</li>
-													<li>
-														<p>
-														<span class="title-info">Le ptit conseil :</span>
-														A déguster avec des chaires fines et des viandes blancs
-														</p>
-													</li>
-													<li>
-														<p>
-														<span class="title-info">Valeur estimée :</span>
-														<a href="#">2500 points</a>
-														</p>
-													</li>
-													
-												
-											</ul>
-										 	
-										 	</div>
-										 	<!-- fin wine infos -->
-										 	
-										 	<input type="submit" type="text" value="modifier" />
-										 	<input type="submit" type="text" value="supprimer" />
-										 	
-										</div>
-										<div class="display-wine">
-										 <h1>Romanée St Vivant</h1>
-										 	<div class="display-wine-infos">
-										 		<img src="#" alt="photo du vin" />
-										 		
-										 		<ul>
-													<li>
-														<p>
-															<span class="title-info">Millésime :</span> 
-															2005
-														</p>
-													</li>
-													<li>
-														<p>
-														<span class="title-info">Cêpage :</span>
-														 pinot noir
-														</p>
-													</li>
-													<li>
-														<p>
-														<span class="title-info">Région :</span>
-														bourgogne
-														</p>
-													</li>
-													<li>
-														<p>
-														<span class="title-info">Le ptit conseil :</span>
-														A déguster avec des chaires fines et des viandes blancs
-														</p>
-													</li>
-													<li>
-														<p>
-														<span class="title-info">Valeur estimée :</span>
-														<a href="#">2500 points</a>
-														</p>
-													</li>
-													
-												
-											</ul>
-										 	
-										 	</div>
-										 	<!-- fin wine infos -->
-										 	
-										 	<input type="submit" type="text" value="modifier" />
-										 	<input type="submit" type="text" value="supprimer" />
-										 	
-										</div>
-										<div class="display-wine">
-										 <h1>Romanée St Vivant</h1>
-										 	<div class="display-wine-infos">
-										 		<img src="#" alt="photo du vin" />
-										 		
-										 		<ul>
-													<li>
-														<p>
-															<span class="title-info">Millésime :</span> 
-															2005
-														</p>
-													</li>
-													<li>
-														<p>
-														<span class="title-info">Cêpage :</span>
-														 pinot noir
-														</p>
-													</li>
-													<li>
-														<p>
-														<span class="title-info">Région :</span>
-														bourgogne
-														</p>
-													</li>
-													<li>
-														<p>
-														<span class="title-info">Le ptit conseil :</span>
-														A déguster avec des chaires fines et des viandes blancs
-														</p>
-													</li>
-													<li>
-														<p>
-														<span class="title-info">Valeur estimée :</span>
-														<a href="#">2500 points</a>
-														</p>
-													</li>
-													
-												
-											</ul>
-										 	
-										 	</div>
-										 	<!-- fin wine infos -->
-										 	
-										 	<input type="submit" value="modifier" />
-										 	<input type="submit" value="supprimer" />
-										 	
-										</div>
+										<check if="{{@resultat!=0}}" >
+											<true>
+												<repeat group="{{ @resultat }}" value="{{ @wine }}">
+													<div class="display-wine">
+													 	<h3>{{ @wine.wine_name }}</h3>
+													 	<div class="display-wine-infos">
+													 		<img src="./public/img/avatars/{{ @wine.wine_img }}" alt="photo du vin {{ @wine.wine_name }}" />
+													 		<ul>
+																<li>
+																	<p>
+																		<span class="title-info">Millésime :</span> 
+																		{{ @wine.wine_millesime }}
+																	</p>
+																</li>
+																<li>
+																	<p>
+																		<span class="title-info">Cêpage :</span>
+																		{{ @wine.wine_cepage }} 
+																	</p>
+																</li>
+																<li>
+																	<p>
+																		<span class="title-info">Origine :</span>
+																		{{ @wine.wine_origin }}
+																	</p>
+																</li>
+																<li>
+																	<p>
+																		<span class="title-info">Le ptit conseil :</span>
+																		{{ @wine.wine_conseil }}
+																	</p>
+																</li>
+																<li>
+																	<p>
+																		<span class="title-info">Valeur estimée :</span>
+																		{{ @wine.wine_value }}
+																	</p>
+																</li>
+															</ul>
+											 			</div>
+											 			<!-- fin wine infos -->
+											 	
+											 			<input type="submit" type="text" value="modifier" />
+											 			<input type="submit" type="text" value="supprimer" />	
+													</div>
+												</repeat>
+											</true>
+											<false>
+												<p>Vous n'avez pas encore ajouté de vin &aacute votre cave.</p>	
+											</false>
+										</check>
 										
 										<!-- fin display-wine -->
 								

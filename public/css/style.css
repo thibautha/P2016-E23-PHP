@@ -763,7 +763,7 @@ html {
 	
 			
 		}	
-		#add a {
+		#add p {
 			color:black;
 			position:relative;
 			text-decoration: none;
@@ -783,7 +783,7 @@ html {
 			
 		}
 		
-			.display-wine h1 {
+			.display-wine h3{
 				color:#81363b;
 				text-align: center;
 				font-size: 1.3em;
@@ -842,7 +842,6 @@ html {
 }
 	
 	#display-friend {
-		height: 475px;
 		width:210px;
 		margin-top: 30px;
 		background:#edd4ab;
