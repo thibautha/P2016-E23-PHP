@@ -16,14 +16,9 @@ class App_controller extends Controller{
 
 		// Ajout fonction d'Améziane : afficher un vin aléatoire 
 		$f3->set('randomWine', $this->getRandomWine());
-
-		//($f3->get('randomWine'));
 		
 		if(!$f3->get('SESSION.mail')){
 			$f3->set('lastWines', $this->getLastWines());
-
-			print_r($f3->get('lastWines'));
-
 			$f3->set('content','home.htm');
 			$f3->set('navigation','partials/navNotlog.htm');
 
