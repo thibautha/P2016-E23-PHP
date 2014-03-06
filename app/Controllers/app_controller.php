@@ -30,6 +30,11 @@ class App_controller extends Controller{
 		}
 	}
 
+	public function getPage404($f3){
+		$f3->set('content','page404.htm');
+		$f3->set('navigation','partials/navNotlog.htm');
+	}
+
 
 	//page de notification
 	public function getNotification($f3){
