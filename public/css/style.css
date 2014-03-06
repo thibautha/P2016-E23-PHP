@@ -86,6 +86,28 @@ html {
 	height:100%;
 	text-align: center;
 }
+	
+	.nav-notlog {
+		width:500px;
+		display:inline-block;
+	height:100%;
+	text-align: center;
+	}
+
+	.nav-notlog input {
+		background: black;
+		border: 1px solid #ffcc99;
+		color: #ffcc99;
+		height: 22px;
+		font-size: 0.9em;
+		cursor:pointer;
+	}
+
+	.nav-notlog label {
+			color: #ffcc99;
+			margin-left: 5px;
+	}
+
 	.nav:hover {
 		background:rgba(163, 0, 0, 0.3);
 			
