@@ -92,7 +92,7 @@ class App_controller extends Controller{
 	public function signup($f3){
 		switch($f3->get('VERB')){
 			case 'GET':
-				$f3->set('navigation','partials/navNotLog.htm');
+				$f3->set('navigation','partials/navNotlog.htm');
 				$f3->set('content','signup.htm');
 			break;
 			case 'POST':
@@ -101,33 +101,33 @@ class App_controller extends Controller{
 						if(preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $f3->get('POST.mail'))){
 							if($f3->get('POST.mdp1')==$f3->get('POST.mdp2')){
 								$ajout = $this->model->signUpUser($f3->get('POST.mail'), sha1($f3->get('POST.mdp1')));
-								//print_r($ajout['user_mail']);
-								if(!$ajout){
-									$f3->set('navigation','partials/navlog.htm');
+								if($ajout==0){
+									$f3->set('navigation','partials/navNotlog.htm');
 									$f3->set('error', $f3->get('loginSingUpError'));
 									$f3->set('content','signup.htm');
 								}else{
-									$user=array('mail'=>$ajout['user_mail'],'firstname'=>$ajout['user_firstname'],'lastname'=>$ajout['user_lastname'],'ID'=>$ajout['user_id']);
+									$userUp = $this->model->getUserProfil($f3->get('POST.mail'));
+									$user=array('mail'=>$userUp[0]['user_mail'],'firstname'=>$userUp[0]['user_firstname'],'lastname'=>$userUp[0]['user_lastname'],'ID'=>$userUp[0]['user_id']);
 									$f3->set('SESSION', $user);
 									$f3->reroute('/profil');
 								}
 							}else{
-								$f3->set('navigation','partials/navlog.htm');
+								$f3->set('navigation','partials/navNotlog.htm');
 								$f3->set('error', $f3->get('uniqueMDPError'));
 								$f3->set('content','signup.htm');
 							}
 						}else{
-							$f3->set('navigation','partials/navlog.htm');
+							$f3->set('navigation','partials/navNotlog.htm');
 							$f3->set('error', $f3->get('adMailError'));
 							$f3->set('content','signup.htm');
 						}
 					}else{
-						$f3->set('navigation','partials/navlog.htm');
+						$f3->set('navigation','partials/navNotlog.htm');
 						$f3->set('error', $f3->get('majorityError'));
 						$f3->set('content','signup.htm');
 					}
 				}else{
-					$f3->set('navigation','partials/navlog.htm');
+					$f3->set('navigation','partials/navNotlog.htm');
 					$f3->set('error', $f3->get('fieldsError'));
 					$f3->set('content','signup.htm');
 				}
@@ -141,7 +141,9 @@ class App_controller extends Controller{
 			if(preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $f3->get('POST.mail'))){
 				$userSign = $this->model->signInUser($f3->get('POST.mail'),sha1($f3->get('POST.mdp')));
 		        if(!$userSign){
-		        	$f3->set('navigation','partials/navlog.htm');
+		        	$f3->set('randomWine', $this->getRandomWine());
+					$f3->set('lastWines', $this->getLastWines());
+		        	$f3->set('navigation','partials/navNotlog.htm');
 			        $f3->set('error', $f3->get('mdpError'));
 					$f3->set('content','home.htm');
 		        }else{
@@ -151,12 +153,16 @@ class App_controller extends Controller{
 					$f3->reroute('/');
 		        }
 			}else{
-				$f3->set('navigation','partials/navlog.htm');
+				$f3->set('randomWine', $this->getRandomWine());
+				$f3->set('lastWines', $this->getLastWines());
+				$f3->set('navigation','partials/navNotlog.htm');
 				$f3->set('error', $f3->get('adMailError'));
 				$f3->set('content','home.htm');
 			}
 		}else{
-			$f3->set('navigation','partials/navlog.htm');
+			$f3->set('randomWine', $this->getRandomWine());
+			$f3->set('lastWines', $this->getLastWines());
+			$f3->set('navigation','partials/navNotlog.htm');
 			$f3->set('error', $f3->get('fieldsError'));
 			$f3->set('content','home.htm');
 		}

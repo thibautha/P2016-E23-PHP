@@ -37,14 +37,18 @@ class App_model extends Model{
 	function signUpUser($mail,$mdp){
 		$user = $this->mapperUser->load(array('user_mail=?',$mail));
 		if(!$user){
-			$this->mapperUser->user_mail=$mail;
-			$this->mapperUser->user_mdp=$mdp;
-			$this->mapperUser->user_img="avatar.png";
-			$this->mapperUser->save();
-			$user = $this->mapperUser->load(array('user_mail=?',$mail));
-			return $user;
+			if($user['user_mail']!=$mail){
+				$this->mapperUser->user_mail=$mail;
+				$this->mapperUser->user_mdp=$mdp;
+				$this->mapperUser->user_img="avatar.png";
+				$this->mapperUser->save();
+				$user = $this->mapperUser->load(array('user_mail=?',$mail));
+				return 1;
+			}else{
+				return 0;
+			}
 		}else{
-			return $user;
+			return 0;
 		}
 	}
 
