@@ -1,14 +1,4 @@
-<p>Profil</p>
-<a href="loggout">Déconnecter</a>
-<br/>
-<a href="homeLog">Retour page d'accueil</a>
-<br/>
-<a href="maCave">ma cave</a>
-
-
-
-		
-		<!-- début main -->
+	<!-- début main -->
 		<section class="main">
 		
 			<!-- début wrap -->
@@ -20,7 +10,7 @@
 												<repeat group="{{ @result }}" value="{{ @item }}">
 
 											<div class="roundedImage">
-												<img src="./avatars/{{ @item.user_img  }}" alt="{{ @item.user_img  }}" />
+												<img src="./public/img/avatars/{{ @item.user_img  }}" alt="{{ @item.user_img  }}" />
 											</div>
 											<h3>{{ @item.user_firstname  }} {{ @item.user_lastname  }}</h3>
 												<div id="profil-infos">

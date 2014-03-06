@@ -1,34 +1,28 @@
-	<!-- début random wine -->
-				<article id="random">
-				
-					<h2>Un vin aléatoire</h2>
-						
-						<div id="random-wine">
-
-	<h3>{{@randomWine.wine_name}}</h3>
-	<a href="./wine/{{ @randomWine.wine_id }}"><img src="./avatars/{{@randomWine.wine_img}}" alt="{{@randomWine.wine_img}}"></a>
-									<!-- cépage millésime région -->
-		<ul>
-		<li><p>Millésime : {{@randomWine.wine_millesime}}</p></li>
-		<li><p>Cépage : {{@randomWine.wine_cepage}}</p></li>
-		<li><p>Région : {{@randomWine.wine_origin}}</p></li>
-			</ul>
-
-								<!-- conseil sur le vin -->
-								<div id="ptit-conseil"><p>Conseil : {{@randomWine.wine_conseil}}</p>			</div>
-								<!-- fin conseil -->
-
-						</div>
-						<!-- fin random wine -->
-					
-					
-<button class="autre-vin">Un autre !</button>
-
-					
-				
-					<script src="../public/js/wineshuffle.js"></script>
-				
-					
-				</article>
-				<!-- fin random -->
+<!-- début random wine -->
+<article id="random">
+	<h2>Un vin aléatoire</h2>
+	<check if="{{@randomWine != 0}}" >
+		<true>
+			<div id="random-wine">
+				<h3>{{@randomWine.wine_name}}</h3>
+				<a href="./wine/{{ @randomWine.wine_id }}"><img style="width:100px;" src="./public/img/avatars/{{@randomWine.wine_img}}" alt="{{@randomWine.wine_img}}"></a>
+				<!-- cépage millésime région -->
+				<ul>
+					<li><p>Millésime : {{@randomWine.wine_millesime}}</p></li>
+					<li><p>Cépage : {{@randomWine.wine_cepage}}</p></li>
+					<li><p>Région : {{@randomWine.wine_origin}}</p></li>
+				</ul>
+				<!-- conseil sur le vin -->
+				<div id="ptit-conseil"><p>Conseil : {{@randomWine.wine_conseil}}</p></div>
+				<!-- fin conseil -->
+			</div>
+			<button class="autre-vin">Un autre !</button>
+		</true>
+		<false>
+			<p>Cela peut paraître bizarre, mais il n'y a pas de vin sur notre site. Désolé pour le désagrément.</p>	
+		</false>
+	</check>	
+	<script src="../public/js/wineshuffle.js"></script>			
+</article>
+<!-- fin random -->
 
