@@ -941,11 +941,13 @@ padding-bottom: 30px;
 			margin-bottom: 15px;
 		}
 		
-		#champs-signup {
+		#champs-signup {
+
 			text-align: center;
 			height: 100%;
 			width: 100%;
 			/**/
+		
 		}
 
 		.majority {
