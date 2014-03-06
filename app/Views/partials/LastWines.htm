@@ -6,7 +6,7 @@
 				<div class="last-wine">
 					<a href="./user/{{@wine.user_wine_id}}">{{@wine.user_firstname}}</a><span> a ajouté :</span>
 					<div id="display-last-wine">
-						<a href="{{ @wine.wine_id }}"><img src="./public/img/avatars/{{@wine.wine_img}}.png" alt="{{@wine.wine_img}}"></a>
+						<a href="{{ @wine.wine_id }}"><img style="width:100px;" src="./public/img/avatars/{{@wine.wine_img}}" alt="{{@wine.wine_img}}"></a>
 						<h3><a href="./wine/{{ @wine.wine_id }}">{{ @wine.wine_name }}</a></h3>
 					</div>
 
@@ -15,9 +15,8 @@
 			</repeat>
 		</true>
 		<false>
-			Il n'y a pas encore de vins rajoutés pour le moment. 	
+			<p>Il n'y a pas encore de vins rajoutés sur notre site pour le moment.<p>	
 		</false>
-
 	</check>
 </article>				
 

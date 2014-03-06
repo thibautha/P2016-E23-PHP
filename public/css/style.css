@@ -27,7 +27,7 @@ footer {
 	right: 0;
 	clear:both;
 	background-color: #b04c4c;
-	position:absolute;
+	position:fixed;
 }
 
 
@@ -357,6 +357,7 @@ html {
 				border: none;
 				background:rgba(0,0,0,0);
 				font-size: 1em;
+				cursor:pointer;
 				color:#b04c4c;
 				margin-left: 139px;
 				line-height: 3;				
