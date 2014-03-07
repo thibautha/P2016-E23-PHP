@@ -1,8 +1,50 @@
-<h2>{{@wine.wine_name}}, posté par <a href="/user/{{@wine.user_wine_id}}">{{@wine.user_firstname}}</a></h2> 
 
-<ul>
-	<li>Millésime : {{@wine.wine_millesime}}</li>
-	<li>Cépage : {{@wine.wine_cepage}}</li>
-	<li>Région : {{@wine.wine_origin}}</li>
-	<li>Conseil : {{@wine.wine_conseil}}</li>
-</ul>
+<div class="display-wine">
+										 <h1>Romanée St Vivant</h1>
+										 	<div class="display-wine-infos">
+										 		<img src="#" alt="photo du vin" />
+										 		
+										 		<ul>
+													<li>
+														<p>
+															<span class="title-info">Millésime :</span> 
+															{{@wine.wine_millesime}}
+														</p>
+													</li>
+													<li>
+														<p>
+														<span class="title-info">Cêpage :</span>
+														 {{@wine.wine_cepage}}
+														</p>
+													</li>
+													<li>
+														<p>
+														<span class="title-info">Région :</span>
+														{{@wine.wine_origin}}
+														</p>
+													</li>
+													<li>
+														<p>
+														<span class="title-info">Le ptit conseil :</span>
+														{{@wine.wine_conseil}}
+														</p>
+													</li>
+													<li>
+														<p>
+														<span class="title-info">Valeur estimée :</span>
+														<a href="#">2500 points</a>
+														</p>
+													</li>
+													<li>
+														<p>
+														<span class="title-info">Posté par:</span>
+														<a href="/user/{{@wine.user_wine_id}}">{{@wine.user_firstname}}</a>
+														</p></li>
+												
+											</ul>
+										 	
+										 	</div>
+										 	<!-- fin wine infos -->
+										 	
+										 	<input type="submit" type="text" value="modifier" />
+										 	<input type="submit" type="text" value="supprimer" />
