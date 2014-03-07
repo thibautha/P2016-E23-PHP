@@ -1,12 +1,87 @@
-<span style="color:{{ @color }};">{{ @message }}</span><p>Ajouter le vin que vous souhaitez !</p>
+<span style="color:{{ @color }};">{{ @message }}</span>
+
+
+
+	
+		<!-- début main -->
+		<section class="main">
+		
+			<!-- début wrap -->
+			<section class="wrap">
+			
+				
+				<section id="wrapper">
+				
+						<div class="layout">
+							
+							
+							<section id="inscription">
+								<h1>Ajouter le vin que vous souhaitez !</h1>
+								
+							
+								
+								<article id="champs">
+										
+								
 <form method="post" action="addWine" enctype="multipart/form-data">
-	<label>Nom du vin : </label><input type="text" name="wineName"/><br/>
-	<label>Origine : </label><input type="text" name="origin"/><br/>
-	<label>Cepage : </label><input type="text" name="cepage"/><br/>
-	<label>Millésime : </label><input type="text" name="millesim"/><br/>
-	<label>Nombre de bouteilles : </label><input type="text" name="quantitee"/><br/>
-	<label>Commentaire ou conseil pour la dégustation : </label><br/><textarea name="conseil"></textarea><br/>
-	<label>Image : </label><input type="file" name="wineImg"/><br/>
-	<input type="submit" value="Ajoutez"/>
-</form>
-<a href="maCave">Retour sur votre cave</a>
+															
+								<div id="champs-left">
+										<h2>Nom du vin : </h2>
+	<input type="text" name="wineName"/>
+		<h2>Origine : </h2>
+	<input type="text" name="origin"/>
+	<h2>Cepage : </h2>
+	<input type="text" name="cepage"/>
+	<h2>Millésime : </h2>
+	<input type="text" name="millesim"/>
+	<h2>Nombre de bouteilles : </h2>
+	<input type="text" name="quantitee"/>
+
+								</div>
+								<!-- fin champs left -->
+									
+
+									
+
+								<div id="champs-right">
+										<h2>Commentaire ou conseil pour la dégustation : </h2><br/><textarea name="conseil"></textarea>
+	<h2>Image : </h2>
+	<input type="file" name="wineImg"/>									
+									
+								</div>
+								<!-- fin champs right -->
+								</article>
+								<!-- fin champs -->
+
+							
+							<input id="envoyer" type="submit" name="envoyer" value="Ajoutez" />
+							</form>
+
+							<a href="maCave">Retour sur votre cave</a>
+							
+							</section>
+							<!-- fin inscription -->
+							
+							
+							
+							
+							
+						</div> 
+						<!-- fin layout -->
+						
+						
+						<footer>
+						</footer>
+						
+						</section>
+						<!-- fin wrapper -->
+						
+					</section>
+					<!-- fin wrapper -->
+						
+						
+			</section>
+			<!-- fin wrap -->
+			
+		</section>
+		<!-- fin main -->
