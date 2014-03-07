@@ -1,5 +1,5 @@
 $(function() {
-	var availableTags = [
+	/*var availableTags = [
 		"ActionScript",
 		"AppleScript",
 		"Asp",
@@ -22,14 +22,54 @@ $(function() {
 		"Ruby",
 		"Scala",
 		"Scheme"
-	];
+	];*/
+
+	/*
+
+	AUTOCOMPLETION
+
+	var vinsDisponibles;
+
+	$.ajax({
+        type: "POST",
+        url: "./public/ajax/vinsDisponibles.php",
+        dataType: "json",
+        data:{vinsDisponibles : },
+        success: function(data, status) {
+
+        },
+      	error: function(xhr, desc, err) {
+        	console.log(xhr);
+       		console.log("Details: " + desc + "\nError:" + err);
+        }
+    });
 
 	var $searchWine = $('#search-wine');
 
 
 	$searchWine.on('focus', function(){
 		$(this).autocomplete({
-			source: availableTags
+			source: vinsDisponibles
 		});
+	});*/
+
+	/* UN AUTRE VIN */
+
+	$('.autre-vin').on('click', function(){
+
+		var nomVin = $("#random-wine">h3).val();
+
+		$.get(({
+			'./public/ajax/autreVin.php', // Le fichier cible côté serveur
+	        false, // Nous n'envoyons pas de données.
+	        'recupererNomsVins' // Nom de la fonction de retour.
+	        'html' // Format des données reçues
+			}
+   		});
 	});
+
+	function recupererNomsVins(){
+		
+	}
 });
+
