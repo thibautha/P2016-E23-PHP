@@ -1,6 +1,6 @@
 $(function() {
 	
-	/* UN AUTRE VIN */
+	/* AFFICHER UN AUTRE VIN QUAND ON CLIQUE SUR LE BOUTON "Un autre vin" DE LA PAGE D'ACCUEIL*/
 
 	//Lorsqu'on clique sur le bouton "autre vin"
 	$('.autre-vin').on('click', function(){
