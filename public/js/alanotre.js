@@ -72,9 +72,11 @@ $(function() {
 		   // Quand on a récupéré les données 
 		   success:function(autreVin){ 
 		   		
-		   		// On modifie :
+				// On modifie :
 		   		// - le titre du vin 
-            	$("#random h3").replaceWith('<h3>'+autreVin["wine_name"]+'</h3>');
+            	$("#random h3")
+            	.fadeOut(100, function(){ $(this).html('')})
+            	.fadeIn(100, function(){$(this).replaceWith('<h3>'+autreVin["wine_name"]+'</h3>')});
             	
             	// - l'attribue alt de l'image
             	$("#random img").attr('alt', autreVin["wine_img"]);
@@ -92,6 +94,8 @@ $(function() {
             	//- le millesime du vin 
             	$("#random #region").html(autreVin["wine_origin"]);
 
+            	//- le conseil
+            	$("#ptit-conseil p").html('Conseil : '+autreVin["wine_conseil"]);
 		   }
 		});
 	});
