@@ -178,11 +178,13 @@ class App_controller extends Controller{
 			$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
 
 			$userFavoris = $this->model->getFav($f3->get('SESSION.ID'));
-			print_r($userFavoris);
 			if(empty($userFavoris)){
 				$f3->set('userFavs','');
 			}else{
-				$f3->set('userFavs',$userFavoris[0]);
+				for($i=0; $i<sizeof($userFavoris);$i++){
+					$userFavoris[$i]=$userFavoris[$i][0];
+				}
+				$f3->set('userFavs',$userFavoris);
 			}
 
 			$wines = $this->maCave($f3);
@@ -208,7 +210,10 @@ class App_controller extends Controller{
 		if(empty($userFavoris)){
 			$f3->set('userFavs','');
 		}else{
-			$f3->set('userFavs',$userFavoris[0]);
+			for($i=0; $i<sizeof($userFavoris);$i++){
+				$userFavoris[$i]=$userFavoris[$i][0];
+			}
+			$f3->set('userFavs',$userFavoris);
 		}
 
 		$f3->set('nbWines',count($wines['wines']));
