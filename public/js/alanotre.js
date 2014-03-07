@@ -76,7 +76,7 @@ $(function() {
 		   		// - le titre du vin 
             	$("#random h3")
             	.fadeOut(100, function(){ $(this).html('')})
-            	.fadeIn(100, function(){$(this).replaceWith('<h3>'+autreVin["wine_name"]+'</h3>')});
+            	.fadeIn(100, function(){$(this).html('<h3>'+autreVin["wine_name"]+'</h3>')});
             	
             	// - l'attribue alt de l'image
             	$("#random img").attr('alt', autreVin["wine_img"]);
