@@ -554,7 +554,7 @@ class App_controller extends Controller{
 				$img = './avatars/'.$wineDelete;
 				unlink($img);
 			}
-			$f3->reroute('/maCave');
+			$f3->reroute('/profil');
 		}
 	}
 
