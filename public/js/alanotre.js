@@ -56,19 +56,20 @@ $(function() {
 	/* UN AUTRE VIN */
 
 	$('.autre-vin').on('click', function(){
+	
+		var nomVinActuel = $("#random h3").html();
 
-		var nomVin = $("#random-wine">h3).val();
-
-		$.get(({
-			'./public/ajax/autreVin.php', // Le fichier cible côté serveur
-	        { nomVinActuel = $("#random-wine" > h3).val(); }, // Récupération du nom du vin 
-	        function(listeVins){
-
-	        }, //la fonction qui va traiter nos résultats
-	        'text' // Format des données reçues
-			}
-   		});
+		$.ajax({   
+		   type: "GET",
+		   url: "./public/ajax/autreVin.php",
+		   data: {nomVinActuel : nomVinActuel},
+		   dataType:'json',
+		   success:function(autreVin){
+		   		console.log(autreVin);
+		   		//nomVinActuel.empty().html(listeVins);
+		   }
+		});
 	});
-		
+
 });
 
