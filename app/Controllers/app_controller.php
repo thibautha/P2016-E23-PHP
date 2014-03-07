@@ -842,7 +842,7 @@ class App_controller extends Controller{
 		if(!$f3->get('SESSION.mail')){
 			$f3->set('navigation','partials/navNotLog.htm');
 		}else{
-			$f3->set('navigation','partials/navLog.htm');
+			$f3->set('navigation','partials/navlog.htm');
 		}
 		$f3->set('content','Wine.htm');
 	}
