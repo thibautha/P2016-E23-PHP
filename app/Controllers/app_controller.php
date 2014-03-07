@@ -8,7 +8,7 @@ class App_controller extends Controller{
 		$f3->set('error', '');	
 		$f3->set('message','');
 		$f3->set('color','');
-		$f3->set('fav','favNo');
+		$f3->set('fav',0);
 	}
 
 	//page d'accueil
@@ -186,6 +186,61 @@ class App_controller extends Controller{
 			$f3->set('content','profil.htm');
 			$f3->set('navigation','partials/navlog.htm');
 		}
+	}
+
+	/* page profil d'un autre utilisateur */
+	public function getOtherProfil($f3){
+		$userProfil = $this->model->getOtherUserProfil($f3->get('PARAMS.userId'));
+		$wines = $this->aOtherCave($f3->get('PARAMS.userId'));
+
+		$f3->set('otherUserWines', $wines['wines']);
+
+		$f3->set('nbWines',count($wines['wines']));
+
+		$f3->set('fav',$this->checkFavUser($f3->get('SESSION.mail'), $f3->get('PARAMS.userId')));
+
+		$f3->set('nameUser',$userProfil[0]['user_firstname']);
+		$f3->set('otherUser',$userProfil);
+		$f3->set('content','otherProfil.htm');
+		$f3->set('navigation','partials/navlog.htm');
+		if(!$f3->get('SESSION.mail')){
+			$f3->set('navigation','partials/navNotlog.htm');
+		}else{
+			$f3->set('navigation','partials/navlog.htm');
+		}
+	}
+
+	public function otherUsers($f3){
+		if(!$f3->get('SESSION.mail')){
+			$f3->reroute('/');
+		}else{
+			$others = $this->model->getOtherUsers($f3->get('SESSION.mail'));
+
+			foreach ($others as &$other) {
+			    $other['fav'] = $this->model->checkFav($f3->get('SESSION.mail'), $other['user_id']);
+			}
+			unset($other);
+
+			$f3->set('result',$others);
+			$f3->set('navigation','partials/navlog.htm');
+			$f3->set('content','listUsers.htm');
+		}
+	}
+
+	public function addFavUser($f3){
+		if(!$f3->get('SESSION.mail')){
+			$f3->reroute('/');
+		}else{
+			$fav = $this->model->checkFav($f3->get('SESSION.mail'), $f3->get('PARAMS.otherUserId'));
+
+			$this->model->addFavUser($f3->get('SESSION.mail'),$f3->get('PARAMS.otherUserId'));
+			$f3->reroute('/user/'.$f3->get('PARAMS.otherUserId'));
+		}
+	}
+
+	public function checkFavUser($mail, $id){
+		$fav = $this->model->checkFav($mail, $id);
+		return $fav;
 	}
 
 	/* formulaire de modification des données du profil si on est loggé sinon retour home non loggé */
@@ -399,32 +454,6 @@ class App_controller extends Controller{
 		}
 	}
 
-	public function otherUsers($f3){
-		if(!$f3->get('SESSION.mail')){
-			$f3->reroute('/');
-		}else{
-			$others = $this->model->getOtherUsers($f3->get('SESSION.mail'));
-
-			foreach ($others as &$other) {
-			    $other['fav'] = $this->model->checkFav($f3->get('SESSION.mail'), $other['user_id']);
-			}
-			unset($other);
-
-			$f3->set('result',$others);
-			$f3->set('navigation','partials/navlog.htm');
-			$f3->set('content','listUsers.htm');
-		}
-	}
-
-	public function addFavUser($f3){
-		if(!$f3->get('SESSION.mail')){
-			$f3->reroute('/');
-		}else{
-			$this->model->addFavUser($f3->get('SESSION.mail'),$f3->get('PARAMS.otherUserId'));
-			$f3->reroute('/otherUsers');
-		}
-	}
-
 	/*public function maCave($f3){
 		if(!$f3->get('SESSION.mail')){
 			$f3->reroute('/');
@@ -445,6 +474,18 @@ class App_controller extends Controller{
 
 	public function maCave($f3){
 			$wines = $this->model->getUserWines($f3->get('SESSION.mail'));
+			if(isset($wines['wines'])){
+				for($i=0; $i<count($wines['wines']); $i++){
+					$wines['wines'][$i]['wine_time_add']=date("d/m/Y", strtotime(substr($wines['wines'][$i]['wine_time_add'],0,10)));
+				}
+			}
+
+			return $wines;
+	}
+
+	public function aOtherCave($id){
+			$wines = $this->model->getOtherUserWines($id);
+
 			if(isset($wines['wines'])){
 				for($i=0; $i<count($wines['wines']); $i++){
 					$wines['wines'][$i]['wine_time_add']=date("d/m/Y", strtotime(substr($wines['wines'][$i]['wine_time_add'],0,10)));

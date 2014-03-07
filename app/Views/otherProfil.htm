@@ -7,21 +7,38 @@
 					<article id="display-profil">
 						<div class="layout">
 										<article id="profil">
-												<repeat group="{{ @result }}" value="{{ @item }}">
+												<repeat group="{{ @otherUser }}" value="{{ @user }}">
 
 											<div class="roundedImage">
-												<img src="./public/img/avatars/{{ @item.user_img  }}" alt="{{ @item.user_img  }}" />
+												<img src="./public/img/avatars/{{ @user.user_img  }}" alt="{{ @user.user_img  }}" />
 											</div>
-											<h3>{{ @item.user_firstname  }} {{ @item.user_lastname  }}</h3>
+											<h3>{{ @user.user_firstname  }} {{ @user.user_lastname  }}</h3>
+											<check if="{{ @fav!=0 }}">
+												<true>
+													<a class="fav" href="addFavUser/{{ @user.user_id }}"><div class="fav favYes"></div></a>
+												</true>
+												<false>
+													<a class="fav" href="addFavUser/{{ @user.user_id }}"><div class="fav favNo"></div></a>
+												</false>
+											</check>
 												<div id="profil-infos">
-													<p>Adresse mail : {{ @item.user_mail  }}</p><br/>
-													<check if="{{@item.user_street!=''}}">
-														<check if="{{@item.user_cp!=0}}">
-															<check if="{{@item.user_town!=''}}">
+													<check if="{{@nameUser!=''}}">
+														<true>
+															<p>Prénom : {{@nameUser}}</p><br/>
+														</true>
+														<false>
+															<p>Prénom : Pas de prénom</p><br/>
+														</false>
+													</check>
+													
+													<p>Adresse mail : {{ @user.user_mail  }}</p><br/>
+													<check if="{{@user.user_street!=''}}">
+														<check if="{{@user.user_cp!=0}}">
+															<check if="{{@user.user_town!=''}}">
 																<true>
 																	<p>Adresse postale :</p><br/>
-																	<p> {{ @item.user_street  }}</p>
-																	<p> {{ @item.user_cp  }} {{ @item.user_town  }}</p>
+																	<p> {{ @user.user_street  }}</p>
+																	<p> {{ @user.user_cp  }} {{ @user.user_town  }}</p>
 																</true>
 																<false>
 																	<p>Pas d'adresse postale</p>
@@ -36,7 +53,6 @@
 														</false>
 													</check>
 												</div>
-											<a href="formProfilModif">Modifier mes informations</a>
 												</repeat>
 
 										</article>
@@ -52,63 +68,59 @@
 								
 								<h2>Ma cave</h2>
 								
-								<p>Je possède actuellement {{ @nbWines }} vins dans ma cave</p>
+								<check if="{{@nameUser!=''}}">
+									<true>
+										<p>{{@nameUser}} possède actuellement {{ @nbWines }} vins dans ma cave</p>
+									</true>
+									<false>
+										<p>Cet utilisateur possède actuellement {{ @nbWines }} vins dans ma cave</p>
+									</false>
+								</check>
 								
 									<article id="display-cave">
-										<a href="addWine">
-											<div id="add-wine">
-												<div id="add">
-													<input type="submit" name="ajout-vin" value="+"/>
-													<p>Ajouter un vin !</p>
-												</div>
-											</div>
-										</a>
 										<!-- fin add wine -->
 										
-										<check if="{{@resultat!=0}}" >
+										<check if="{{@otherUserWines!=0}}" >
 											<true>
-												<repeat group="{{ @resultat }}" value="{{ @wine }}">
+												<repeat group="{{ @otherUserWines }}" value="{{ @userWine }}">
 													<div class="display-wine">
-													 	<h3>{{ @wine.wine_name }}</h3>
+													 	<h3>{{ @userWine.wine_name }}</h3>
 													 	<div class="display-wine-infos">
-													 		<img src="./public/img/avatars/{{ @wine.wine_img }}" alt="photo du vin {{ @wine.wine_name }}" />
+													 		<img src="./public/img/avatars/{{ @userWine.wine_img }}" alt="photo du vin {{ @userWine.wine_name }}" />
 													 		<ul>
 																<li>
 																	<p>
 																		<span class="title-info">Millésime :</span> 
-																		{{ @wine.wine_millesime }}
+																		{{ @userWine.wine_millesime }}
 																	</p>
 																</li>
 																<li>
 																	<p>
 																		<span class="title-info">Cêpage :</span>
-																		{{ @wine.wine_cepage }} 
+																		{{ @userWine.wine_cepage }} 
 																	</p>
 																</li>
 																<li>
 																	<p>
 																		<span class="title-info">Origine :</span>
-																		{{ @wine.wine_origin }}
+																		{{ @userWine.wine_origin }}
 																	</p>
 																</li>
 																<li>
 																	<p>
 																		<span class="title-info">Le ptit conseil :</span>
-																		{{ @wine.wine_conseil }}
+																		{{ @userWine.wine_conseil }}
 																	</p>
 																</li>
 																<li>
 																	<p>
 																		<span class="title-info">Valeur estimée :</span>
-																		{{ @wine.wine_value }}
+																		{{ @userWine.wine_value }}
 																	</p>
 																</li>
 															</ul>
 											 			</div>
 											 			<!-- fin wine infos -->
-											 	
-											 			<input type="submit" type="text" value="modifier" />
-											 			<input type="submit" type="text" value="supprimer" />	
 													</div>
 												</repeat>
 											</true>

@@ -1,12 +1,19 @@
-.fav{
-	height:10px;
-	width:10px;
+#profil > a.fav{
+	margin:0;
+	margin-right:20px;
+	margin-top:-50px;
+	float:right;
 }
-.favNo{
-	background-color:#124578;
+#profil > a.fav .fav{
+	height:30px;
+	width:30px;
+	margin:0;
 }
-.favYes{
-	background-color:#ffff00;
+#profil > a.fav .favNo{
+	background-image:url('../img/favNo.png');
+}
+#profil > a.fav .favYes{
+	background-image:url('../img/favYes.png');
 }
 
 .layout #profil .roundedImage img{
