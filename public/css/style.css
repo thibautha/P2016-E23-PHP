@@ -367,9 +367,10 @@ html {
 			color:#b04c4c;
 			padding:5px;
 		}
-			#random-wine > img {
+			#random-wine > a > img {
 				border: 2px solid #b04c4c;
 				height:242px;
+				margin-top: -31px;
 				width:142px;
 				float:left;
 			}
