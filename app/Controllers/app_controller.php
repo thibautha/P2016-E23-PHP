@@ -177,6 +177,16 @@ class App_controller extends Controller{
 		}else{
 			$userProfil = $this->model->getUserProfil($f3->get('SESSION.mail'));
 
+			$userFavoris = $this->model->getFav($f3->get('SESSION.ID'));
+			if(empty($userFavoris)){
+				$f3->set('userFavs','');
+			}else{
+				for($i=0; $i<sizeof($userFavoris);$i++){
+					$userFavoris[$i]=$userFavoris[$i][0];
+				}
+				$f3->set('userFavs',$userFavoris);
+			}
+
 			$wines = $this->maCave($f3);
 			$f3->set('resultat', $wines['wines']);
 
@@ -195,6 +205,17 @@ class App_controller extends Controller{
 
 		$f3->set('otherUserWines', $wines['wines']);
 
+		$userFavoris = $this->model->getFav($f3->get('PARAMS.userId'));
+		print_r($userFavoris);
+		if(empty($userFavoris)){
+			$f3->set('userFavs','');
+		}else{
+			for($i=0; $i<sizeof($userFavoris);$i++){
+				$userFavoris[$i]=$userFavoris[$i][0];
+			}
+			$f3->set('userFavs',$userFavoris);
+		}
+
 		$f3->set('nbWines',count($wines['wines']));
 
 		$f3->set('fav',$this->checkFavUser($f3->get('SESSION.mail'), $f3->get('PARAMS.userId')));
@@ -207,23 +228,6 @@ class App_controller extends Controller{
 			$f3->set('navigation','partials/navNotlog.htm');
 		}else{
 			$f3->set('navigation','partials/navlog.htm');
-		}
-	}
-
-	public function otherUsers($f3){
-		if(!$f3->get('SESSION.mail')){
-			$f3->reroute('/');
-		}else{
-			$others = $this->model->getOtherUsers($f3->get('SESSION.mail'));
-
-			foreach ($others as &$other) {
-			    $other['fav'] = $this->model->checkFav($f3->get('SESSION.mail'), $other['user_id']);
-			}
-			unset($other);
-
-			$f3->set('result',$others);
-			$f3->set('navigation','partials/navlog.htm');
-			$f3->set('content','listUsers.htm');
 		}
 	}
 
@@ -550,7 +554,7 @@ class App_controller extends Controller{
 				$img = './avatars/'.$wineDelete;
 				unlink($img);
 			}
-			$f3->reroute('/maCave');
+			$f3->reroute('/profil');
 		}
 	}
 
