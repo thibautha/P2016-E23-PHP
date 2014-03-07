@@ -69,6 +69,9 @@ class App_model extends Model{
 	function getUserProfil($mail){
 		return $this->dB->exec('SELECT * FROM userwine WHERE user_mail="'.$mail.'"');
 	}
+	function getOtherUserProfil($id){
+		return $this->dB->exec('SELECT * FROM userwine WHERE user_id="'.$id.'"');
+	}
 
 	/* modifier les infos du user (profil) */
 	function modifyUserProfil($mail, $nom, $prenom, $street, $town, $cp){
@@ -151,20 +154,25 @@ class App_model extends Model{
 		$currentUser = $this->mapperUser->load(array('user_mail=?',$mail));
 		//$fav = $this->mapperFavUser->load(array('user_id=?',$currentUser['user_id']));
 		$fav = $this->dB->exec('SELECT favori_id FROM favoris_user WHERE user_id="'.$currentUser['user_id'].'"');
-		$rep = "No";
+		$rep = 0;
 		for($i=0; $i<sizeof($fav);$i++){
 			if($fav[$i]['favori_id']==$otherID){
-				$rep = "Yes";
+				$rep = 1;
 			}
 		}
 		return $rep;
-		print_r($fav);
 	}
 
 	function getUserWines($mail){
 		$user=$this->mapperUser->load(array('user_mail=?',$mail));
 		//$wines=$this->mapperWine->load(array('user_wine_id=?',$user['user_id']));
 		$wines = $this->dB->exec('SELECT * FROM wine WHERE user_wine_id="'.$user['user_id'].'" ORDER BY wine_time_add DESC');
+		return array('wines'=>$wines, 'proprio'=>$user);
+	}
+
+	function getOtherUserWines($id){
+		$user=$this->mapperUser->load(array('user_id=?',$id));
+		$wines = $this->dB->exec('SELECT * FROM wine WHERE user_wine_id="'.$id.'" ORDER BY wine_time_add DESC');
 		return array('wines'=>$wines, 'proprio'=>$user);
 	}
 
@@ -208,51 +216,6 @@ class App_model extends Model{
 		$wine=$this->mapperWine->load(array('wine_id=?',$wineID));
 		$wine->wine_img=$img;
 		$wine->save();
-	}
-
-	function getOtherWines($mail){
-		//return $this->mapperUser->load(array('user_mail!=?',$mail));
-		$currentUser = $this->mapperUser->load(array('user_mail!=?',$mail));
-		return $this->dB->exec('SELECT wine_name, wine_img, wine_id FROM wine WHERE user_wine_id!="'.$currentUser['user_id'].'" ORDER BY wine_name DESC');
-	}
-
-	function addFavWine($mail,$otherWineID){
-		$currentUser = $this->mapperUser->load(array('user_mail=?',$mail));
-		$favWine = $this->mapperFavWine->find(array('user_id=?',$currentUser['user_id']));
-		$val=1;
-		$pos=0;
-		for($i=0;$i<sizeof($favWine);$i++){
-			if($favWine[$i]['wine_id']==$otherWineID){
-				$val=0;
-				$pos=$i;
-			}
-		}
-		if($val==0){
-			$favWine[$pos]->erase();
-			return false;
-		}else{
-			$this->dB->exec('INSERT INTO favoris_wine(wine_id, user_id) VALUES ("'.$otherWineID.'", "'.$currentUser["user_id"].'")');
-			/*$this->mapperFavUser->user_id=$currentUser['user_id'];
-			$this->mapperFavUser->favori_id=$otherID;
-			$this->mapperFavUser->save();*/
-			return true;
-		}
-	}
-
-	function checkFavWine($mail, $otherWineID){
-		$currentUser = $this->mapperUser->load(array('user_mail=?',$mail));
-		//$fav = $this->mapperFavUser->load(array('user_id=?',$currentUser['user_id']));
-		$favWine = $this->dB->exec('SELECT wine_id FROM favoris_wine WHERE user_id="'.$currentUser['user_id'].'"');
-		//print_r("ça passe");
-		//print_r($favWine[0]['wine_id']);
-		//print_r($otherWineID);
-		$rep = "No";
-		for($i=0; $i<sizeof($favWine);$i++){
-			if($favWine[$i]['wine_id']==$otherWineID){
-				$rep = "Yes";
-			}
-		}
-		return $rep;
 	}
 
 	function getWineDemand($wineDemand){
