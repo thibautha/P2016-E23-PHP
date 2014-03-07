@@ -6,10 +6,10 @@
 				<div class="last-wine">
 					<check if="{{@wine.user_firstname !=''}}" >
 						<true>
-							<a href="./user/{{@wine.user_wine_id}}">{{@wine.user_firstname}}</a><span> a ajouté :</span>
+							<a href="./user/{{@wine.user_wine_id}}">{{@wine.user_firstname}}</a><p> a ajouté :</p>
 						</true>
 						<false>
-							<a href="./user/{{@wine.user_wine_id}}">Un utilisateur</a><span> a ajouté :</span>	
+							<a href="./user/{{@wine.user_wine_id}}">Un utilisateur</a><p> a ajouté :</p>	
 						</false>
 					</check>
 					<div id="display-last-wine">

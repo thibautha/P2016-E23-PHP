@@ -14,27 +14,11 @@
 											</div>
 											<h3>{{ @item.user_firstname  }} {{ @item.user_lastname  }}</h3>
 												<div id="profil-infos">
-													<p>Adresse mail : {{ @item.user_mail  }}</p><br/>
-													<check if="{{@item.user_street!=''}}">
-														<check if="{{@item.user_cp!=0}}">
-															<check if="{{@item.user_town!=''}}">
-																<true>
-																	<p>Adresse postale :</p><br/>
-																	<p> {{ @item.user_street  }}</p>
-																	<p> {{ @item.user_cp  }} {{ @item.user_town  }}</p>
-																</true>
-																<false>
-																	<p>Pas d'adresse postale</p>
-																</false>
-															</check>
-															<false>
-																<p>Pas d'adresse postale</p>
-															</false>
-														</check>
-														<false>
-															<p>Pas d'adresse postale</p>
-														</false>
-													</check>
+													<p>Pseudo : TEXTE EN DUR</p>
+													
+													<p>Adresse postale : {{ @item.user_street  }}</p>
+													<p>Adresse mail : {{ @item.user_mail  }}</p>
+													<p>Ville : {{ @item.user_cp  }} {{ @item.user_town  }}</p>
 												</div>
 											<a href="formProfilModif">Modifier mes informations</a>
 												</repeat>
@@ -131,7 +115,7 @@
 							
 									<section id="my-friend">
 										<h2>J'aime leurs vins</h2>
-										<p>14 utilisateurs favoris>
+										<p>14 utilisateurs favoris</p>
 										<section id="display-friend">
 										
 											<check if="{{ @userFavs!=''}}">
