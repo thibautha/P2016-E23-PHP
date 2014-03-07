@@ -5,6 +5,7 @@
 	<div id="wineDemand" style="background-color:#458956;">
 		<p>Voici le vin que vous souhaitez :</p>
 		<h3>{{@wineDemand.wine_name}}</h3>
+		<input type="hidden" name="wineId" value="{{@wineDemand.wine_id}}"/>
 		<input type="hidden" name="wineDemandName" value="{{@wineDemand.wine_name}}"/>
 		<p>{{@wineDemand.wine_value}}</p>
 		<input type="hidden" name="wineValue" value="{{@wineDemand.wine_value}}"/>

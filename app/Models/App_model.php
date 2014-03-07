@@ -8,6 +8,7 @@ class App_model extends Model{
 		$this->mapperWine=$this->getMapper('wine');
 		$this->mapperFavUser=$this->getMapper('favoris_user');
 		$this->mapperFavWine=$this->getMapper('favoris_wine');
+		$this->mapperProposition=$this->getMapper('proposition');
 	}
 
 
@@ -219,7 +220,7 @@ class App_model extends Model{
 		$wine->wine_origin=$wineOrigin;
 		$wine->wine_cepage=$wineCepage;
 		$wine->wine_millesime=$wineMillesim;
-		$wine->wine_conseil=$wineConseil;
+		$wine->prop_date=$wineConseil;
 		$wine->save();
 	}
 
@@ -230,11 +231,26 @@ class App_model extends Model{
 	}
 
 	function getWineDemand($wineDemand){
-		return $this->dB->exec('SELECT wine_name, wine_img, wine_value FROM wine WHERE wine_id="'.$wineDemand.'"');
+		return $this->dB->exec('SELECT wine_name, wine_img, wine_value, wine_id FROM wine WHERE wine_id="'.$wineDemand.'"');
 	}
 
 	function getCaveWines($userId){
 		return $this->dB->exec('SELECT * FROM wine WHERE user_wine_id="'.$userId.'"');
+	}
+
+	function getMailAdressTo($idWine){
+		$userId = $this->dB->exec('SELECT user_wine_id FROM wine WHERE wine_id="'.$idWine.'"');
+		$userMail = $this->dB->exec('SELECT user_mail FROM userwine WHERE user_id="'.$userId[0]['user_wine_id'].'"');
+		return $userMail[0]['user_mail'];
+	}
+
+	function insertProposition($mailSend,$mailReceive,$wineSend,$wineReceive){
+		$this->mapperProposition->prop_send_user_mail=$mailSend;
+		$this->mapperProposition->prop_receive_user_mail=$mailReceive;
+		$this->mapperProposition->prop_send_wine_id=$wineSend;
+		$this->mapperProposition->prop_receive_wine_id=$wineReceive;
+		$this->mapperProposition->prop_date=date("Y-m-d H:i:s");;
+		$this->mapperProposition->save();
 	}
 
 	/***********************************************************************************************************/

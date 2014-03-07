@@ -578,7 +578,7 @@ class App_controller extends Controller{
 				break;
 				case 'POST':
 					$wineOld = $this->model->getUserWine($f3->get('PARAMS.wineID'));
-					if($f3->exists('POST.wineName')!="" || $f3->exists('POST.wineOrigin')!="" || $f3->exists('POST.wineCepage')!="" || $f3->exists('POST.wineMillesim')!=""  || $f3->exists('POST.wineNb')!="" || $f3->exists('POST.wineConseil')!=""){
+					if($f3->exists('POST.wineName') || $f3->exists('POST.wineOrigin') || $f3->exists('POST.wineCepage') || $f3->exists('POST.wineMillesim')  || $f3->exists('POST.wineNb') || $f3->exists('POST.wineConseil')){
 						if($f3->get('POST.wineName')!="" || $f3->get('POST.wineOrigin')!="" || $f3->get('POST.wineCepage')!="" || $f3->get('POST.wineMillesim')!=""  || $f3->get('POST.wineNb')!="" || $f3->get('POST.wineConseil')!=""){
 
 								if($f3->get('POST.wineName')!=""){
@@ -756,42 +756,39 @@ class App_controller extends Controller{
 
 		/* récupérer les données */
 
-		$f3 -> set ( 'from' , $f3->get('POST.mailFrom') ); 
-		$f3 -> set ( 'to' , $f3->get('POST.mailTo') ); 
-		$f3 -> set ( 'subject' , $f3->get('POST.subject') );
-		$f3->set('msg',$f3->get('POST.msg') );
+		/*
+		$f3 -> set ( 'from' , $f3->get('SESSION.mail') ); 
+		$f3 -> set ( 'to' , $this->getMailAdressTo($f3->get('POST.wineId')) );
+
+		//print_r($this->getMailAdressTo($f3->get('POST.wineId')));
+
+		$f3 -> set ( 'subject' , "Offre de proposition d\'échange de vin sur A la notre !" );
+		$f3->set('msg','Vous avez reçu une proposition concernant votre vin '.$f3->get('POST.wineDemandName').'. Allez vite la consulter dans vos propositions sur A la notre !' );
 		ini_set ( 'sendmail_from' , $f3 -> get ( 'from' )); 
 		mail ( 
 		    $f3 -> get ( 'to' ), 
 		    $f3 -> get ( 'subject' ),
 		    $f3 -> get ( 'msg' ) 
 		);
-		$f3->reroute('/email');
-	}
+		$f3->reroute('/alert');
+		*/
 
-	public function getPageEmail($f3){
-		if(!$f3->get('SESSION.mail')){
-			$f3->set('randomWine', $this->getRandomWine());
-			$f3->set('lastWines', $this->getLastWines());
-			$f3->reroute('/');
+		if($f3->exists('POST.wineId') && $f3->exists('POST.wineProp')){
+			if($f3->get('POST.wineId')!='' && $f3->get('POST.wineProp')!=''){
+				$f3->set('mailOther', $this->getMailAdressTo($f3->get('POST.wineProp')));
+				$this->model->insertProposition($f3->get('SESSION.mail'),$f3->get('mailOther'),$f3->get('POST.wineProp'),$f3->get('POST.wineId'));
+				$f3->reroute('/alert');
+			}else{
+				$f3->reroute('/proposition');
+			}
 		}else{
-			$f3->set('navigation','partials/navlog.htm');
-			$f3->set('content','partials/email.htm');
+			$f3->reroute('/proposition');
 		}
+
 	}
 
-	public function envoieMail($f3){
-		$f3 -> set ( 'from' , $f3->get('POST.mailFrom') ); 
-		$f3 -> set ( 'to' , $f3->get('POST.mailTo') ); 
-		$f3 -> set ( 'subject' , $f3->get('POST.subject') );
-		$f3->set('msg',$f3->get('POST.msg') );
-		ini_set ( 'sendmail_from' , $f3 -> get ( 'from' )); 
-		mail ( 
-		    $f3 -> get ( 'to' ), 
-		    $f3 -> get ( 'subject' ),
-		    $f3 -> get ( 'msg' ) 
-		);
-		$f3->reroute('/email');
+	public function getMailAdressTo($idWine){
+		return $this->model->getMailAdressTo($idWine);
 	}
 
 	/* sign out */
