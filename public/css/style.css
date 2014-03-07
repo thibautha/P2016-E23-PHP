@@ -285,13 +285,15 @@ html {
 			
 		}
 		
-		#display-last-wine > h3 {
-			color:white;
+		#display-last-wine > h3 > a {
+			color: white;
 			margin-top: 8px;
+			text-decoration: none;
 			font-size: 1.2em;
-		}
+			}
 		
-		#display-last-wine > img {
+		
+		#display-last-wine > a > img {
 			width:141px;
 			height:190px;
 			margin-top: 5px;
@@ -367,9 +369,10 @@ html {
 			color:#b04c4c;
 			padding:5px;
 		}
-			#random-wine > img {
+			#random-wine > a > img {
 				border: 2px solid #b04c4c;
 				height:242px;
+				margin-top: -31px;
 				width:142px;
 				float:left;
 			}
@@ -935,7 +938,21 @@ padding-bottom: 30px;
 	#inscription p {
 		text-align: center;
 		color:#81363b;
+		clear:both;
+		text-decoration: none;
 	}
+
+	 #inscription a {
+	 	text-align: center;
+		color:#81363b;
+		clear:both;
+		text-decoration: none;
+		margin-left:265px;
+		line-height: 2;
+		font-size: 1.3em;
+
+
+	 }
 	
 	#inscription p:nth-child(1){
 		margin-bottom: 30px;
@@ -952,7 +969,7 @@ padding-bottom: 30px;
 	
 	#champs {
 		width:725px;
-		height:467px;
+		height:100%;
 		margin-top: 30px;
 		margin-bottom: 65px;
 			}
@@ -977,15 +994,15 @@ padding-bottom: 30px;
 			-webkit-box-shadow: inset 0px 0px 0px 0px #656565 !important;
 			-o-box-shadow: inset 0px 0px 0px 0px #656565 !important;
 			box-shadow: inset 0px 0px 0px 0px #656565 !important;
-}
+
 		}
 
 		#champs-left {
-			float: left;text-align: center;
-			height:100%;	
-			
-				}
-		
+				text-align: center; 
+			height:100%;
+			width: 300px;
+			float:left;
+		}
 		
 		#champs-right {
 			text-align: center; 
