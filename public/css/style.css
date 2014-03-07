@@ -285,13 +285,15 @@ html {
 			
 		}
 		
-		#display-last-wine > h3 {
-			color:white;
+		#display-last-wine > h3 > a {
+			color: white;
 			margin-top: 8px;
+			text-decoration: none;
 			font-size: 1.2em;
-		}
+			}
 		
-		#display-last-wine > img {
+		
+		#display-last-wine > a > img {
 			width:141px;
 			height:190px;
 			margin-top: 5px;
