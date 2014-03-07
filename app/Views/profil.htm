@@ -134,23 +134,27 @@
 										<p>14 utilisateurs favoris>
 										<section id="display-friend">
 										
-											<div class="friend">
-											<img src="#" alt="photo d'ami" />
-											<a href="#">Frederico</a>
-											</div>
-											<!-- fin friend -->
-											
-											<div class="friend">
-											<img src="#" alt="photo d'ami" />
-											<a href="#">Frederico</a>
-											</div>
-											<!-- fin friend -->
-											
-											<div class="friend">
-											<img src="#" alt="photo d'ami" />
-											<a href="#">Frederico</a>
-											</div>
-											<!-- fin friend -->
+											<check if="{{ @userFavs!=''}}">
+												<true>
+													<repeat group="{{ @userFavs }}" value="{{ @userFav }}">
+														<div class="friend">
+															<img src="./public/img/avatars/{{ @userFav.user_img }}" alt="photo de {{ @userFav.user_firstname }}" />
+															<check if="{{@userFav.user_firstname!=''}}">
+																<true>
+																	<a href="./user/{{ @userFav.user_id }}">{{ @userFav.user_firstname }}</a>
+																</true>
+																<false>
+																	<a href="./user/{{ @userFav.user_id }}">Utilisateur n°{{ @userFav.user_id }}</a>
+																</false>
+															</check>
+														</div>
+														<!-- fin friend -->
+													</repeat>
+												</true>
+												<false>
+													<p>Vous n'avez pas d'utilisateur favoris.</p>
+												</false>
+											</check>
 											
 										</section>
 										<!-- fin display friend -->

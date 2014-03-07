@@ -163,6 +163,18 @@ class App_model extends Model{
 		return $rep;
 	}
 
+	function getFav($id){
+		$idFavs = $this->dB->exec('SELECT favori_id FROM favoris_user WHERE user_id="'.$id.'"');
+		if(!empty($idFavs)){
+			for($i=0; $i<sizeof($idFavs);$i++){
+				$favs[$i] = $this->dB->exec('SELECT user_firstname, user_img, user_id FROM userwine WHERE user_id="'.$idFavs[$i]['favori_id'].'"');
+			}
+		}else{
+			$favs='';
+		}
+		return $favs;
+	}
+
 	function getUserWines($mail){
 		$user=$this->mapperUser->load(array('user_mail=?',$mail));
 		//$wines=$this->mapperWine->load(array('user_wine_id=?',$user['user_id']));
