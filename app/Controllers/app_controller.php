@@ -798,9 +798,9 @@ class App_controller extends Controller{
 		$wine=$f3->get('POST.wine');
 		$f3->set('results', $this->model->search($wine));
 		if(!$f3->get('SESSION.mail')){
-			$f3->set('navigation','partials/navNotLog.htm');
+			$f3->set('navigation','partials/navNotlog.htm');
 		}else{
-			$f3->set('navigation','partials/navLog.htm');
+			$f3->set('navigation','partials/navlog.htm');
 		}
 		$f3->set('content','Results.htm');
 	}
@@ -829,7 +829,7 @@ class App_controller extends Controller{
 	public function getWine($f3){
 		$wine=$f3->set('wine', $this->model->getWine($f3->get('PARAMS.id')));
 		if(!$f3->get('SESSION.mail')){
-			$f3->set('navigation','partials/navNotLog.htm');
+			$f3->set('navigation','partials/navNotlog.htm');
 		}else{
 			$f3->set('navigation','partials/navlog.htm');
 		}
