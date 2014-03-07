@@ -4,7 +4,7 @@
 $nomVinActuel = $_GET["nomVinActuel"];
 
 // On se connecte à la base de données
-$con = mysqli_connect("preprod.hetic.net","alanotre","laNOtr3458","alanotre");
+$con = mysqli_connect("localhost","root","","alanotre");
 
 //Requête faite à la base de données 
 $query = 'SELECT * FROM wine WHERE wine_name!="'.$nomVinActuel.'" ORDER BY RAND() LIMIT 1';
