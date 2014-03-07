@@ -61,21 +61,36 @@ $(function() {
 		// On récupère son nom
 		var nomVinActuel = $("#random h3").html();
 
-		/*On éxécute une requête asynchrone pour nous afficher un autre vin */
-		
-		$.ajax({   
-		   type: "GET",
-		   contentType: 'application/json; charset=UTF-8',
-		   url: "./public/ajax/autreVin.php",
-		   data: {nomVinActuel : nomVinActuel},
-		   dataType:'json',
-		   success:function(autreVin){
-		   		var vinId = autreVin["wine_id"];
-            	$("#random h3").animate('easeOut', 1000).replaceWith('<h3>'+autreVin["wine_name"]+'</h3>'); 
-            	vinImg = autreVin["wine_img"],
-            	vinO = autreVin["wine_origine"]
-            	vinC = autreVin["wine_cepage"]
-            	vinM = autreVin["wine_millesime"];
+		// On éxécute une requête asynchrone pour nous afficher un autre vin
+		$.ajax({  
+		   type: "GET", //type de requête : get 
+		   contentType: 'application/json; charset=UTF-8', //encodage 
+		   url: "./public/ajax/autreVin.php", //url du fichier php qui traite la requête
+		   data: {nomVinActuel : nomVinActuel}, // donnée à envoyer dans la requête
+		   dataType:'json', //type de données récupérées 
+
+		   // Quand on a récupéré les données 
+		   success:function(autreVin){ 
+		   		
+		   		// On modifie :
+		   		// - le titre du vin 
+            	$("#random h3").replaceWith('<h3>'+autreVin["wine_name"]+'</h3>');
+            	
+            	// - l'attribue alt de l'image
+            	$("#random img").attr('alt', autreVin["wine_img"]);
+            	
+            	// - l'url de l'image
+            	var nouvelleUrlImg = "./public/img/avatars/" + autreVin["wine_img"];
+            	$("#random img").attr('src', nouvelleUrlImg);
+            	
+            	// - le millesime du vin 
+            	$("#random #millesime").html(autreVin["wine_millesime"]);
+            	
+            	// - le cepage du vin 
+            	$("#random #cepage").html(autreVin["wine_cepage"]);
+            	
+            	//- le millesime du vin 
+            	$("#random #region").html(autreVin["wine_origin"]);
 
 		   }
 		});

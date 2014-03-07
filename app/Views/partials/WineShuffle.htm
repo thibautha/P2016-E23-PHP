@@ -8,9 +8,9 @@
 				<a href="./wine/{{ @randomWine.wine_id }}"><img  src="./public/img/avatars/{{@randomWine.wine_img}}" alt="{{@randomWine.wine_img}}"></a>
 				<!-- cépage millésime région -->
 				<ul>
-					<li><p>Millésime : {{@randomWine.wine_millesime}}</p></li>
-					<li><p>Cépage : {{@randomWine.wine_cepage}}</p></li>
-					<li><p>Région : {{@randomWine.wine_origin}}</p></li>
+					<li><p>Millésime : <span id="millesime">{{@randomWine.wine_millesime}}</span></p></li>
+					<li><p>Cépage : <span id="cepage">{{@randomWine.wine_cepage}}</span></p></li>
+					<li><p>Région : <span id="region">{{@randomWine.wine_origin}}</span></p></li>
 				</ul>
 				<!-- conseil sur le vin -->
 				<div id="ptit-conseil"><p>Conseil : {{@randomWine.wine_conseil}}</p></div>
