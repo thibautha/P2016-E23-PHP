@@ -24,19 +24,19 @@
 												<div id="profil-infos">
 													<check if="{{@nameUser!=''}}">
 														<true>
-															<p>Prénom : {{@nameUser}}</p><br/>
+															<p>Prénom : {{@nameUser}}</p>
 														</true>
 														<false>
-															<p>Prénom : Pas de prénom</p><br/>
+															<p>Prénom : Pas de prénom</p>
 														</false>
 													</check>
 													
-													<p>Adresse mail : {{ @user.user_mail  }}</p><br/>
+													<p>Adresse mail : {{ @user.user_mail  }}</p>
 													<check if="{{@user.user_street!=''}}">
 														<check if="{{@user.user_cp!=0}}">
 															<check if="{{@user.user_town!=''}}">
 																<true>
-																	<p>Adresse postale :</p><br/>
+																	<p>Adresse postale :</p>
 																	<p> {{ @user.user_street  }}</p>
 																	<p> {{ @user.user_cp  }} {{ @user.user_town  }}</p>
 																</true>

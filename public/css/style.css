@@ -845,6 +845,7 @@ padding-top: 4px;
 			}
 				.display-wine-infos a {
 					color:#81363b;
+					line-height: 5;
 				}
 			
 				.display-wine-infos img {
@@ -993,7 +994,7 @@ padding-bottom: 30px;
 	
 	#champs {
 		width:725px;
-		height:100%;
+		height:800px;
 		margin-top: 30px;
 		margin-bottom: 65px;
 			}
@@ -1031,7 +1032,7 @@ padding-bottom: 30px;
 		#champs-right {
 			text-align: center; 
 			height:100%;
-			float:right;
+			
 		}
 		
 		#champs input {
