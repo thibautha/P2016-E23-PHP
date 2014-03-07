@@ -563,6 +563,16 @@ html {
 		color:#81363b;
 	}
 
+	.wine-result a:nth-child(4) {
+		color: #81363b;
+		background: url(../img/bg-proposition.png);
+		width: 200px;
+		padding: 8px 57px 7px 47px;
+		color:white;
+		text-decoration: none;
+		margin-left: 28px;
+	}
+
 .infos {
 	width:296px;
 	height:249px;
@@ -629,6 +639,7 @@ html {
 		.infos ul {
 			margin-left: 40px;
 			margin-top: 12px;
+			margin-bottom: 30px;
 		}
 		
 		.title-info {
@@ -668,7 +679,7 @@ html {
 	#profil h3 {
 		color:#81363b;
 		display: inline-block;
-		margin-top: 55px;
+		margin-top: 65px;
 		margin-bottom: 14px;
 		width:100%;
 		font-size: 1.5em;
