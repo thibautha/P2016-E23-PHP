@@ -61,15 +61,14 @@ $(function() {
 
 		$.get(({
 			'./public/ajax/autreVin.php', // Le fichier cible côté serveur
-	        false, // Nous n'envoyons pas de données.
-	        'recupererNomsVins' // Nom de la fonction de retour.
-	        'html' // Format des données reçues
+	        { nomVinActuel = $("#random-wine" > h3).val(); }, // Récupération du nom du vin 
+	        function(listeVins){
+
+	        }, //la fonction qui va traiter nos résultats
+	        'text' // Format des données reçues
 			}
    		});
 	});
-
-	function recupererNomsVins(){
 		
-	}
 });
 
