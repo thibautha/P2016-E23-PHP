@@ -12,8 +12,8 @@ html {
 
 @font-face {
 font-family: 'Merriweather',Futura std;
-src: url('Merriweather.ttf');
-      url('FuturaStd.otf');
+src: url('typos/Merriweather.ttf');
+      url('typos/FuturaStd.otf');
 }
 
 
