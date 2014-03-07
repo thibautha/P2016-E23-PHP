@@ -244,14 +244,24 @@ class App_model extends Model{
 		return $userMail[0]['user_mail'];
 	}
 
-	function insertProposition($mailSend,$mailReceive,$wineSend,$wineReceive){
+	function insertProposition($mailSend,$mailReceive,$receiveFirstname,$wineSend,$sendWineName,$sendWineImg,$wineReceive,$receiveWineName,$receiveWineImg){
 		$this->mapperProposition->prop_send_user_mail=$mailSend;
 		$this->mapperProposition->prop_receive_user_mail=$mailReceive;
 		$this->mapperProposition->prop_send_wine_id=$wineSend;
 		$this->mapperProposition->prop_receive_wine_id=$wineReceive;
-		$this->mapperProposition->prop_date=date("Y-m-d H:i:s");;
+		$this->mapperProposition->prop_date=date("Y-m-d H:i:s");
+		$this->mapperProposition->prop_receive_user_firstname=$receiveFirstname;
+		$this->mapperProposition->prop_send_wine_name=$sendWineName;
+		$this->mapperProposition->prop_send_wine_img=$sendWineImg;
+		$this->mapperProposition->prop_receive_wine_name=$receiveWineName;
+		$this->mapperProposition->prop_receive_wine_img=$receiveWineImg;
 		$this->mapperProposition->save();
 	}
+
+	function getUserProposition($mailSend){
+		return $this->dB->exec('SELECT * FROM proposition WHERE prop_send_user_mail="'.$mailSend.'" OR prop_receive_user_mail="'.$mailSend.'"');
+	}
+
 
 	/***********************************************************************************************************/
 	/******************************************** Fin code kévin **************************************************/

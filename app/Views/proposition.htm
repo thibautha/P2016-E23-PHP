@@ -31,16 +31,6 @@
 						<article id="display-alert">
 <form method="post" action="makeProposition">
 
-
-
-
-
-
-
-
-
-
-
 							
 														
 							<div class="accordion1">
@@ -50,75 +40,35 @@
 		<input type="hidden" name="wineId" value="{{@wineDemand.wine_id}}"/>
 		<input type="hidden" name="wineDemandName" value="{{@wineDemand.wine_name}}"/>
 		<input type="hidden" name="wineValue" value="{{@wineDemand.wine_value}}"/>
+		<input type="hidden" name="wineImg" value="{{@wineDemand.wine_img}}"/>
 	</div>
 
-
-
-
-
-							
-								<p class="title-alert">Voici le vin que vous souhaitez :</p>
-
-	
-								<div class="wine">
-									<div class="alert-wine">
-										<div class="alert-info">
-										<h1><a href="wine/{{@wineDemand.wine_id}}">{{@wineDemand.wine_name}}</a></h1>
-											
-													<li>
-														<p>
-														<span class="title-info">Valeur estimée :</span>
-																{{@wineDemand.wine_value}}
-														</p>
-													</li>
-													
-												
-								
-
-										</div>
-										<!-- fin infos -->
-										
-										<img src="#" alt="wine-picture" />
-									</div>
-
-									
-
-
-									
-								
-									
-									
+	<div id="cavePourChoisir" style="background-color:#124789;margin-top:20px;">						
 									
 									
 									<!-- fin alert interact -->
-										
 							
 							</div>
 								<p class="title-alert">Choisissez le vin que vous voulez offrir. :</p>
 
-	<div id="cavePourChoisir">
+								<div id="cavePourChoisir">
+								<repeat group="{{ @wineCave }}" value="{{ @wine }}">
 									<div class="alert-wine">
-											<repeat group="{{ @wineCave }}" value="{{ @wine }}">
+											
 
-										<div class="alert-info">
-														<input type="checkbox" name="wineProp" value="{{ @wine.wine_id }}">
+												<div class="alert-info">
+													<input type="checkbox" name="wineProp" value="{{ @wine.wine_id }}">
 
-										<h1>{{ @wine.wine_name }}</h1>
-										
-													<li>
-														<p>
-														<span class="title-info">Valeur estimée :</span>
-														{{ @wine.wine_value }}
-														</p>
-													</li>
+													<h1>{{ @wine.wine_name }}</h1>
 													
-												
+												</div>
+										<img  src="./public/img/avatars/{{ @wine.wine_img }}" alt="wine-picture" />
 										
-										</div>
 										<!-- fin infos -->
-											</div>
-										<img src="#" alt="wine-picture" />
 									</div>
+									</repeat>
+										
+								</div>
 									<!-- fin alert-wine -->
 										<input type="submit" value="Valider la proposition"/>
 </form>

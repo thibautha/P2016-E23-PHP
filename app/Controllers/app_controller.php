@@ -206,7 +206,6 @@ class App_controller extends Controller{
 		$f3->set('otherUserWines', $wines['wines']);
 
 		$userFavoris = $this->model->getFav($f3->get('PARAMS.userId'));
-		print_r($userFavoris);
 		if(empty($userFavoris)){
 			$f3->set('userFavs','');
 		}else{
@@ -723,17 +722,6 @@ class App_controller extends Controller{
 		}
 	}
 
-	public function getAlertsPage($f3){
-		if(!$f3->get('SESSION.mail')){
-			$f3->set('randomWine', $this->getRandomWine());
-			$f3->set('lastWines', $this->getLastWines());
-			$f3->reroute('/');
-		}else{
-			$f3->set('navigation','partials/navlog.htm');
-			$f3->set('content','alert.htm');
-		}
-	}
-
 	public function getPropositionPage($f3){
 		if(!$f3->get('SESSION.mail')){
 			$f3->set('randomWine', $this->getRandomWine());
@@ -754,29 +742,12 @@ class App_controller extends Controller{
 
 	public function makeProposition($f3){
 
-		/* récupérer les données */
-
-		/*
-		$f3 -> set ( 'from' , $f3->get('SESSION.mail') ); 
-		$f3 -> set ( 'to' , $this->getMailAdressTo($f3->get('POST.wineId')) );
-
-		//print_r($this->getMailAdressTo($f3->get('POST.wineId')));
-
-		$f3 -> set ( 'subject' , "Offre de proposition d\'échange de vin sur A la notre !" );
-		$f3->set('msg','Vous avez reçu une proposition concernant votre vin '.$f3->get('POST.wineDemandName').'. Allez vite la consulter dans vos propositions sur A la notre !' );
-		ini_set ( 'sendmail_from' , $f3 -> get ( 'from' )); 
-		mail ( 
-		    $f3 -> get ( 'to' ), 
-		    $f3 -> get ( 'subject' ),
-		    $f3 -> get ( 'msg' ) 
-		);
-		$f3->reroute('/alert');
-		*/
-
 		if($f3->exists('POST.wineId') && $f3->exists('POST.wineProp')){
 			if($f3->get('POST.wineId')!='' && $f3->get('POST.wineProp')!=''){
+				$wineProp = $this->model->getWineDemand($f3->get('POST.wineProp'));
 				$f3->set('mailOther', $this->getMailAdressTo($f3->get('POST.wineProp')));
-				$this->model->insertProposition($f3->get('SESSION.mail'),$f3->get('mailOther'),$f3->get('POST.wineProp'),$f3->get('POST.wineId'));
+				$otherUser = $this->model->getUserProfil($f3->get('mailOther'));
+				$this->model->insertProposition($f3->get('SESSION.mail'),$f3->get('mailOther'),$otherUser[0]['user_firstname'],$f3->get('POST.wineProp'),$wineProp[0]['wine_name'],$wineProp[0]['wine_img'],$f3->get('POST.wineId'),$f3->get('POST.wineDemandName'),$f3->get('POST.wineImg'));
 				$f3->reroute('/alert');
 			}else{
 				$f3->reroute('/proposition');
@@ -785,6 +756,24 @@ class App_controller extends Controller{
 			$f3->reroute('/proposition');
 		}
 
+	}
+
+	public function getAlertsPage($f3){
+		if(!$f3->get('SESSION.mail')){
+			$f3->set('randomWine', $this->getRandomWine());
+			$f3->set('lastWines', $this->getLastWines());
+			$f3->reroute('/');
+		}else{
+			$propositions = $this->model->getUserProposition($f3->get('SESSION.mail'));
+			
+			if(empty($propositions)){
+				$f3->set('propositions','');
+			}else{
+				$f3->set('propositions',$propositions);
+			}		
+			$f3->set('navigation','partials/navlog.htm');
+			$f3->set('content','alert.htm');
+		}
 	}
 
 	public function getMailAdressTo($idWine){
