@@ -511,23 +511,30 @@ class App_controller extends Controller{
 				case 'POST':
 					if($f3->exists('POST.wineName') && $f3->exists('POST.origin') && $f3->exists('POST.cepage') && $f3->exists('POST.millesim') && $f3->exists('POST.quantitee') && $f3->exists('POST.conseil') /*&& $f3->exists($_FILES['img'])*/){
 						if($f3->get('POST.wineName')!="" && $f3->get('POST.origin')!="" && $f3->get('POST.cepage')!="" && $f3->get('POST.millesim')!="" && $f3->get('POST.quantitee')!="" && $f3->get('POST.conseil')!="" /*&& $_FILES['img']['size']!=0*/){
-							$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' );
-							$extension_upload = strtolower(  substr(  strrchr($_FILES['wineImg']['name'], '.')  ,1)  );
-							if ( in_array($extension_upload,$extensions_valides) ){
+							if(preg_match("#^[0-9]$#", $f3->get('POST.quantitee')) && preg_match("#^[0-9]{4}$#", $f3->get('POST.millesim'))){
+								$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' );
+								$extension_upload = strtolower(  substr(  strrchr($_FILES['wineImg']['name'], '.')  ,1)  );
+								if ( in_array($extension_upload,$extensions_valides) ){
 
-								$nbWine = $this->model->getNbWine($f3->get('SESSION.mail'));
+									$nbWine = $this->model->getNbWine($f3->get('SESSION.mail'));
 
-								$user = $this->model->getUserProfil($f3->get('SESSION.mail'));
-								$_FILES['wineImg']['name']="wine".$user[0]['user_id'].$nbWine.".".$extension_upload;
+									$user = $this->model->getUserProfil($f3->get('SESSION.mail'));
+									$_FILES['wineImg']['name']="wine".$user[0]['user_id'].$nbWine.".".$extension_upload;
 
-						        \Web::instance()->receive(function($file){},true,true);
-						    }else{
-						    	$_FILES['wineImg']['name']="avatarWine.png";
-						    }
-							
-							$this->model->addWine($f3->get('SESSION.mail'),$f3->get('POST.wineName'),$f3->get('POST.origin'),$f3->get('POST.cepage'),$f3->get('POST.millesim'), $f3->get('POST.quantitee'), $f3->get('POST.conseil'),$_FILES['wineImg']['name']);
-							
-							$f3->reroute('/profil');
+							        \Web::instance()->receive(function($file){},true,true);
+							    }else{
+							    	$_FILES['wineImg']['name']="avatarWine.png";
+							    }
+								
+								$this->model->addWine($f3->get('SESSION.mail'),$f3->get('POST.wineName'),$f3->get('POST.origin'),$f3->get('POST.cepage'),$f3->get('POST.millesim'), $f3->get('POST.quantitee'), $f3->get('POST.conseil'),$_FILES['wineImg']['name']);
+								
+								$f3->reroute('/profil');
+							}else{
+								$f3->set('color','red');
+								$f3->set('message',$f3->get('fieldsErrorChiffre'));
+								$f3->set('navigation','partials/navlog.htm');
+								$f3->set('content','addWine.htm');
+							}
 						}else{
 							$f3->set('color','red');
 							$f3->set('message',$f3->get('fieldsError'));
@@ -573,58 +580,64 @@ class App_controller extends Controller{
 					$wineOld = $this->model->getUserWine($f3->get('PARAMS.wineID'));
 					if($f3->exists('POST.wineName')!="" || $f3->exists('POST.wineOrigin')!="" || $f3->exists('POST.wineCepage')!="" || $f3->exists('POST.wineMillesim')!=""  || $f3->exists('POST.wineNb')!="" || $f3->exists('POST.wineConseil')!=""){
 						if($f3->get('POST.wineName')!="" || $f3->get('POST.wineOrigin')!="" || $f3->get('POST.wineCepage')!="" || $f3->get('POST.wineMillesim')!=""  || $f3->get('POST.wineNb')!="" || $f3->get('POST.wineConseil')!=""){
-							
-							if($f3->get('POST.wineName')!=""){
-								$f3->set('wineName',$f3->get('POST.wineName'));
-							}else{
-								$f3->set('wineName',$wineOld[0]['wine_name']);
-							}
 
-							if($f3->get('POST.wineOrigin')!=""){
-								$f3->set('wineOrigin',$f3->get('POST.wineOrigin'));
-							}else{
-								$f3->set('wineOrigin',$wineOld[0]['wine_origin']);
-							}
+								if($f3->get('POST.wineName')!=""){
+									$f3->set('wineName',$f3->get('POST.wineName'));
+								}else{
+									$f3->set('wineName',$wineOld[0]['wine_name']);
+								}
 
-							if($f3->get('POST.wineCepage')!=""){
-								$f3->set('wineCepage',$f3->get('POST.wineCepage'));
-							}else{
-								$f3->set('wineCepage',$wineOld[0]['wine_cepage']);
-							}
+								if($f3->get('POST.wineOrigin')!=""){
+									$f3->set('wineOrigin',$f3->get('POST.wineOrigin'));
+								}else{
+									$f3->set('wineOrigin',$wineOld[0]['wine_origin']);
+								}
 
-							if($f3->get('POST.wineMillesim')!=""){
-								$f3->set('wineMillesim',$f3->get('POST.wineMillesim'));
-							}else{
-								$f3->set('wineMillesim',$wineOld[0]['wine_millesime']);
-							}
+								if($f3->get('POST.wineCepage')!=""){
+									$f3->set('wineCepage',$f3->get('POST.wineCepage'));
+								}else{
+									$f3->set('wineCepage',$wineOld[0]['wine_cepage']);
+								}
 
-							if($f3->get('POST.wineNb')!=""){
-								$f3->set('wineNb',$f3->get('POST.wineNb'));
-							}else{
-								$f3->set('wineNb',$wineOld[0]['wine_quantitee']);
-							}
+								if($f3->get('POST.wineMillesim')!=""){
+									if(preg_match("#^[0-9]{4}$#", $f3->get('POST.wineMillesim'))){
+										$f3->set('wineMillesim',$f3->get('POST.wineMillesim'));
+									}else{
+										$f3->set('wineMillesim',$wineOld[0]['wine_millesime']);
+									}
+								}else{
+									$f3->set('wineMillesim',$wineOld[0]['wine_millesime']);
+								}
 
-							if($f3->get('POST.wineConseil')!=""){
-								$f3->set('wineConseil',$f3->get('POST.wineConseil'));
-							}else{
-								$f3->set('wineConseil',$wineOld[0]['wine_conseil']);
-							}
+								if($f3->get('POST.wineNb')!=""){
+									$f3->set('wineNb',$f3->get('POST.wineNb'));
+								}else{
+									$f3->set('wineNb',$wineOld[0]['wine_quantitee']);
+								}
 
-							$wineNew = $this->model->modifyWine($f3->get('PARAMS.wineID'),$f3->get('wineName'),$f3->get('wineOrigin'),$f3->get('wineCepage'),$f3->get('wineMillesim'),$f3->get('wineNb'),$f3->get('wineConseil'));
+								if($f3->get('POST.wineConseil')!=""){
+									$f3->set('wineConseil',$f3->get('POST.wineConseil'));
+								}else{
+									$f3->set('wineConseil',$wineOld[0]['wine_conseil']);
+								}
 
-							$wine = $this->model->getUserWine($f3->get('PARAMS.wineID'));
-							$f3->set('resultWine',$wine);
-							$f3->set('message',$f3->get('modificationValid'));
-							$f3->set('color','green');
-							$f3->set('navigation','partials/navlog.htm');
-							$f3->set('content','formModifyWine.htm');
+								$wineNew = $this->model->modifyWine($f3->get('PARAMS.wineID'),$f3->get('wineName'),$f3->get('wineOrigin'),$f3->get('wineCepage'),$f3->get('wineMillesim'),$f3->get('wineConseil'));
 
+								$wine = $this->model->getUserWine($f3->get('PARAMS.wineID'));
+								
+								$f3->set('resultWine',$wine);
+								$f3->set('message',$f3->get('modificationValid'));
+								$f3->set('color','green');
+								$f3->set('navigation','partials/navlog.htm');
+								$f3->set('content','formModifyWine.htm');
+								//$f3->reroute('/modifyWine/'.$f3->get('PARAMS.wineID'));
 						}else{
 							$f3->set('resultWine',$wineOld);
 							$f3->set('color','red');
 							$f3->set('message',$f3->get('modificationError'));
 							$f3->set('navigation','partials/navlog.htm');
 							$f3->set('content','formModifyWine.htm');
+							//$f3->reroute('/modifyWine/'.$f3->get('PARAMS.wineID'));
 						}
 					}else{
 							$f3->set('resultWine',$wine);
@@ -632,6 +645,7 @@ class App_controller extends Controller{
 							$f3->set('message',$f3->get('fieldsErrorExist'));
 							$f3->set('navigation','partials/navlog.htm');
 							$f3->set('content','formModifyWine.htm');
+							//$f3->reroute('/modifyWine/'.$f3->get('PARAMS.wineID'));
 					}
 				break;
 			}

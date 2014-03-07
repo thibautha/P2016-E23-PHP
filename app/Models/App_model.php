@@ -213,13 +213,12 @@ class App_model extends Model{
 		return $wineImg;
 	}
 
-	function modifyWine($wineID,$wineName,$wineOrigin,$wineCepage,$wineMillesim,$wineNb,$wineConseil){
+	function modifyWine($wineID,$wineName,$wineOrigin,$wineCepage,$wineMillesim,$wineConseil){
 		$wine=$this->mapperWine->load(array('wine_id=?',$wineID));
 		$wine->wine_name=$wineName;
 		$wine->wine_origin=$wineOrigin;
 		$wine->wine_cepage=$wineCepage;
 		$wine->wine_millesime=$wineMillesim;
-		$wine->wine_quantitee=$wineNb;
 		$wine->wine_conseil=$wineConseil;
 		$wine->save();
 	}
