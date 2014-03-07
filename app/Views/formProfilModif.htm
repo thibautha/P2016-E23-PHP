@@ -18,7 +18,7 @@
 								
 								<article id="champs">
 										
-		<p>Modifier ou complétez votre profil : </p>
+		<p>Modifiez ou complétez votre profil : </p>
 
 															
 <repeat group="{{ @result }}" value="{{ @item }}">
@@ -54,7 +54,7 @@
 
 
 	<form method="post" action="modifyMail">
-		<h2>Modifier votre identifiant (mail) :</h2>
+	
 		<h2>Votre ancienne adresse mail : </h2>
 		<input type="text" name="mail1" placeholder="TEXTE EN DUR"/><br/>
 		<h2>Votre nouvelle adresse mail: </h2>
@@ -64,7 +64,7 @@
 		<input type="submit" value="Enregistrer mail"/>
 	</form>
 	<form method="post" action="modifyMDP">
-		<h2>Modifier votre mot de passe :</h2>
+		
 		<h2>Votre ancien mot de passe : </h2>
 		<input type="password" name="mdp1" placeholder=""/><br/>
 		<h2>Votre nouveau mot de passe : </h2>
